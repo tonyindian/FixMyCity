@@ -51,15 +51,15 @@ push:
     - docker tag "$CI_PIPELINE_ID":"$CI_COMMIT_REF_NAME" "$CI_REGISTRY_IMAGE":master
     - docker push "$CI_REGISTRY_IMAGE":master
 
-#cleanup:
-#  stage: cleanup
-#  when: always
-##  tags:
-##    - test
-#  script:
-#    - docker rmi -f "$CI_PIPELINE_ID":"$CI_COMMIT_REF_NAME"
-#    - docker-compose -p "$CI_PIPELINE_ID" -f docker-compose.ci.yml down --remove-orphans
-#    - docker system prune -a -f
+cleanup:
+  stage: cleanup
+  when: always
+#  tags:
+#    - test
+  script:
+    - docker rmi -f "$CI_PIPELINE_ID":"$CI_COMMIT_REF_NAME"
+    - docker-compose -p "$CI_PIPELINE_ID" -f docker-compose.ci.yml down --remove-orphans
+    - docker system prune -a -f
 
 deploy:
   stage: deploy
