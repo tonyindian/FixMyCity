@@ -1,8 +1,15 @@
 import React, {useState} from "react";
-import ReactMapGL, {Marker, Popup, FullscreenControl, GeolocateControl, NavigationControl, ScaleControl} from "react-map-gl";
-import * as issues from "./issue-data.json";
+import styled from "styled-components";
+import ReactMapGL, {Marker, Popup, FullscreenControl, GeolocateControl, NavigationControl, ScaleControl, FlyToInterpolator} from "react-map-gl";
 
+import * as issues from "./issue-data.json";
 import {MainContainer} from "./MapStyled"
+import MarkerPng from "../../assets/marker.png"
+
+
+const MarkerImgStyle = styled.img`
+    cursor: pointer
+`
 
 const Map = () => {
     const fullscreenControlStyle = {
@@ -31,8 +38,8 @@ const Map = () => {
     const [viewport, setViewport] = useState({
         latitude: 47.3769,
         longitude: 8.5417,
-        width: "90%",
-        height: "90%",
+        width: "100%",
+        height: "100%",
         zoom: 10
     });
 
@@ -44,7 +51,16 @@ const Map = () => {
             mapboxApiAccessToken={MAPBOX_TOKEN} 
             mapStyle="mapbox://styles/mapbox/streets-v11"
             onViewportChange={(viewport) => {setViewport(viewport)}}
-            style={{height: "100%", width: "100%"}}
+            width="100%"
+            height="100%"
+            maxZoom={20}
+            transitionDuration={400}
+            transitionInterpolator={new FlyToInterpolator({
+                curve: 0.2,
+                speed: 0.2,
+                screenSpeed: 0.2,
+                maxDuration: 1
+            })}
             >
                 <FullscreenControl style={fullscreenControlStyle} />
                 <GeolocateControl
@@ -62,13 +78,22 @@ const Map = () => {
                         key={issue.id}
                         latitude={issue.latitude} 
                         longitude={issue.longitude}
+                        offsetLeft={-18}
+                        offsetTop={-18}
                         >
-                            <img 
-                            src="/frontend/public/marker.png"
+                            <MarkerImgStyle
+                            src={MarkerPng}
                             alt="marker"
                             onClick={(e) => {
                                 e.preventDefault();
                                 setSelectedIssue(issue);
+                                setViewport({
+                                    latitude: issue.latitude,
+                                    longitude: issue.longitude,
+                                    width: "90%",
+                                    height: "90%",
+                                    zoom: 17
+                                })
                             }}
                             />
                         </Marker>
