@@ -63,6 +63,8 @@ cleanup:
 
 deploy:
   stage: deploy
+  only:
+    - dev
   when: manual
   script:
     - docker-compose -f docker-compose.deploy.yml down
