@@ -5,7 +5,7 @@ import { IconButton } from '@material-ui/core';
 import PhotoCameraRoundedIcon from "@material-ui/icons/PhotoCameraRounded";
 
 
-
+//Camera app
 const Camera = () => {
     const [source, setSource] = useState("");
     const handleCapture = (target) => {
