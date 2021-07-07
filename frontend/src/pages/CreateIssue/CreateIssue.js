@@ -4,13 +4,13 @@ import Map from "../../components/Map/Map"
 import Camera from "../../components/Camera/Camera"
 
 
-
 const CreateIssue = () => {
 
     const [description, setDescription] = useState("");
 
     const descriptionOnChangeHandler = e => {
         setDescription(e.target.value);
+        console.log(description);
     }
 
     const sendOnClickHandler = e => {
