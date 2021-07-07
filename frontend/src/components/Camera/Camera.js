@@ -29,7 +29,7 @@ const Camera = () => {
                   accept="image/*"
                   id="icon-button-file"
                   type="file"
-                  capture="environment"
+                  /*capture="environment"*/
                   onChange={(e) => handleCapture(e.target)}>
               </InputBox>
               <label htmlFor="icon-button-file">
