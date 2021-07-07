@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'corsheaders',
 
     #my apps
-    'user'
+    'user',
+    'issue'
 
 ]
 
@@ -54,7 +55,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-#    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -170,18 +171,19 @@ SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=2),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=2)
 }
-#
-# SWAGGER_SETTINGS = {
-#     'USE_SESSION_AUTH': False,
-#     # Change settings to True to enable Django Login option
-#     'LOGIN_URL': 'admin/',  # URL For Django Login
-#     'LOGOUT_URL': 'admin/logout/',  # URL For Django Logout
-#     'SECURITY_DEFINITIONS': {
-#         # Allows usage of Access token to make requests on the docs.
-#         'Bearer': {
-#             'type': 'apiKey',
-#             'name': 'Authorization',
-#             'in': 'header'
-#         }
-#     }
-# }
+
+SWAGGER_SETTINGS = {
+    'USE_SESSION_AUTH': False,
+    # Change settings to True to enable Django Login option
+    'LOGIN_URL': 'admin/',  # URL For Django Login
+    'LOGOUT_URL': 'admin/logout/',  # URL For Django Logout
+    'SECURITY_DEFINITIONS': {
+        # Allows usage of Access token to make requests on the docs.
+        'Bearer': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header'
+        }
+    }
+}
+

@@ -1,24 +1,15 @@
-from rest_framework import filters
+
 from rest_framework.generics import ListAPIView, RetrieveUpdateAPIView, RetrieveAPIView
 from django.contrib.auth import get_user_model
-from rest_framework.pagination import LimitOffsetPagination
-from rest_framework.permissions import IsAuthenticated, IsAdminUser
-
 from project.permissions import IsOwnerOrReadOnly
-from user.serializer import serializer
+from user.serializers import UserSerializer
 
 User = get_user_model()
 
 
 class RetrieveUpdateMyUserProfileView(RetrieveUpdateAPIView):
-    """
-       get:
-       Get profile of logged in user
 
-       patch:
-       Update Logged in user's profile (partial change)
-    """
-    serializer_class = serializer
+    serializer_class = UserSerializer
     permission_classes = [IsOwnerOrReadOnly]
 
     def get_object(self):
@@ -44,20 +35,15 @@ class ListUserView(ListAPIView):
             https://luna-sagittarius.propulsion-learn.ch/backend/api/users/?search=waltersobchak@aol.com&offset=0&limit=25
      """
     queryset = User.objects.all()
-    serializer_class = serializer
-    filter_backends = [filters.SearchFilter]
-    search_fields = ['email', 'first_name', 'last_name']
+    serializer_class = UserSerializer
+    search_fields = [ 'first_name', 'last_name']
 
     def get_queryset(self):
         return User.objects.exclude(id=self.request.user.id)
 
 
 class RetrieveUserByIdProfile(RetrieveAPIView):
-    """
-       get:
-       Get specific user profile by ID
 
-       - must add id to end of url, with slash afterwards
-    """
     queryset = User.objects.all()
-    serializer_class = serializer
+    serializer_class = UserSerializer
+
