@@ -49,14 +49,26 @@ const Map = (props) => {
     const mapRef = useRef();
 
     const [selectedIssue, setSelectedIssue] = useState(null);
-    /*
+    
+    //const [issues, setIssues] = useState([]);
+
+    const [toggleUserMarker, setToggleUserMarker] = useState(false);
+
     const [userMarker, setUserMarker] = useState({
         id: "user",
-        latitude: 99,
-        longitude: -99,
+        latitude: 47.21406394194119,
+        longitude: 7.566913958173236,
     })
-    */
-    //const [issues, setIssues] = useState([])
+    
+    // onClick event handle to get the coordinates if the user click on the map and wants to set his/her marker
+    const handleClick = ({ lngLat: [longitude, latitude] }) => {
+        setToggleUserMarker(true)
+        setUserMarker({
+            id: "user",
+            latitude,
+            longitude,
+        });
+    };
 
 
     // Get current location
@@ -126,6 +138,7 @@ const Map = (props) => {
             height="100%"
             maxZoom={20}
             ref={mapRef}
+            onClick={handleClick}
             >
                 <FullscreenControl style={fullscreenControlStyle} />
                 <GeolocateControl
@@ -171,6 +184,10 @@ const Map = (props) => {
                                     height={`${10 + (pointCount / points.length) * 30}px`}
                                     width={`${10 + (pointCount / points.length) * 30}px`}
                                     lineHeight={`${10 + (pointCount / points.length) * 30 - 1}px`}
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        setSelectedIssue(null);
+                                    }}
                                     >
                                         {pointCount}
                                     </MarkerDivStyle>
@@ -222,28 +239,26 @@ const Map = (props) => {
                         </Popup>
                     )
                 }
+                {
+                    toggleUserMarker && (
+                        <Marker
+                        key={userMarker.id}
+                        latitude={userMarker.latitude}
+                        longitude={userMarker.longitude}
+                        >
+                            <MarkerImgStyle
+                            src={MarkerPng}
+                            alt="marker"
+                            onClick={(e) => {
+                                e.preventDefault();
+                            }}
+                            />
+                        </Marker>
+                    )
+                }
             </ReactMapGL>
         </MainContainer>
     )
 }
-
-/*
-                {
-                    <Marker
-                    key={userMarker.id}
-                    latitude={userMarker.latitude}
-                    longitude={userMarker.longitude}
-                    >
-                        <MarkerImgStyle
-                        src={MarkerPng}
-                        alt="marker"
-                        onClick={(e) => {
-                            e.preventDefault();
-                        }}
-                        />
-                    </Marker>
-                }
-                */
-
 
 export default Map

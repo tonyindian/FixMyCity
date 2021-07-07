@@ -8,7 +8,7 @@ const CreateIssue = () => {
     return (
         <MainContainer>
             <h1>Create issue</h1>
-            <Map></Map>
+            <Map height={"2000px"} width={"513px"} />
             <h3>Title</h3>
             <Camera></Camera>
             <h3>Description</h3>
