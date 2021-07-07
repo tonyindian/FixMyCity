@@ -23,7 +23,7 @@ const Camera = () => {
           <h5>Capture your image</h5>
             {source &&
               <Box>
-                <img src={source} alt={"snap"} class="img"></img>
+                <img src={source} alt={"snap"} className="img"></img>
               </Box>}
               <InputBox
                   accept="image/*"
