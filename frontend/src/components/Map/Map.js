@@ -4,13 +4,12 @@ import useSupercluster from "use-supercluster";
 
 import {fetchIssues} from "../../Axios/fetches";
 import * as issues from "./issue-data.json";
-import {MainContainer, MarkerDivStyle, MarkerImgStyle} from "./MapStyled";
+import {MainContainer, MarkerDivStyle, MarkerImgStyle, ButtonContainer, ChooseButton} from "./MapStyled";
 import MarkerPng from "../../assets/map/marker.png";
 
 
 const Map = (props) => {
-
-    // Styles
+    // Styles to place the buttons somewhere on the map (absolute position)
     const fullscreenControlStyle = {
         right: 15,
         top: 15
@@ -33,11 +32,15 @@ const Map = (props) => {
     };
 
 
-    // Token
+
+    // Token for Mapbox (to be able to use Mapbox)
     const MAPBOX_TOKEN = "pk.eyJ1IjoiYWxleDI2MCIsImEiOiJja3FxazJuYnQwcnRxMzFxYXNpaHV2NHR3In0.sClUCkiGXj9AQubDvnv68A"
 
 
+
     // States & Ref
+
+    // Initial viewport for the first rendering
     const [viewport, setViewport] = useState({
         latitude: 47.3769,
         longitude: 8.5417,
@@ -46,63 +49,128 @@ const Map = (props) => {
         zoom: 10
     });
 
+    // Reference for the map
     const mapRef = useRef();
 
+    // State to save the selected issue's data for the Popup
     const [selectedIssue, setSelectedIssue] = useState(null);
     
+    // State to save the fetched datas
     //const [issues, setIssues] = useState([]);
 
+    // State to display or not the user's marker
     const [toggleUserMarker, setToggleUserMarker] = useState(false);
 
-    const [userMarker, setUserMarker] = useState({
-        id: "user",
-        latitude: 47.21406394194119,
-        longitude: 7.566913958173236,
-    })
+    // State to save the user's marker coordinates
+    const [userMarker, setUserMarker] = useState(null);
+
+    // Prevents from modifing the cluster from userMarker
+    const [expandCluster, setExpandCluster] = useState(false);
+
+    // State to save the user's current location
+    const [userLocation, setUserLocation] = useState(null);
     
-    // onClick event handle to get the coordinates if the user click on the map and wants to set his/her marker
-    const handleClick = ({ lngLat: [longitude, latitude] }) => {
-        setToggleUserMarker(true)
-        setUserMarker({
-            id: "user",
-            latitude,
-            longitude,
-        });
-    };
+    // State to save which coordinate (user's current location or user's marker location) will be sent to the parent component's state
+    const [switchButton, setSwitchButton] = useState(null);
 
 
-    // Get current location
+
+    // Functions
+
+    // Get the current location of the user & Set state (setUserLocation) & Set view (setViewport)
     const current_location = () => {
-        navigator.geolocation.getCurrentPosition(position => {
-            setViewport({
-                ...viewport,
-                latitude: position.coords.latitude,
-                longitude: position.coords.longitude,
-                error: null
-            });
-            console.log(position.coords.latitude, position.coords.longitude)
-        }, 
-        error => setViewport({ ...viewport, error: error.message }),
-        { enableHighAccuracy: true, timeout: 10000 }
-        );
-    }
-
-
-    // useEffect and fetching to get the Issues
-    useEffect(() => {
         if ("geolocation" in navigator) {
             console.log("Geolocation is available");
-            current_location();
+            navigator.geolocation.getCurrentPosition(position => {
+                setViewport({
+                    ...viewport,
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude,
+                    error: null
+                });
+                console.log(position.coords.latitude, position.coords.longitude)
+                setUserLocation({
+                    latitude: position.coords.latitude,
+                    longitude: position.coords.longitude
+                })
+            }, 
+            error => setViewport({ ...viewport, error: error.message }),
+            { enableHighAccuracy: true, timeout: 10000 }
+            );
         } else {
             console.log("Geolocation is not Available");
         }
+    }
+
+    // onClick event handle, to get the coordinates if the user clicks on the map and wants to set his/her marker location
+    const handleMapClick = ({ lngLat: [longitude, latitude] }) => {
+        if (expandCluster === false) {
+            if (toggleUserMarker === false) {
+                setUserMarker({
+                    id: "user",
+                    latitude,
+                    longitude,
+                });
+                setToggleUserMarker(true)
+            } else if (userMarker && toggleUserMarker) {
+                setUserMarker({
+                    id: "user",
+                    latitude,
+                    longitude,
+                });
+            } else if (toggleUserMarker && userMarker === null) {
+                setToggleUserMarker(false);
+            }
+        } else {
+            setExpandCluster(false);
+        }
+        //setToggleUserMarker(false)
+        setSelectedIssue(null)
+    };
+
+    // onClick event handle, to hide user's marker if he/she clicked on a marker or a cluster
+    const hideUserMarker = () => {
+        setToggleUserMarker(true);
+        setUserMarker(null);
+    };
+
+
+
+    // useEffects
+
+    // Initial useEffect: Get the user's current location and fetching in order to get the Issues
+    useEffect(() => {
+        current_location()
         //setIssues(fetchIssues);
     }, [])
+
+    // It keeps the parent component's coordinate state up to date
+    // It will be triggered if the userLocation, userMaker or the switchButton state's value is changed
+    useEffect(() => {
+        if (switchButton === "user") {
+            props.setCoordinates({
+                latitude: userLocation.latitude,
+                longitude: userLocation.longitude
+            })
+        } else if (switchButton === "marker") {
+            if (toggleUserMarker && userMarker) {
+                if (userMarker !== null) {
+                    props.setCoordinates({
+                        latitude: userMarker.latitude,
+                        longitude: userMarker.longitude
+                    })
+                };
+            } else {
+                props.setCoordinates(null);
+            }
+        }
+    }, [userLocation, userMarker, switchButton, toggleUserMarker])
+
 
 
     //Clustering
 
-    // Prepare data for clustering
+    // Prepare data for clustering (from json to geojson)
     const points = issues.data.map(issue => ({
         type: "Feature",
         properties: {
@@ -128,6 +196,7 @@ const Map = (props) => {
     });
 
 
+
     return(
         <MainContainer height={props.height} width={props.width}>
             <ReactMapGL {...viewport}
@@ -138,7 +207,7 @@ const Map = (props) => {
             height="100%"
             maxZoom={20}
             ref={mapRef}
-            onClick={handleClick}
+            onClick={handleMapClick}
             >
                 <FullscreenControl style={fullscreenControlStyle} />
                 <GeolocateControl
@@ -159,12 +228,16 @@ const Map = (props) => {
                             point_count: pointCount
                         } = cluster.properties;
 
+                        // Clustering
+                        // It creates clusters if there is more than 1 marker in radius: 75 (check useSupercluster)
                         if (isCluster) {
                             return (
                                 <Marker
                                 key={cluster.id}
                                 latitude={latitude}
                                 longitude={longitude}
+                                offsetLeft={-1 * ((10 + (pointCount / points.length) * 30) / 2)}
+                                offsetTop={-1 * ((10 + (pointCount / points.length) * 30) / 2)}
                                 onClick={() => {
                                     const expansionZoom = Math.min(
                                         supercluster.getClusterExpansionZoom(cluster.id),
@@ -178,6 +251,7 @@ const Map = (props) => {
                                         transitionInterpolator: new FlyToInterpolator({speed: 2}),
                                         transitionDuration: "auto"
                                     });
+                                    setExpandCluster(true);
                                 }}
                                 >
                                     <MarkerDivStyle
@@ -186,7 +260,7 @@ const Map = (props) => {
                                     lineHeight={`${10 + (pointCount / points.length) * 30 - 1}px`}
                                     onClick={(e) => {
                                         e.preventDefault();
-                                        setSelectedIssue(null);
+                                        hideUserMarker();
                                     }}
                                     >
                                         {pointCount}
@@ -194,14 +268,14 @@ const Map = (props) => {
                                 </Marker>
                             )
                         }
-
+                        // It creates markers if there is no more than 1 cluster in radius: 75 (check useSupercluster)
                         return (
                             <Marker 
                             key={cluster.properties.issueId}
                             latitude={latitude} 
                             longitude={longitude}
-                            offsetLeft={-18}
-                            offsetTop={-18}
+                            offsetLeft={-16}
+                            offsetTop={-30}
                             >
                                 <MarkerImgStyle
                                 src={MarkerPng}
@@ -209,6 +283,7 @@ const Map = (props) => {
                                 onClick={(e) => {
                                     e.preventDefault();
                                     setSelectedIssue(cluster);
+                                    hideUserMarker();
                                     setViewport({
                                         ...viewport,
                                         latitude,
@@ -216,7 +291,7 @@ const Map = (props) => {
                                         zoom: 17,
                                         transitionInterpolator: new FlyToInterpolator({speed: 2}),
                                         transitionDuration: "auto"
-                                    })
+                                    });
                                 }}
                                 />
                             </Marker>
@@ -224,6 +299,7 @@ const Map = (props) => {
                     })
                 }
                 {
+                    // It displays the Popup with datas in it for the marker if the user has clicked on one
                     selectedIssue && (
                         <Popup 
                         latitude={selectedIssue.geometry.coordinates[1]} 
@@ -232,6 +308,8 @@ const Map = (props) => {
                             setSelectedIssue(null);
                         }}
                         closeOnClick={false}
+                        closeButton={true}
+                        offsetTop={-20}
                         >
                             <div>
                                 <h2>{selectedIssue.properties.title}</h2>
@@ -240,23 +318,42 @@ const Map = (props) => {
                     )
                 }
                 {
-                    toggleUserMarker && (
+                    // It displays the user's marker if the user has clicked on somewhere on the map
+                    (toggleUserMarker && userMarker) && (
                         <Marker
                         key={userMarker.id}
                         latitude={userMarker.latitude}
                         longitude={userMarker.longitude}
+                        offsetLeft={-16}
+                        offsetTop={-30}
                         >
                             <MarkerImgStyle
                             src={MarkerPng}
                             alt="marker"
                             onClick={(e) => {
                                 e.preventDefault();
+                                hideUserMarker();
                             }}
+                            style={{cursor: "auto"}}
                             />
                         </Marker>
                     )
                 }
             </ReactMapGL>
+            <ButtonContainer>
+                <ChooseButton
+                onClick={() => setSwitchButton("user")}
+                backgroundColor={switchButton === "user" && "green"}
+                >
+                    Use current location
+                </ChooseButton>
+                <ChooseButton
+                onClick={() => setSwitchButton("marker")}
+                backgroundColor={switchButton === "marker" && "green"}
+                >
+                    Use pin location
+                </ChooseButton>
+            </ButtonContainer>
         </MainContainer>
     )
 }

@@ -5,6 +5,7 @@ export const MainContainer = styled.div`
     width: ${props => props.width || "50%"};
 
     display: flex;
+    flex-direction: column;
     justify-content: center;
 `
 
@@ -22,4 +23,20 @@ export const MarkerDivStyle = styled.div`
 
 export const MarkerImgStyle = styled.img`
     cursor: pointer
+`
+
+export const ButtonContainer = styled.div`
+    height: 40px;
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+`
+
+export const ChooseButton = styled.button`
+    height: 100%;
+    width: 50%;
+    border: 3px solid black;
+
+    background-color: ${props => props.backgroundColor || "white"};
 `
