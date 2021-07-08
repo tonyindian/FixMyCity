@@ -13,6 +13,8 @@ __pycache__/
 !**/migrations/__init__.py
 ### postgres data ###
 postgres-data/
+### media-files###
+backend/media-files/
 
 ####### frontend ###########
 # dependencies

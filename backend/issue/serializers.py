@@ -21,5 +21,5 @@ class IssueSerializer(serializers.ModelSerializer):
 class CreateIssueSerializer(serializers.ModelSerializer):
     class Meta:
         model = Issue
-        fields = ['id', 'title', 'longitude', 'latitude', 'city', 'zip', 'image', 'created', 'modified']
+        fields = ['id', 'title', 'longitude', 'latitude', 'city', 'zip', 'image', 'created', 'modified','content']
         read_only_fields = ['id', 'created', 'modified']
