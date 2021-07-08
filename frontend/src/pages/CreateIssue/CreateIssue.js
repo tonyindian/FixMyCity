@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import React, {useState, useEffect} from "react"
 import {MainContainer} from "./CreateIssueStyled"
 import Map from "../../components/Map/Map"
 import Camera from "../../components/Camera/Camera"
@@ -6,6 +6,12 @@ import Camera from "../../components/Camera/Camera"
 
 const CreateIssue = () => {
 
+    const [coordinates, setCoordinates] = useState(null);
+    
+    useEffect(() => {
+        console.log(coordinates)
+    }, [coordinates])
+    
     const [description, setDescription] = useState("");
 
     const descriptionOnChangeHandler = e => {
@@ -21,7 +27,7 @@ const CreateIssue = () => {
     return (
         <MainContainer>
             <h1>Create issue</h1>
-            <Map></Map>
+            <Map height={"2000px"} width={"513px"} setCoordinates={setCoordinates}/>
             <h3>Title</h3>
             <Camera></Camera>
             <h3>Description</h3>
