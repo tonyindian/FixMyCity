@@ -23,13 +23,13 @@ const Camera = () => {
           <h5>Capture your image</h5>
             {source &&
               <Box>
-                <img src={source} alt={"snap"} class="img"></img>
+                <img src={source} alt={"snap"} className="img"></img>
               </Box>}
               <InputBox
                   accept="image/*"
                   id="icon-button-file"
                   type="file"
-                  capture="environment"
+                  /*capture="environment"*/
                   onChange={(e) => handleCapture(e.target)}>
               </InputBox>
               <label htmlFor="icon-button-file">

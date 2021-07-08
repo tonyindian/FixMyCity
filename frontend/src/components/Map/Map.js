@@ -102,7 +102,7 @@ const Map = (props) => {
         }
     }
 
-    // onClick event handle, to get the coordinates if the user clicks on the map and wants to set his/her marker location
+    // onClick event handle, to get the coordinates if the user clicks on the map and wants to set his/her marker location, hide and set the marker location
     const handleMapClick = ({ lngLat: [longitude, latitude] }) => {
         if (expandCluster === false) {
             if (toggleUserMarker === false) {
