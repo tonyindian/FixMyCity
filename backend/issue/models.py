@@ -13,7 +13,7 @@ def user_directory_path(instance, filename):
 class Issue(models.Model):
     title = models.TextField(max_length=20)
     content = models.TextField(max_length=300)
-    category = models.ForeignKey(to=Category, related_name="category_issues", on_delete=models.CASCADE)
+    category = models.ForeignKey(to=Category, related_name="category_issues", on_delete=models.CASCADE, default='list',)
     latitude = models.FloatField()
     longitude = models.FloatField()
     city = models.TextField(max_length=20)
