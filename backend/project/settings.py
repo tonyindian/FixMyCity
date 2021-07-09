@@ -48,7 +48,6 @@ INSTALLED_APPS = [
     # my apps
     'user',
     'issue',
-    'category'
 
 ]
 

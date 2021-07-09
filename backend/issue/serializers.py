@@ -1,4 +1,5 @@
 from rest_framework import serializers
+
 from issue.models import Issue
 from user.serializers import UserSerializer
 
@@ -19,5 +20,5 @@ class IssueSerializer(serializers.ModelSerializer):
 class CreateIssueSerializer(serializers.ModelSerializer):
     class Meta:
         model = Issue
-        fields = ['id', 'title', 'longitude', 'latitude', 'category' 'city', 'zip', 'image', 'created', 'modified','content']
+        fields = ['id', 'title', 'longitude', 'latitude', 'category', 'city', 'zip', 'image', 'created', 'modified','content']
         read_only_fields = ['id', 'created', 'modified']
