@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import React, {useState,useEffect} from "react"
 import {useDispatch,useSelector } from 'react-redux'
 import {MainContainer} from "./CreateIssueStyled"
 import Map from "../../components/Map/Map"
@@ -11,6 +11,12 @@ const CreateIssue = () => {
     const dispatch = useDispatch();
     const newIssue = useSelector(state => state.createIssueReducer)
 
+    const [coordinates, setCoordinates] = useState(null);
+    
+    useEffect(() => {
+        console.log(coordinates)
+    }, [coordinates])
+    
     const [description, setDescription] = useState("");
     
 
@@ -59,7 +65,7 @@ const CreateIssue = () => {
     return (
         <MainContainer>
             <h1>Create issue</h1>
-            <Map></Map>
+            <Map height={"2000px"} width={"513px"} setCoordinates={setCoordinates}/>
             <h3>Title</h3>
             <Camera></Camera>
             <h3>Description</h3>
