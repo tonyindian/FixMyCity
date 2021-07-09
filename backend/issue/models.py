@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 
+from category.models import Category
+
 User = get_user_model()
 
 
@@ -11,6 +13,7 @@ def user_directory_path(instance, filename):
 class Issue(models.Model):
     title = models.TextField(max_length=20)
     content = models.TextField(max_length=300)
+    category = models.ForeignKey(to=Category, related_name="category_issues", on_delete=models.CASCADE)
     latitude = models.FloatField()
     longitude = models.FloatField()
     city = models.TextField(max_length=20)

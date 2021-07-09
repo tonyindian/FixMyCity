@@ -40,14 +40,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    #thirdpartyapps
+    # thirdpartyapps
     'rest_framework',
     'drf_yasg',
     'corsheaders',
 
-    #my apps
+    # my apps
     'user',
-    'issue'
+    'issue',
+    'category'
 
 ]
 
@@ -65,7 +66,7 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'project.urls'
 #
 CORS_ALLOWED_ORIGINS = [
-        "https://fixmycity.propulsion-learn.ch",
+        "https://fix-my-city.propulsion-learn.ch",
         "http://localhost:8000",
         "http://localhost:3000",
         "http://127.0.0.1:8000",
@@ -187,4 +188,3 @@ SWAGGER_SETTINGS = {
         }
     }
 }
-
