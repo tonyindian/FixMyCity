@@ -1,19 +1,24 @@
 import React, { useState } from 'react';
+import {useDispatch} from "react-redux"
 import {MainContainer, Box, InputBox} from "./CameraStyled"
 import { IconButton } from '@material-ui/core';
-
 import PhotoCameraRoundedIcon from "@material-ui/icons/PhotoCameraRounded";
 
 
 //Camera app
 const Camera = () => {
-    const [source, setSource] = useState("");
+
+    const dispatch = useDispatch();
+
+    const [source, setSource] = useState("");    
+
     const handleCapture = (target) => {
         if (target.files) {
           if (target.files.length !== 0) {
             const file = target.files[0];
             const newUrl = URL.createObjectURL(file);
-            setSource(newUrl);
+            setSource(newUrl);           
+            dispatch({type:"setIssuePicture",payload:file});
           }
         }
       };
