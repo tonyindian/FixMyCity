@@ -65,6 +65,10 @@ urlpatterns = [
                   ),
 
                   path(
+                      'backend/api/',
+                      include('registration.urls')
+                  ),
+                  path(
                       'backend/api/docs/',
                       schema_view.with_ui('swagger', cache_timeout=0),
                       name='schema-swagger-ui'
