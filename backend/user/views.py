@@ -36,7 +36,7 @@ class ListUserView(ListAPIView):
      """
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    search_fields = [ 'first_name', 'last_name']
+    search_fields = [ 'first_name', 'last_name', 'username']
 
     def get_queryset(self):
         return User.objects.exclude(id=self.request.user.id)

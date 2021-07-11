@@ -28,7 +28,7 @@ class ListIssuesView(ListAPIView):
 
     queryset = Issue.objects.all()
     serializer_class = IssueSerializer
-    search_fields = ['title']
+    search_fields = ['title', 'category']
 
 
 class RetrieveUpdateDestroyIssueView(RetrieveUpdateDestroyAPIView):

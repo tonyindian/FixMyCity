@@ -18,4 +18,4 @@ class User(AbstractUser):
     profile_picture = models.ImageField(upload_to=user_directory_path, blank=True, null=True)
 
     def __str__(self):
-        return self.first_name
+        return self.username
