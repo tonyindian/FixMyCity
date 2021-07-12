@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from "styled-components";
-import { Main } from './HomepageStyled';
+import { Main, ReportButton, SearchBar, MapContainer } from './HomepageStyled';
 
 
 
@@ -10,7 +10,18 @@ const Homepage = () => {
 
     return (
         <Main>
-                <h1>This is the Homepage</h1>
+            <SearchBar>
+				<div>Search </div>
+			</SearchBar>
+            
+
+
+            
+            <MapContainer>
+            <h1>Map</h1>
+            </MapContainer>
+                <ReportButton name="Report" >Report</ReportButton>
+            
         </Main>
     )
 
