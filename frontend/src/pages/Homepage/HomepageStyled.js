@@ -1,8 +1,6 @@
-import React from 'react';
 import styled from 'styled-components';
 
 export const Main= styled.div`
-    border: solid yellow;
     width: 100%;
     height:90%;
     display: flex;
@@ -14,11 +12,11 @@ export const Main= styled.div`
 
 `
 export const MapContainer= styled.div`
-    border: solid red;
+    border: solid black;
     display: flex;
     justify-content: center;
     width: 80%;
-    height: 60%;
+    height: 80%;
     margin-bottom: 5%;
     margin-top: 5%;
     
@@ -38,18 +36,14 @@ export const ReportButton= styled.button `
     justify-content: center;
     align-items: center;
     margin: 5px; 
-    font-size: ${props => props.theme.textSizeS};
-    
-    &:hover {
-        cursor: pointer;
-    }
+    cursor: pointer;
 
     &:active {
         background-color: grey;
         transform: translateY(4px);
     } 
 ` 
-export const SearchBar = styled.div`
+export const Search = styled.div`
 	width: 85%;
     height: 40px;
     border-radius: 25px;
@@ -60,5 +54,25 @@ export const SearchBar = styled.div`
 	justify-content: center;
 	align-items: center;
 	
+    input {
+        outline: none;
+        background-color: white;
+        border: none;
+    
+    }
+
+    img {
+        width: 30px;
+        height: 30px;
+    }
+
+    button {
+        background: none;
+        outline: none;
+        background-color: white;
+        border: none;
+        margin-left: 30px;
+        cursor: pointer;
+    }
 `
 

@@ -1,8 +1,7 @@
 import React from 'react';
-import styled from "styled-components";
-import Banner from '../../components/Banner/Banner';
-import { Main, ReportButton, SearchBar, MapContainer } from './HomepageStyled';
-
+import { Main, ReportButton, Search, MapContainer } from './HomepageStyled';
+import Map from '../../components/Map/Map';
+import searchglass from '../../assets/images/search.png';
 
 
 
@@ -11,12 +10,13 @@ const Homepage = () => {
 
     return (
         <Main>
-            <SearchBar>
-				<div>Search </div>
-			</SearchBar>
+            <Search>
+                <input type="text" placeholder="Search..."/>        
+                <button type="submit"><img src={searchglass} /> </button>
+			</Search>
             
             <MapContainer>
-            <h1>Map</h1>
+            {/* <Map></Map> */}
             </MapContainer>
                 <ReportButton name="Report" >Report</ReportButton>
             

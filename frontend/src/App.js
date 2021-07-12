@@ -15,7 +15,7 @@ function App() {
     <Banner/>
     <Spaceholder/>
       <Switch>
-        <Route exact path="/" component={Home}/>
+        <Route exact path="/" component={Homepage}/>
         <Route exact path="/createissue" component={CreateIssue}/>
         <Route exact path="/map" component={Map}/>
         <Route exact path="/login" component={Login}/>
