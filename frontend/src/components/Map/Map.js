@@ -64,6 +64,8 @@ const Map = (props) => {
   // Reference for the map
   const mapRef = useRef();
 
+  const geocoderContainerRef = useRef();
+
   // State to save the selected issue's data for the Popup
   const [selectedIssue, setSelectedIssue] = useState(null);
 
@@ -202,6 +204,7 @@ const Map = (props) => {
 
   return (
     <MainContainer height={props.height} width={props.width}>
+      <div ref={geocoderContainerRef} />
       <ReactMapGL
         {...viewport}
         mapboxApiAccessToken={MAPBOX_TOKEN}
@@ -217,6 +220,7 @@ const Map = (props) => {
       >
         <Geocoder
           mapRef={mapRef}
+          containerRef={geocoderContainerRef}
           onViewportChange={(viewport) => {
             setViewport({
               ...viewport,
@@ -237,7 +241,12 @@ const Map = (props) => {
         />
         <NavigationControl style={navControlStyle} />
         <ScaleControl maxWidth={100} unit="metric" style={scaleControlStyle} />
-        <SatelliteButton onClick={() => setToggleSatellite(!toggleSatellite)} />
+        <SatelliteButton
+          onClick={() => {
+            setToggleSatellite(!toggleSatellite);
+            setExpandCluster(true);
+          }}
+        />
         {clusters.map((cluster) => {
           const [longitude, latitude] = cluster.geometry.coordinates;
           const { cluster: isCluster, point_count: pointCount } =
