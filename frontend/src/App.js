@@ -6,7 +6,7 @@ import CreateIssue from "./pages/CreateIssue/CreateIssue"
 import Map from './components/Map/Map';
 import Banner from './components/Banner/Banner';
 import { Spaceholder } from './components/navbar';
-import Home from './pages/Home/Home';
+import Homepage from './pages/Homepage/Homepage';
 
 
 function App() {
