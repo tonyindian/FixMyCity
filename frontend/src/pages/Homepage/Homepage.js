@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { Main, ReportButton, Search, MapContainer } from './HomepageStyled';
 import Map from '../../components/Map/Map';
 import searchglass from '../../assets/images/search.png';
@@ -8,6 +8,12 @@ import searchglass from '../../assets/images/search.png';
 
 const Homepage = () => {
 
+    const [coordinates, setCoordinates] = useState(null);
+
+    useEffect(() => {
+        console.log(coordinates);
+    },  [coordinates]);
+
     return (
         <Main>
             <Search>
@@ -16,7 +22,7 @@ const Homepage = () => {
 			</Search>
             
             <MapContainer>
-            {/* <Map></Map> */}
+                <Map height={"100%"} width={"100%"} setCoordinates={setCoordinates}/>
             </MapContainer>
                 <ReportButton name="Report" >Report</ReportButton>
             

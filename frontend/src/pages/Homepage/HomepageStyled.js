@@ -12,7 +12,6 @@ export const Main= styled.div`
 
 `
 export const MapContainer= styled.div`
-    border: solid black;
     display: flex;
     justify-content: center;
     width: 80%;
