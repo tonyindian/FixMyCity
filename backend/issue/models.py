@@ -11,6 +11,7 @@ def user_directory_path(instance, filename):
 class Issue(models.Model):
     title = models.TextField(max_length=20)
     content = models.TextField(max_length=300)
+    category = models.TextField(max_length=300)
     latitude = models.FloatField()
     longitude = models.FloatField()
     city = models.TextField(max_length=20)
