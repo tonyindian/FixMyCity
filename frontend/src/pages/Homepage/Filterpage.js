@@ -6,7 +6,7 @@ import searchglass from '../../assets/images/search.png';
 
 
 
-const Homepage = () => {
+const Filterpage = () => {
 
     const [coordinates, setCoordinates] = useState(null);
 
@@ -24,11 +24,10 @@ const Homepage = () => {
             <MapContainer>
                 <Map height={"100%"} width={"100%"} setCoordinates={setCoordinates}/>
             </MapContainer>
-                <ReportButton name="Report" >Report</ReportButton>
+                <ReportButton name="Report" >Filter</ReportButton>
             
         </Main>
     )
 
 }
-
-export default Homepage
+export default Filterpage
