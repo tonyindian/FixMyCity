@@ -2,21 +2,22 @@ import React from 'react';
 import styled from 'styled-components';
 
 export const Main= styled.div`
-    width: 100vh;
-    height:100vh;
+    border: solid yellow;
+    width: 100%;
+    height:90%;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     box-sizing: border-box;
-    background: #7CDBD5;
+    background: #7cdbd5;
 
 `
 export const MapContainer= styled.div`
     border: solid red;
     display: flex;
     justify-content: center;
-    width: 34%;
+    width: 80%;
     height: 60%;
     margin-bottom: 5%;
     margin-top: 5%;
@@ -28,10 +29,11 @@ export const ReportButton= styled.button `
     margin: 10px;    
     background: #F53240;
     border: 1.5px rgba(212, 208, 208, 0.619) solid;
-    width: 15%;
+    width: 30%;
     height: 40px;
     border-radius: 25px;
     color: white;
+    font-size: medium;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -48,7 +50,7 @@ export const ReportButton= styled.button `
     } 
 ` 
 export const SearchBar = styled.div`
-	width: 35%;
+	width: 85%;
     height: 40px;
     border-radius: 25px;
     background-color: white;
