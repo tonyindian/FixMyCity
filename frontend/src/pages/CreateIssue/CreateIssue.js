@@ -27,7 +27,7 @@ const CreateIssue = () => {
     return (
         <MainContainer>
             <h1>Create issue</h1>
-            <Map height={"2000px"} width={"513px"} setCoordinates={setCoordinates}/>
+            <Map height={"800px"} width={"500px"} setCoordinates={setCoordinates}/>
             <h3>Title</h3>
             <Camera></Camera>
             <h3>Description</h3>

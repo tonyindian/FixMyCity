@@ -1,18 +1,46 @@
 {
-    "data": [
-        {
-            "id": 1,
-            "title": "Issue One",
-            "description": "AYOOOOOOOOOO",
-            "latitude": 47.3769,
-            "longitude": 8.5417
-        },
-        {
-            "id": 2,
-            "title": "Issue Two",
-            "description": "SUP",
-            "latitude": 47.3809,
-            "longitude": 8.5417
-        }
-    ]
+  "data": [
+    {
+      "id": 1,
+      "title": "Issue One",
+      "description": "This is an issue",
+      "latitude": 47.3769,
+      "longitude": 8.5417
+    },
+    {
+      "id": 2,
+      "title": "Issue Two",
+      "description": "This is an issue",
+      "latitude": 47.3809,
+      "longitude": 8.5417
+    },
+    {
+      "id": 3,
+      "title": "Issue Three",
+      "description": "This is an issue",
+      "latitude": 47.3849,
+      "longitude": 8.5417
+    },
+    {
+      "id": 4,
+      "title": "Issue Four",
+      "description": "This is an issue",
+      "latitude": 47.3889,
+      "longitude": 8.5417
+    },
+    {
+      "id": 5,
+      "title": "Issue Five",
+      "description": "This is an issue",
+      "latitude": 47.3929,
+      "longitude": 8.5417
+    },
+    {
+      "id": 6,
+      "title": "Issue Six",
+      "description": "This is an issue",
+      "latitude": 47.3969,
+      "longitude": 8.5417
+    }
+  ]
 }
