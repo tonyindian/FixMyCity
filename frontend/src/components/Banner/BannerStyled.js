@@ -6,6 +6,8 @@ export const MainContainer = styled.div`
     justify-content: space-between;
     align-items: center;
     height: 10%;
+    position: fixed;
+    width: 100%;
 
     #logo {
         width: 100px;
