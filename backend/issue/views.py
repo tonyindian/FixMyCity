@@ -49,18 +49,8 @@ class ListIssuesByUserView(ListAPIView):
         return Issue.objects.filter(user=user_id).order_by("-created")
 
 
-# class ListIssuesByCategoryView(ListAPIView):
-#     """
-#         get:
-#         Get the all the issues by category
-#      """
-#     serializer_class = IssueSerializer
-#
-#     def get_queryset(self):
-#         category_id = self.kwargs["pk"]
-#         return Issue.objects.filter(categories__id=category_id).order_by("-created")
 
-class ToggleIssuesLikesView(UpdateAPIView):
+class ToggleUpvoteIssueView(UpdateAPIView):
     queryset = Issue.objects.all()
     serializer_class = IssueSerializer
     permission_classes = [IsAuthenticated]
@@ -70,22 +60,22 @@ class ToggleIssuesLikesView(UpdateAPIView):
         user = self.request.user
 
         if user == issue.user:
-            return Response({'error': 'Cannot like own post'},
+            return Response({'error': 'Cannot upvote own post'},
                             status=status.HTTP_400_BAD_REQUEST)
 
-        if user in issue.liked_by.all():
+        if user in issue.upvoted_by.all():
             issue.liked_by.remove(user)
-            return Response({'success': f' unliked issue {issue.id}'}, status=status.HTTP_200_OK)
+            return Response({'success': f' downvoted issue {issue.id}'}, status=status.HTTP_200_OK)
         else:
-            issue.liked_by.add(user)
-            return Response({'success': f'liked issue {issue.id}'}, status=status.HTTP_200_OK)
+            issue.upvoted_by.add(user)
+            return Response({'success': f' upvoted issue {issue.id}'}, status=status.HTTP_200_OK)
 
 
-class ListIssuesLikedByMyUserView(ListAPIView):
+class ListUpvotedIssuesByUserView(ListAPIView):
 
     serializer_class = IssueSerializer
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        liked = self.request.user.liked_issues.all()
-        return Issue.objects.filter(id__in=liked).order_by("-created")
+        upvoted = self.request.user.upvoted_issues_issues.all()
+        return Issue.objects.filter(id__in=upvoted).order_by("-created")

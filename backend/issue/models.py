@@ -9,18 +9,19 @@ def user_directory_path(instance, filename):
 
 
 class Issue(models.Model):
-    title = models.TextField(max_length=20)
+    title = models.TextField(max_length=50)
+    image = models.ImageField(upload_to=user_directory_path)
     content = models.TextField(max_length=300)
-    category = models.TextField(max_length=300)
+    category = models.TextField(max_length=300, default=None)
+    adress = models.TextField(max_length=300, default=None)
+    zip = models.CharField(max_length=5)
     latitude = models.FloatField()
     longitude = models.FloatField()
     city = models.TextField(max_length=20)
-    zip = models.CharField(max_length=5)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(to=User, related_name='user_issues', on_delete=models.CASCADE)
-    liked_by = models.ManyToManyField(to=User, related_name='liked_issues')
-    image = models.ImageField(upload_to=user_directory_path)
+    upvoted_by = models.ManyToManyField(to=User, related_name='upvoted_issues')
 
     def __str__(self):
         return self.title
