@@ -12,13 +12,13 @@ class IssueSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Issue
-        fields = ['id', 'title', 'content', 'category', 'user', 'longitude', 'latitude', 'city', 'zip', 'image',
+        fields = ['id', 'title', 'content', 'category', 'user', 'adress', 'longitude', 'latitude', 'city', 'zip', 'image',
                   'created', 'modified']
-        read_only_fields = ['id', 'created', 'modified', 'user', 'liked_by']
+        read_only_fields = ['id', 'created', 'modified', 'user', 'upvoted_by']
 
 
 class CreateIssueSerializer(serializers.ModelSerializer):
     class Meta:
         model = Issue
-        fields = ['id', 'title', 'longitude', 'latitude', 'category', 'city', 'zip', 'image', 'created', 'modified','content']
+        fields = ['id', 'title', 'longitude', 'latitude', 'category', 'adress', 'city', 'zip', 'image', 'created', 'modified','content']
         read_only_fields = ['id', 'created', 'modified']
