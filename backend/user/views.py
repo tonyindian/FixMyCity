@@ -22,17 +22,12 @@ class ListUserView(ListAPIView):
         Get user data
 
         - Base URL: Returns list of all users
-            - Pagination: add limit and offset parameters to request to enable response pagination
-
         - Search: Searches for instance of user by username, first and last name
             - Add search parameter for appropriate response
-            - ex:
-            https://luna-sagittarius.propulsion-learn.ch/backend/api/users/?search=waltersobchak@aol.com
 
         - Combination: Searches for instance of user by search params, with pagination included
             - Add search , offset and limit parameters to enable pagination with search
-            - ex:
-            https://luna-sagittarius.propulsion-learn.ch/backend/api/users/?search=waltersobchak@aol.com&offset=0&limit=25
+
      """
     queryset = User.objects.all()
     serializer_class = UserSerializer
