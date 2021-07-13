@@ -32,12 +32,12 @@ const Map = (props) => {
 
   const geolocateControlStyle = {
     left: 15,
-    top: 60,
+    top: 15,
   };
 
   const navControlStyle = {
     left: 15,
-    top: 105,
+    top: 60,
   };
 
   const scaleControlStyle = {
@@ -58,7 +58,7 @@ const Map = (props) => {
     longitude: 8.5417,
     width: "100%",
     height: "100%",
-    zoom: 10,
+    zoom: 15,
   });
 
   // Reference for the map
@@ -121,17 +121,37 @@ const Map = (props) => {
           longitude,
         });
         setToggleUserMarker(true);
+        setViewport({
+          ...viewport,
+          latitude,
+          longitude,
+          zoom: 19,
+          transitionInterpolator: new FlyToInterpolator(),
+          transitionDuration: 700,
+        });
+        console.log("first");
       } else if (userMarker && toggleUserMarker) {
         setUserMarker({
           id: "user",
           latitude,
           longitude,
         });
+        setViewport({
+          ...viewport,
+          latitude,
+          longitude,
+          zoom: 17,
+          transitionInterpolator: new FlyToInterpolator(),
+          transitionDuration: 700,
+        });
+        console.log("second");
       } else if (toggleUserMarker && userMarker === null) {
         setToggleUserMarker(false);
+        console.log("third");
       }
     } else {
       setExpandCluster(false);
+      console.log("fourth");
     }
     //setToggleUserMarker(false)
     setSelectedIssue(null);
@@ -168,7 +188,6 @@ const Map = (props) => {
   useEffect(() => {
     if (toggleSatellite) {
       setMapStyle("mapbox://styles/mapbox/satellite-v9");
-      console.log("change");
     } else {
       setMapStyle("mapbox://styles/mapbox/streets-v11");
     }
@@ -199,7 +218,7 @@ const Map = (props) => {
     points,
     zoom: viewport.zoom,
     bounds,
-    options: { radius: 75, maxZoom: 20 },
+    options: { radius: 100, maxZoom: 15 },
   });
 
   return (
@@ -209,14 +228,27 @@ const Map = (props) => {
         {...viewport}
         mapboxApiAccessToken={MAPBOX_TOKEN}
         mapStyle={mapStyle}
+        onClick={handleMapClick}
         onViewportChange={(viewport) => {
+          if (toggleUserMarker && userMarker) {
+            setViewport({
+              ...viewport,
+              latitude: userMarker.latitude,
+              longitude: userMarker.longitude,
+              zoom: 19,
+              transitionInterpolator: new FlyToInterpolator(),
+              transitionDuration: 300,
+            });
+          }
           setViewport(viewport);
         }}
+        scrollZoom={toggleUserMarker && userMarker ? false : true}
+        touchZoom={toggleUserMarker && userMarker ? false : true}
+        doubleClickZoom={toggleUserMarker && userMarker ? false : true}
         width="100%"
         height="100%"
         maxZoom={20}
         ref={mapRef}
-        onClick={handleMapClick}
       >
         <Geocoder
           mapRef={mapRef}
@@ -224,12 +256,11 @@ const Map = (props) => {
           onViewportChange={(viewport) => {
             setViewport({
               ...viewport,
-              transitionInterpolator: new FlyToInterpolator({ speed: 2 }),
-              transitionDuration: "auto",
+              transitionInterpolator: new FlyToInterpolator(),
+              transitionDuration: 700,
             });
           }}
           mapboxApiAccessToken={MAPBOX_TOKEN}
-          position="top-left"
         />
         <FullscreenControl style={fullscreenControlStyle} />
         <GeolocateControl
@@ -237,14 +268,15 @@ const Map = (props) => {
           positionOptions={{ enableHighAccuracy: true }}
           trackUserLocation={true}
           showAccuracyCircle={false}
+          fitBoundsOptions={{ maxZoom: 17 }}
           auto
         />
         <NavigationControl style={navControlStyle} />
         <ScaleControl maxWidth={100} unit="metric" style={scaleControlStyle} />
         <SatelliteButton
           onClick={() => {
-            setToggleSatellite(!toggleSatellite);
             setExpandCluster(true);
+            setToggleSatellite(!toggleSatellite);
           }}
         />
         {clusters.map((cluster) => {
@@ -265,15 +297,15 @@ const Map = (props) => {
                 onClick={() => {
                   const expansionZoom = Math.min(
                     supercluster.getClusterExpansionZoom(cluster.id),
-                    20
+                    15
                   );
                   setViewport({
                     ...viewport,
                     latitude,
                     longitude,
                     zoom: expansionZoom,
-                    transitionInterpolator: new FlyToInterpolator({ speed: 2 }),
-                    transitionDuration: "auto",
+                    transitionInterpolator: new FlyToInterpolator(),
+                    transitionDuration: 700,
                   });
                   setExpandCluster(true);
                 }}
@@ -313,8 +345,8 @@ const Map = (props) => {
                     latitude,
                     longitude,
                     zoom: 17,
-                    transitionInterpolator: new FlyToInterpolator({ speed: 2 }),
-                    transitionDuration: "auto",
+                    transitionInterpolator: new FlyToInterpolator(),
+                    transitionDuration: 700,
                   });
                 }}
               />
@@ -356,6 +388,14 @@ const Map = (props) => {
                 onClick={(e) => {
                   e.preventDefault();
                   hideUserMarker();
+                  setViewport({
+                    ...viewport,
+                    latitude: userMarker.latitude,
+                    longitude: userMarker.longitude,
+                    zoom: 17,
+                    transitionInterpolator: new FlyToInterpolator(),
+                    transitionDuration: 700,
+                  });
                 }}
                 style={{ cursor: "auto" }}
               />
