@@ -81,8 +81,10 @@ const Map = (props) => {
   // Prevents from modifing the cluster from userMarker
   const [expandCluster, setExpandCluster] = useState(false);
 
+  // Switching between map and satellite view
   const [toggleSatellite, setToggleSatellite] = useState(false);
 
+  // Style for map
   const [mapStyle, setMapStyle] = useState(
     "mapbox://styles/mapbox/streets-v11"
   );
