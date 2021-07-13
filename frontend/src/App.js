@@ -7,7 +7,7 @@ import Map from './components/Map/Map';
 import Banner from './components/Banner/Banner';
 import { Spaceholder } from './components/navbar';
 import Homepage from './pages/Homepage/Homepage';
-import Filterpage from './pages/Homepage/Filterpage';
+
 
 
 function App() {
@@ -17,7 +17,6 @@ function App() {
     <Spaceholder/>
       <Switch>
         <Route exact path="/" component={Homepage}/>
-        <Route exact path="/filter" component={Filterpage}/>
         <Route exact path="/createissue" component={CreateIssue}/>
         <Route exact path="/map" component={Map}/>
         <Route exact path="/login" component={Login}/>

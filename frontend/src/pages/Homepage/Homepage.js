@@ -24,8 +24,14 @@ const Homepage = () => {
             <MapContainer>
                 <Map height={"100%"} width={"100%"} setCoordinates={setCoordinates}/>
             </MapContainer>
-                <ReportButton name="Report" >Report</ReportButton>
-            
+                {
+                    coordinates === null ? (
+                        <ReportButton name="Report">Filter</ReportButton>
+                    ) : (
+                        <ReportButton name="Report">Report</ReportButton>
+                    )
+                }
+                
         </Main>
     )
 
