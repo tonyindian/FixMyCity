@@ -47,7 +47,7 @@ export const SatelliteButton = styled.button`
   top: 60px;
   right: 15px;
   border: 4px solid red;
-  z-index: 10;
+  z-index: 2;
 
   position: absolute;
 `;
