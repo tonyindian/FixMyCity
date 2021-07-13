@@ -115,6 +115,7 @@ const Map = (props) => {
 
   // onClick event handle, to get the coordinates if the user clicks on the map and wants to set his/her marker location, hide and set the marker location
   const handleMapClick = ({ lngLat: [longitude, latitude] }) => {
+      console.log('handle')
     if (expandCluster === false) {
       if (toggleUserMarker === false) {
         setUserMarker({
@@ -132,21 +133,21 @@ const Map = (props) => {
           transitionDuration: 700,
         });
         console.log("first");
-      } else if (userMarker && toggleUserMarker) {
-        setUserMarker({
-          id: "user",
-          latitude,
-          longitude,
-        });
-        setViewport({
-          ...viewport,
-          latitude,
-          longitude,
-          zoom: 17,
-          transitionInterpolator: new FlyToInterpolator(),
-          transitionDuration: 700,
-        });
-        console.log("second");
+      // } else if (userMarker && toggleUserMarker) {
+      //   setUserMarker({
+      //     id: "user",
+      //     latitude,
+      //     longitude,
+      //   });
+      //   setViewport({
+      //     ...viewport,
+      //     latitude,
+      //     longitude,
+      //     zoom: 17,
+      //     transitionInterpolator: new FlyToInterpolator(),
+      //     transitionDuration: 700,
+      //   });
+      //   console.log("second");
       } else if (toggleUserMarker && userMarker === null) {
         setToggleUserMarker(false);
         console.log("third");
@@ -264,7 +265,7 @@ const Map = (props) => {
           }}
           mapboxApiAccessToken={MAPBOX_TOKEN}
         />
-        <FullscreenControl style={fullscreenControlStyle} />
+        {/*<FullscreenControl style={fullscreenControlStyle} />*/}
         <GeolocateControl
           style={geolocateControlStyle}
           positionOptions={{ enableHighAccuracy: true }}
