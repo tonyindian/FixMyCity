@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { Main, ReportButton, Search, MapContainer } from './Styled';
 import Map from '../../components/Map/Map';
 import searchglass from '../../assets/images/search.png';
+import FilterButton from './FilterButton';
 
 
 
@@ -26,12 +27,12 @@ const Homepage = () => {
             </MapContainer>
                 {
                     coordinates === null ? (
-                        <ReportButton name="Report">Filter</ReportButton>
+                        <FilterButton/>
                     ) : (
                         <ReportButton name="Report">Report</ReportButton>
                     )
                 }
-                
+
         </Main>
     )
 
