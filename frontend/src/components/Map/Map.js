@@ -222,7 +222,7 @@ const Map = (props) => {
 
   return (
     <MainContainer height={props.height} width={props.width}>
-      <div ref={geocoderContainerRef} style={{ marginBottom: "5%" }} />
+      <div ref={geocoderContainerRef} style={{ marginBottom: "0%" }} />
       <ReactMapGL
         {...viewport}
         mapboxApiAccessToken={MAPBOX_TOKEN}
