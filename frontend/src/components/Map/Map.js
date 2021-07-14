@@ -13,8 +13,6 @@ import "./Geocoder.css";
 import "mapbox-gl/dist/mapbox-gl.css";
 import Geocoder from "react-map-gl-geocoder";
 
-import { fetchIssues } from "../../Axios/fetches";
-import * as issues from "./issue-data.json";
 import {
   MainContainer,
   MarkerDivStyle,
@@ -66,13 +64,17 @@ const Map = (props) => {
   // Reference for the map
   const mapRef = useRef();
 
+  // Reference for geocoder
   const geocoderContainerRef = useRef();
 
   // State to save the selected issue's data for the Popup
   const [selectedIssue, setSelectedIssue] = useState(null);
 
   // State to save the fetched datas
-  //const [issues, setIssues] = useState([]);
+  const [issues, setIssues] = useState([]);
+
+  // State to save the converted issues (from json to geojson)
+  const [points, setPoints] = useState([]);
 
   // State to display or not the user's marker
   const [toggleUserMarker, setToggleUserMarker] = useState(false);
@@ -83,8 +85,10 @@ const Map = (props) => {
   // Prevents from modifing the cluster from userMarker
   const [expandCluster, setExpandCluster] = useState(false);
 
+  // State to display or not the map in satellite view
   const [toggleSatellite, setToggleSatellite] = useState(false);
 
+  // State to save the map styles
   const [mapStyle, setMapStyle] = useState(
     "mapbox://styles/mapbox/streets-v11"
   );
@@ -164,12 +168,16 @@ const Map = (props) => {
   // useEffects
 
   // Initial useEffect: Get the user's current location and fetching in order to get the Issues
-  /*
   useEffect(() => {
-    current_location();
+    //current_location();
     //setIssues(fetchIssues);
+    const url = `https://fix-my-city.propulsion-learn.ch/backend/api/issues/`;
+
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => setIssues(data));
   }, []);
-  */
+
   // It keeps the parent component's coordinate state up to date
   // It will be triggered if the userMaker is visible on the map
   useEffect(() => {
@@ -195,18 +203,31 @@ const Map = (props) => {
   //Clustering
 
   // Prepare data for clustering (from json to geojson)
-  const points = issues.data.map((issue) => ({
-    type: "Feature",
-    properties: {
-      cluster: false,
-      issueId: issue.id,
-      title: issue.title,
-    },
-    geometry: {
-      type: "Point",
-      coordinates: [issue.longitude, issue.latitude],
-    },
-  }));
+  useEffect(() => {
+    if (issues.length > 0) {
+      setPoints(
+        issues.map((issue) => ({
+          type: "Feature",
+          properties: {
+            cluster: false,
+            issueId: issue.id,
+            title: issue.title,
+            image: issue.image,
+            city: issue.city,
+            zip: issue.zip,
+            streetAndNumber: issue.adress,
+            category: issue.category,
+            author: issue.user.username,
+            created: issue.created,
+          },
+          geometry: {
+            type: "Point",
+            coordinates: [issue.longitude, issue.latitude],
+          },
+        }))
+      );
+    }
+  }, [issues]);
 
   // Get map bounds
   const bounds =
