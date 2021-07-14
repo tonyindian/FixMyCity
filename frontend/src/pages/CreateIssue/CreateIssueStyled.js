@@ -1,16 +1,16 @@
 import styled from "styled-components";
 
 export const MainContainer = styled.div`
-    height: 100%;
+    height: 90%;
     display: flex;
     flex-direction: column;
     background-color: #7CDBD5;   
     color: white;
     
+    
     #footer{
     display: flex;
     background-color: #7CDBD5;
-    border: 1px solid red;
     color: white;
     height: 10%;
     justify-content: center;
@@ -61,13 +61,13 @@ export const MainContainer = styled.div`
 
 export const StepOneContainer = styled.div`
     background-color: #7CDBD5;
-    border: 1px solid red;
+    
     display: flex;
     flex-direction: column;
     color: white;
-    height: 80%;
+    height: 90%;
     #stepOneMain {
-        border: 1px solid red;
+       
         flex-grow: 1;
     }
     h1{
@@ -77,48 +77,86 @@ export const StepOneContainer = styled.div`
 `
 export const StepTwoContainer = styled.div`
     background-color: #7CDBD5;
-    border: 1px solid red;
     display: flex;
     flex-direction: column;
     color: white;
-    height: 80%;
-    #stepOneMain {
-        border: 1px solid red;
-        flex-grow: 1;
-    }
+    height: 90%;
+   
     h1{
         margin-left: 10px;
     }
 `
 export const StepThreeContainer = styled.div`
     background-color: #7CDBD5;
-    border: 1px solid red;
     display: flex;
     flex-direction: column;
+    align-items: center;
     color: white;
-    height: 80%;
-    #stepOneMain {
-        border: 1px solid red;
-        flex-grow: 1;
-    }
+    height: 90%;
+   
     h1{
         margin-left: 10px;
+        align-self: flex-start;
+    }
+    #titleCategoryDescriptionContainer{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background-color: #02C8A7;
+        width: 80%;
+        height: 80%;
+        #categoryContainer{
+            margin-left: 10px;
+        }
+        #descriptionContainer{
+            margin-left: 10px;
+        }
+        #titleContainer{
+            margin-left: 10px;
+        }
     }
 `
 
 export const ReviewContainer = styled.div`
     background-color: #7CDBD5;
-    border: 1px solid red;
     display: flex;
     flex-direction: column;
+    align-items: center;
     color: white;
-    height: 80%;
-    #stepOneMain {
-        border: 1px solid red;
-        flex-grow: 1;
-    }
+    height: 90%;
+ 
     h1{
         margin-left: 10px;
+        align-self: flex-start;
+    }
+
+    
+    #reviewContainerBox{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background-color: #02C8A7;
+        width: 80%;
+        height: 80%;
+        p{
+            margin-left: 10px;
+        }
+    }
+
+`
+
+export const Box = styled.div`
+ 
+    width: 150px;
+    height: 250px;
+    margin: 10px;
+
+    #selectedImage {            
+       max-width: 100%; 
+       height: auto;
+       max-height: 100%;   
+       object-fit: fill;
+   
     }
 `
 

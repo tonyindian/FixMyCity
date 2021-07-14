@@ -1,8 +1,11 @@
 import React, {useState} from "react"
 import { MainContainer } from "./CreateIssueStyled"
-import {StepOneContainer, StepTwoContainer, StepThreeContainer, ReviewContainer} from "./CreateIssueStyled" 
+import {StepOneContainer, StepTwoContainer, StepThreeContainer, ReviewContainer, Box} from "./CreateIssueStyled" 
 import leftArrow from "../../assets/images/left-arrow.png"
 import rightArrow from "../../assets/images/right-arrow.png"
+import Map from "../../components/Map/Map"
+import Camera from "../../components/Camera/Camera"
+import Axios from "../../helpers/axios";
 
 
 const StepOne = () => {
@@ -12,7 +15,7 @@ const StepOne = () => {
         <StepOneContainer>
             <h1>Step 1/3</h1>
             <div id="step1">
-                <p>content</p>
+            <p>Map placeholder</p>
             </div>
         </StepOneContainer>
         </>
@@ -20,29 +23,57 @@ const StepOne = () => {
     )
 }
 
-const StepTwo = () => {
+const StepTwo = (props) => {    
 
     return (
         <>        
         <StepTwoContainer>
             <h1>Step 2/3</h1>
-            <div id="step2">
-                <p>content</p>
-            </div>
+            <Camera imageURL={props.imageURL} setImageURL={props.setImageURL} setImageFile = {props.setImageFile}></Camera>            
         </StepTwoContainer>
         </>
     )
 }
 
 
-const StepThree = () => {
+const StepThree = (props) => {
+
+    const selectCategoryOnChangeHandler = e => {
+        props.setCategory(e.target.value);
+    }
+
+    const descriptionOnChangeHandler = e => {
+        props.setDescription(e.target.value);
+    }
+
+    const titleOnChangeHandler = e => {
+        props.setTitle(e.target.value);        
+    }
 
     return (
         <>        
         <StepThreeContainer>
             <h1>Step 3/3</h1>
-            <div id="step3">
-                <p>content</p>
+            <div id="titleCategoryDescriptionContainer">
+                <div id="titleContainer">
+                    <h3>Add a title:</h3>
+                    <input type="text" value={props.title} onChange={titleOnChangeHandler}></input>
+                </div>   
+                <div id="categoryContainer">
+                    <h3>Add a category:</h3>
+                    <select id="selectCategory" defaultValue={props.category===""?"default":props.category} onChange={selectCategoryOnChangeHandler}>                
+                        <option value="default">--select--</option>
+                        <option>graffiti</option>                        
+                        <option>damages</option>                        
+                        <option>litter</option>
+                        <option>items with no owner</option>
+                    </select>
+                
+                </div>
+                <div id="descriptionContainer">
+                    <h3>Add a description:</h3>
+                    <textarea rows="10" cols="37" value={props.description} onChange={descriptionOnChangeHandler}></textarea>
+                </div>
             </div>
         </StepThreeContainer>
         </>
@@ -50,21 +81,25 @@ const StepThree = () => {
 }
 
 
-const Review = () => {
+const Review = (props) => {
 
     return (
         <>        
         <ReviewContainer>
             <h1>Review</h1>
-            <div id="review">
-                <p>content</p>
+            <div id="reviewContainerBox">
+                <Box>
+                    <img id="selectedImage" src={props.imageURL} alt="selected_image"></img>
+                </Box>
+                <p>Title: {props.title}</p>
+                <p>Address: {props.address}</p>
+                <p>Category: {props.category}</p>
+                <p>Description: {props.description}</p>                
             </div>
         </ReviewContainer>
         </>
     )
 }
-
-
 
 
 const CreateIssue = () => {
@@ -74,6 +109,16 @@ const CreateIssue = () => {
     const [toggleShowStep3, setToggleShowStep3] = useState(false);
     const [toggleShowReview, setToggleShowReview] = useState(false);
     const [toggleIsPageComplete, setToggleIsPageComplete] = useState(true)
+    const [title, setTitle] = useState("");
+    const [address,setAddress] = useState("HARDCODED Heinrichstrasse 200");
+    const [postcode,setPostCode] = useState("8005");
+    const [city, setCity] = useState("HARDCODED Zurich");
+    const [latitude, setLatitude] = useState("4.5322");
+    const [longitude, setLongitude] = useState("43.2323");
+    const [imageFile,setImageFile] = useState("");
+    const [imageURL, setImageURL] = useState("");
+    const [category, setCategory] = useState("");
+    const [description, setDescription] = useState("");
 
 
     const nextButtonHandler = () => {
@@ -84,10 +129,12 @@ const CreateIssue = () => {
         if(toggleShowStep2 === true && !(toggleShowStep1 && toggleShowStep3 && toggleShowReview)){
             setToggleShowStep2(false);
             setToggleShowStep3(true);
+           
         }
         if(toggleShowStep3 === true && !(toggleShowStep1 && toggleShowStep2 && toggleShowReview)){
             setToggleShowStep3(false);
             setToggleShowReview(true);
+            console.log("At this stage, the following is stored in the state:","\n\n",`title: ${title}`,"\n",`address: ${address}`,"\n",`image: ${imageURL}`,"\n",`category: ${category}`,"\n",`description: ${description}`);
         }
     }
 
@@ -106,30 +153,66 @@ const CreateIssue = () => {
         }
     }
 
+
+    const sendOnClickHandler = async () => {
+        //console.log("you hit me");
+        const url = "/issues/new/";
+        const postmanToken = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjI2MzY4MzA5LCJqdGkiOiI3MzFkOThiODJiNWU0ZjRmYjkxZjcwOTgzYzg5ZThhOCIsInVzZXJfaWQiOjF9.l0rl5zqGADavU3JaNLoUqod5CM6gZIG4LKmB2Rkvgis";
+    
+        let formdata = new FormData();
+        formdata.append("title", title);
+        formdata.append("longitude", longitude);
+        formdata.append("latitude", latitude);
+        formdata.append("adress", address);
+        formdata.append("city", city);
+        formdata.append("zip",postcode);
+        formdata.append("category", category);
+        formdata.append("image", imageFile);
+        formdata.append("content", description);       
+    
+        const config = {
+          headers: {
+            //Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${postmanToken}`,
+            "Content-Type": "multipart/form-data",
+          },
+        };
+    
+        try {
+          const resp = await Axios.post(url, formdata, config);
+          if (resp.status === 201) {
+            console.log("Success.");
+          }
+        } catch (err) {
+          if (err) {
+            console.log(err.response);
+          }
+        }
+      };
+
+
     return (
-        <>
+        
         <MainContainer>            
-            {toggleShowStep1===true?
-                <>
-                <StepOne/>
-                </>
+            {toggleShowStep1===true?                
+                <StepOne/>                
                 :null        
             }
             {toggleShowStep2===true?
                 <>
-                <StepTwo/>
+                <StepTwo setImageURL = {setImageURL} imageURL = {imageURL} setImageFile = {setImageFile}/>
                 </>
                 :null        
             }
             {toggleShowStep3===true?
                 <>
-                <StepThree/>
+                <StepThree category = {category} setCategory = {setCategory} description = {description} setDescription = {setDescription} title = {title} setTitle = {setTitle}/>
                 </>
                 :null        
             }
             {toggleShowReview===true?
                 <>
-                <Review/>
+                <Review imageURL={imageURL} title={title} address={address} category={category} description={description}/>
                 </>
                 :null        
             } 
@@ -145,7 +228,7 @@ const CreateIssue = () => {
                     }
                     
                     {toggleShowReview===true && toggleIsPageComplete === true?
-                        <button id="sendButton">Send</button>
+                        <button id="sendButton" onClick={sendOnClickHandler}>Send</button>
                         :null
                     }                    
                 </div>        
@@ -156,7 +239,7 @@ const CreateIssue = () => {
             </div>                            
            
         </MainContainer>
-        </>
+        
     )
 
 
