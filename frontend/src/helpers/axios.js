@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const baseURL =  "http://localhost:8000//backend/api/"
+const baseURL =  "https://fix-my-city.propulsion-learn.ch/backend/api/"
 //http://localhost:8000/
 
 const Axios = axios.create({

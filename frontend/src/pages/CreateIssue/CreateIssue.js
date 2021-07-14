@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import React, {useState, useEffect} from "react"
 import { MainContainer } from "./CreateIssueStyled"
 import {StepOneContainer, StepTwoContainer, StepThreeContainer, ReviewContainer, Box} from "./CreateIssueStyled" 
 import leftArrow from "../../assets/images/left-arrow.png"
@@ -6,10 +6,10 @@ import rightArrow from "../../assets/images/right-arrow.png"
 import Map from "../../components/Map/Map"
 import Camera from "../../components/Camera/Camera"
 import Axios from "../../helpers/axios";
+import { useSelector } from "react-redux";
 
 
 const StepOne = () => {
-
     return (
         <>        
         <StepOneContainer>
@@ -104,6 +104,8 @@ const Review = (props) => {
 
 const CreateIssue = () => {
 
+    const pinnedCoordinates = useSelector((state) => state.createIssueCoordinatesReducer.coordinates);
+
     const [toggleShowStep1, setToggleShowStep1] = useState(true);
     const [toggleShowStep2, setToggleShowStep2] = useState(false);
     const [toggleShowStep3, setToggleShowStep3] = useState(false);
@@ -113,12 +115,18 @@ const CreateIssue = () => {
     const [address,setAddress] = useState("HARDCODED Heinrichstrasse 200");
     const [postcode,setPostCode] = useState("8005");
     const [city, setCity] = useState("HARDCODED Zurich");
-    const [latitude, setLatitude] = useState("4.5322");
-    const [longitude, setLongitude] = useState("43.2323");
+    const [latitude, setLatitude] = useState("");
+    const [longitude, setLongitude] = useState("");
     const [imageFile,setImageFile] = useState("");
     const [imageURL, setImageURL] = useState("");
     const [category, setCategory] = useState("");
-    const [description, setDescription] = useState("");
+    const [description, setDescription] = useState("");    
+
+    useEffect(() => {        
+        console.log(pinnedCoordinates);
+        setLatitude(pinnedCoordinates.latitude);
+        setLongitude(pinnedCoordinates.longitude);
+    },[pinnedCoordinates]);
 
 
     const nextButtonHandler = () => {
