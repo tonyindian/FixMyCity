@@ -2,7 +2,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.generics import ListAPIView, CreateAPIView, RetrieveUpdateDestroyAPIView, UpdateAPIView
 from django.contrib.auth import get_user_model
-from rest_framework.permissions import IsAuthenticated, IsAdminUser, IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticated
 
 from project.permissions import IsOwnerOrReadOnly
 from issue.models import Issue
@@ -49,7 +49,6 @@ class ListIssuesByUserView(ListAPIView):
         return Issue.objects.filter(user=user_id).order_by("-created")
 
 
-
 class ToggleUpvoteIssueView(UpdateAPIView):
     queryset = Issue.objects.all()
     serializer_class = IssueSerializer
@@ -64,10 +63,14 @@ class ToggleUpvoteIssueView(UpdateAPIView):
                             status=status.HTTP_400_BAD_REQUEST)
 
         if user in issue.upvoted_by.all():
-            issue.liked_by.remove(user)
+            issue.upvoted_by.remove(user)
+            issue.user.points -= 10
+            issue.user.save()
             return Response({'success': f' downvoted issue {issue.id}'}, status=status.HTTP_200_OK)
         else:
             issue.upvoted_by.add(user)
+            issue.user.points += 10
+            issue.user.save()
             return Response({'success': f' upvoted issue {issue.id}'}, status=status.HTTP_200_OK)
 
 
