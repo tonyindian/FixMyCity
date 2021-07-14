@@ -6,6 +6,9 @@ import CreateIssue from "./pages/CreateIssue/CreateIssue"
 import Map from './components/Map/Map';
 import Banner from './components/Banner/Banner';
 import { Spaceholder } from './components/navbar';
+import Homepage from './pages/Homepage/Homepage';
+
+
 
 function App() {
   return (
@@ -13,7 +16,7 @@ function App() {
     <Banner/>
     <Spaceholder/>
       <Switch>
-        {/* <Route exact path="/" component={Home}/> */}
+        <Route exact path="/" component={Homepage}/>
         <Route exact path="/createissue" component={CreateIssue}/>
         <Route exact path="/map" component={Map}/>
         <Route exact path="/login" component={Login}/>

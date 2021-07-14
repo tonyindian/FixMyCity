@@ -2,14 +2,14 @@ import React, { useState, useEffect, useRef } from "react";
 import ReactMapGL, {
   Marker,
   Popup,
-  FullscreenControl,
+  //FullscreenControl,
   GeolocateControl,
   NavigationControl,
   ScaleControl,
   FlyToInterpolator,
 } from "react-map-gl";
 import useSupercluster from "use-supercluster";
-import "react-map-gl-geocoder/dist/mapbox-gl-geocoder.css";
+import "./Geocoder.css";
 import "mapbox-gl/dist/mapbox-gl.css";
 import Geocoder from "react-map-gl-geocoder";
 
@@ -21,23 +21,25 @@ import {
   MarkerImgStyle,
   SatelliteButton,
 } from "./MapStyled";
+import { FaSatelliteDish } from "react-icons/fa";
 import MarkerPng from "../../assets/map/marker.png";
 
 const Map = (props) => {
   // Styles to place the buttons somewhere on the map (absolute position)
+  /*
   const fullscreenControlStyle = {
     right: 15,
     top: 15,
   };
-
+  */
   const geolocateControlStyle = {
     left: 15,
-    top: 60,
+    top: 15,
   };
 
   const navControlStyle = {
     left: 15,
-    top: 105,
+    top: 60,
   };
 
   const scaleControlStyle = {
@@ -58,7 +60,7 @@ const Map = (props) => {
     longitude: 8.5417,
     width: "100%",
     height: "100%",
-    zoom: 10,
+    zoom: 15,
   });
 
   // Reference for the map
@@ -88,7 +90,7 @@ const Map = (props) => {
   );
 
   // Functions
-
+  /*
   // Get the current location of the user & Set view (setViewport)
   const current_location = () => {
     if ("geolocation" in navigator) {
@@ -110,7 +112,7 @@ const Map = (props) => {
       console.log("Geolocation is not Available");
     }
   };
-
+  */
   // onClick event handle, to get the coordinates if the user clicks on the map and wants to set his/her marker location, hide and set the marker location
   const handleMapClick = ({ lngLat: [longitude, latitude] }) => {
     if (expandCluster === false) {
@@ -121,12 +123,28 @@ const Map = (props) => {
           longitude,
         });
         setToggleUserMarker(true);
-      } else if (userMarker && toggleUserMarker) {
-        setUserMarker({
-          id: "user",
+        setViewport({
+          ...viewport,
           latitude,
           longitude,
+          zoom: 19,
+          transitionInterpolator: new FlyToInterpolator(),
+          transitionDuration: 500,
         });
+        // } else if (userMarker && toggleUserMarker) {
+        //   setUserMarker({
+        //     id: "user",
+        //     latitude,
+        //     longitude,
+        //   });
+        //   setViewport({
+        //     ...viewport,
+        //     latitude,
+        //     longitude,
+        //     zoom: 17,
+        //     transitionInterpolator: new FlyToInterpolator(),
+        //     transitionDuration: 500,
+        //   });
       } else if (toggleUserMarker && userMarker === null) {
         setToggleUserMarker(false);
       }
@@ -146,11 +164,12 @@ const Map = (props) => {
   // useEffects
 
   // Initial useEffect: Get the user's current location and fetching in order to get the Issues
+  /*
   useEffect(() => {
     current_location();
     //setIssues(fetchIssues);
   }, []);
-
+  */
   // It keeps the parent component's coordinate state up to date
   // It will be triggered if the userMaker is visible on the map
   useEffect(() => {
@@ -168,7 +187,6 @@ const Map = (props) => {
   useEffect(() => {
     if (toggleSatellite) {
       setMapStyle("mapbox://styles/mapbox/satellite-v9");
-      console.log("change");
     } else {
       setMapStyle("mapbox://styles/mapbox/streets-v11");
     }
@@ -199,24 +217,37 @@ const Map = (props) => {
     points,
     zoom: viewport.zoom,
     bounds,
-    options: { radius: 75, maxZoom: 20 },
+    options: { radius: 100, maxZoom: 15 },
   });
 
   return (
     <MainContainer height={props.height} width={props.width}>
-      <div ref={geocoderContainerRef} />
+      <div ref={geocoderContainerRef} style={{ marginBottom: "5%" }} />
       <ReactMapGL
         {...viewport}
         mapboxApiAccessToken={MAPBOX_TOKEN}
         mapStyle={mapStyle}
+        onClick={handleMapClick}
         onViewportChange={(viewport) => {
+          if (toggleUserMarker && userMarker) {
+            setViewport({
+              ...viewport,
+              latitude: userMarker.latitude,
+              longitude: userMarker.longitude,
+              zoom: 19,
+              transitionInterpolator: new FlyToInterpolator(),
+              transitionDuration: 500,
+            });
+          }
           setViewport(viewport);
         }}
+        scrollZoom={toggleUserMarker && userMarker ? false : true}
+        touchZoom={toggleUserMarker && userMarker ? false : true}
+        doubleClickZoom={toggleUserMarker && userMarker ? false : true}
         width="100%"
         height="100%"
         maxZoom={20}
         ref={mapRef}
-        onClick={handleMapClick}
       >
         <Geocoder
           mapRef={mapRef}
@@ -224,29 +255,35 @@ const Map = (props) => {
           onViewportChange={(viewport) => {
             setViewport({
               ...viewport,
-              transitionInterpolator: new FlyToInterpolator({ speed: 2 }),
-              transitionDuration: "auto",
+              transitionInterpolator: new FlyToInterpolator(),
+              transitionDuration: 500,
             });
           }}
           mapboxApiAccessToken={MAPBOX_TOKEN}
-          position="top-left"
+          zoom={17}
+          inputValue={""}
         />
-        <FullscreenControl style={fullscreenControlStyle} />
+        {/*<FullscreenControl style={fullscreenControlStyle} />*/}
         <GeolocateControl
           style={geolocateControlStyle}
           positionOptions={{ enableHighAccuracy: true }}
           trackUserLocation={true}
           showAccuracyCircle={false}
+          fitBoundsOptions={{ maxZoom: 17 }}
           auto
         />
         <NavigationControl style={navControlStyle} />
         <ScaleControl maxWidth={100} unit="metric" style={scaleControlStyle} />
         <SatelliteButton
           onClick={() => {
-            setToggleSatellite(!toggleSatellite);
             setExpandCluster(true);
+            setToggleSatellite(!toggleSatellite);
           }}
-        />
+        >
+          <FaSatelliteDish
+            style={{ width: "15px", height: "15px", marginTop: "3px" }}
+          />
+        </SatelliteButton>
         {clusters.map((cluster) => {
           const [longitude, latitude] = cluster.geometry.coordinates;
           const { cluster: isCluster, point_count: pointCount } =
@@ -265,15 +302,15 @@ const Map = (props) => {
                 onClick={() => {
                   const expansionZoom = Math.min(
                     supercluster.getClusterExpansionZoom(cluster.id),
-                    20
+                    15
                   );
                   setViewport({
                     ...viewport,
                     latitude,
                     longitude,
                     zoom: expansionZoom,
-                    transitionInterpolator: new FlyToInterpolator({ speed: 2 }),
-                    transitionDuration: "auto",
+                    transitionInterpolator: new FlyToInterpolator(),
+                    transitionDuration: 500,
                   });
                   setExpandCluster(true);
                 }}
@@ -313,8 +350,8 @@ const Map = (props) => {
                     latitude,
                     longitude,
                     zoom: 17,
-                    transitionInterpolator: new FlyToInterpolator({ speed: 2 }),
-                    transitionDuration: "auto",
+                    transitionInterpolator: new FlyToInterpolator(),
+                    transitionDuration: 500,
                   });
                 }}
               />
@@ -356,6 +393,14 @@ const Map = (props) => {
                 onClick={(e) => {
                   e.preventDefault();
                   hideUserMarker();
+                  setViewport({
+                    ...viewport,
+                    latitude: userMarker.latitude,
+                    longitude: userMarker.longitude,
+                    zoom: 17,
+                    transitionInterpolator: new FlyToInterpolator(),
+                    transitionDuration: 500,
+                  });
                 }}
                 style={{ cursor: "auto" }}
               />
