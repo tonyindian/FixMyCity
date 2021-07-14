@@ -7,18 +7,19 @@ from user.serializers import UserSerializer
 class IssueSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
 
-    def get_issue_count(obj):
-        return obj.issue.count()
+    # def get_issue_count(obj):
+    #     return obj.issue.count()
 
     class Meta:
         model = Issue
-        fields = ['id', 'title', 'content', 'category', 'user', 'adress', 'longitude', 'latitude', 'city', 'zip', 'image',
-                  'created', 'modified']
+        fields = ['id', 'title', 'content', 'category', 'user', 'adress', 'longitude', 'latitude', 'city', 'zip',
+                  'image', 'created', 'modified', 'issue_comments']
         read_only_fields = ['id', 'created', 'modified', 'user', 'upvoted_by']
 
 
 class CreateIssueSerializer(serializers.ModelSerializer):
     class Meta:
         model = Issue
-        fields = ['id', 'title', 'longitude', 'latitude', 'category', 'adress', 'city', 'zip', 'image', 'created', 'modified','content']
+        fields = ['id', 'title', 'longitude', 'latitude', 'category', 'adress', 'city', 'zip', 'image', 'created',
+                  'modified', 'content']
         read_only_fields = ['id', 'created', 'modified']
