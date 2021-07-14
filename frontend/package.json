@@ -11,7 +11,10 @@
     "axios": "^0.21.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+<<<<<<< HEAD
     "react-icons": "^4.2.0",
+=======
+>>>>>>> dev
     "react-map-gl": "^5.2.11",
     "react-map-gl-geocoder": "^2.1.7",
     "react-redux": "^7.2.4",

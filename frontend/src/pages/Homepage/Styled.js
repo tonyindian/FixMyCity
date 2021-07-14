@@ -75,3 +75,43 @@ export const Search = styled.div`
     }
 `
 
+export const CatBox = styled.div`
+    position: absolute;
+    width: 75%;
+    height: 38%;
+    border-radius: 25px;
+    margin-top: 47%;
+    background-color: #4abdac;
+    color: white;
+    font-size: medium;
+
+    input {
+        width: 90%;
+        height: 40px;
+        border-radius: 25px;
+        background-color: white;
+        text-align: center;
+        border-bottom: 1px solid rgb(206, 206, 206);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 4%;
+    }
+
+    select {
+        width: 90%;
+        height: 40px;
+        border-radius: 25px;
+        background-color: white;
+        text-align: center;
+        border-bottom: 1px solid rgb(206, 206, 206);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-left: 4%;
+    }
+
+    p {
+        margin-left: 6%;
+    }
+`
