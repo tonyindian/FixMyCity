@@ -1,11 +1,9 @@
 import React, {useState} from 'react';
 import { ReportButton } from './Styled';
+import CategoryBox from './CategoryBox';
 
 
-
-
-
-const Filterpage = () => {
+const FilterButton = () => {
 
    const [toggleFilter, setToggleFilter] = useState(false)
 
@@ -13,7 +11,8 @@ const Filterpage = () => {
         <>
             {
                 toggleFilter && (
-                    <ReportButton name="Report">Filter</ReportButton>
+                    <CategoryBox></CategoryBox>
+                    
                 )
             }
             <ReportButton onClick={() => setToggleFilter(!toggleFilter)} name="Report">Filter</ReportButton>
@@ -22,4 +21,4 @@ const Filterpage = () => {
     )
 
 }
-export default Filterpage
+export default FilterButton
