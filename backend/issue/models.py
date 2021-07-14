@@ -23,5 +23,6 @@ class Issue(models.Model):
     user = models.ForeignKey(to=User, related_name='user_issues', on_delete=models.CASCADE)
     upvoted_by = models.ManyToManyField(to=User, related_name='upvoted_issues')
 
+
     def __str__(self):
         return self.title
