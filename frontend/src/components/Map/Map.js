@@ -2,14 +2,14 @@ import React, { useState, useEffect, useRef } from "react";
 import ReactMapGL, {
   Marker,
   Popup,
-  FullscreenControl,
+  //FullscreenControl,
   GeolocateControl,
   NavigationControl,
   ScaleControl,
   FlyToInterpolator,
 } from "react-map-gl";
 import useSupercluster from "use-supercluster";
-import "react-map-gl-geocoder/dist/mapbox-gl-geocoder.css";
+import "./Geocoder.css";
 import "mapbox-gl/dist/mapbox-gl.css";
 import Geocoder from "react-map-gl-geocoder";
 
@@ -21,15 +21,17 @@ import {
   MarkerImgStyle,
   SatelliteButton,
 } from "./MapStyled";
+import { FaSatelliteDish } from "react-icons/fa";
 import MarkerPng from "../../assets/map/marker.png";
 
 const Map = (props) => {
   // Styles to place the buttons somewhere on the map (absolute position)
+  /*
   const fullscreenControlStyle = {
     right: 15,
     top: 15,
   };
-
+  */
   const geolocateControlStyle = {
     left: 15,
     top: 15,
@@ -81,21 +83,14 @@ const Map = (props) => {
   // Prevents from modifing the cluster from userMarker
   const [expandCluster, setExpandCluster] = useState(false);
 
-  // Switching between map and satellite view
   const [toggleSatellite, setToggleSatellite] = useState(false);
 
-  // Style for map
   const [mapStyle, setMapStyle] = useState(
     "mapbox://styles/mapbox/streets-v11"
   );
 
-  const [filter, setFilter] = useState({
-    category: null,
-    description: null,
-  });
-
   // Functions
-
+  /*
   // Get the current location of the user & Set view (setViewport)
   const current_location = () => {
     if ("geolocation" in navigator) {
@@ -117,7 +112,7 @@ const Map = (props) => {
       console.log("Geolocation is not Available");
     }
   };
-
+  */
   // onClick event handle, to get the coordinates if the user clicks on the map and wants to set his/her marker location, hide and set the marker location
   const handleMapClick = ({ lngLat: [longitude, latitude] }) => {
     if (expandCluster === false) {
@@ -134,28 +129,25 @@ const Map = (props) => {
           longitude,
           zoom: 19,
           transitionInterpolator: new FlyToInterpolator(),
-          transitionDuration: 700,
+          transitionDuration: 500,
         });
-      /*
-      } else if (userMarker && toggleUserMarker) {
-        setUserMarker({
-          id: "user",
-          latitude,
-          longitude,
-        });
-        setViewport({
-          ...viewport,
-          latitude,
-          longitude,
-          zoom: 17,
-          transitionInterpolator: new FlyToInterpolator(),
-          transitionDuration: 700,
-        });
-        console.log("second");
+        // } else if (userMarker && toggleUserMarker) {
+        //   setUserMarker({
+        //     id: "user",
+        //     latitude,
+        //     longitude,
+        //   });
+        //   setViewport({
+        //     ...viewport,
+        //     latitude,
+        //     longitude,
+        //     zoom: 17,
+        //     transitionInterpolator: new FlyToInterpolator(),
+        //     transitionDuration: 500,
+        //   });
       } else if (toggleUserMarker && userMarker === null) {
         setToggleUserMarker(false);
       }
-      */
     } else {
       setExpandCluster(false);
     }
@@ -172,11 +164,12 @@ const Map = (props) => {
   // useEffects
 
   // Initial useEffect: Get the user's current location and fetching in order to get the Issues
+  /*
   useEffect(() => {
     current_location();
     //setIssues(fetchIssues);
   }, []);
-
+  */
   // It keeps the parent component's coordinate state up to date
   // It will be triggered if the userMaker is visible on the map
   useEffect(() => {
@@ -229,7 +222,7 @@ const Map = (props) => {
 
   return (
     <MainContainer height={props.height} width={props.width}>
-      <div ref={geocoderContainerRef} />
+      <div ref={geocoderContainerRef} style={{ marginBottom: "5%" }} />
       <ReactMapGL
         {...viewport}
         mapboxApiAccessToken={MAPBOX_TOKEN}
@@ -243,7 +236,7 @@ const Map = (props) => {
               longitude: userMarker.longitude,
               zoom: 19,
               transitionInterpolator: new FlyToInterpolator(),
-              transitionDuration: 300,
+              transitionDuration: 500,
             });
           }
           setViewport(viewport);
@@ -263,12 +256,14 @@ const Map = (props) => {
             setViewport({
               ...viewport,
               transitionInterpolator: new FlyToInterpolator(),
-              transitionDuration: 700,
+              transitionDuration: 500,
             });
           }}
           mapboxApiAccessToken={MAPBOX_TOKEN}
+          zoom={17}
+          inputValue={""}
         />
-        <FullscreenControl style={fullscreenControlStyle} />
+        {/*<FullscreenControl style={fullscreenControlStyle} />*/}
         <GeolocateControl
           style={geolocateControlStyle}
           positionOptions={{ enableHighAccuracy: true }}
@@ -284,7 +279,11 @@ const Map = (props) => {
             setExpandCluster(true);
             setToggleSatellite(!toggleSatellite);
           }}
-        />
+        >
+          <FaSatelliteDish
+            style={{ width: "15px", height: "15px", marginTop: "3px" }}
+          />
+        </SatelliteButton>
         {clusters.map((cluster) => {
           const [longitude, latitude] = cluster.geometry.coordinates;
           const { cluster: isCluster, point_count: pointCount } =
@@ -311,7 +310,7 @@ const Map = (props) => {
                     longitude,
                     zoom: expansionZoom,
                     transitionInterpolator: new FlyToInterpolator(),
-                    transitionDuration: 700,
+                    transitionDuration: 500,
                   });
                   setExpandCluster(true);
                 }}
@@ -352,7 +351,7 @@ const Map = (props) => {
                     longitude,
                     zoom: 17,
                     transitionInterpolator: new FlyToInterpolator(),
-                    transitionDuration: 700,
+                    transitionDuration: 500,
                   });
                 }}
               />
@@ -400,7 +399,7 @@ const Map = (props) => {
                     longitude: userMarker.longitude,
                     zoom: 17,
                     transitionInterpolator: new FlyToInterpolator(),
-                    transitionDuration: 700,
+                    transitionDuration: 500,
                   });
                 }}
                 style={{ cursor: "auto" }}

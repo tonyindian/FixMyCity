@@ -42,12 +42,21 @@ export const ChooseButton = styled.button`
 `;
 
 export const SatelliteButton = styled.button`
-  height: 30px;
-  width: 30px;
-  top: 60px;
-  right: 15px;
-  border: 4px solid red;
-  z-index: 2;
+  height: 29px;
+  width: 29px;
+  outline: none;
+  border: 0;
+  border-radius: 4px;
+  box-shadow: 0px 0px 0px 2px rgba(0, 0, 0, 0.08);
+  background-color: #ffffff;
+  cursor: pointer;
 
   position: absolute;
+  right: 15px;
+  top: 15px;
+  z-index: 2;
+
+  :hover {
+    background-color: #f0f0f0;
+  }
 `;

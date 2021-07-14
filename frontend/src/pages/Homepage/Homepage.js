@@ -12,12 +12,14 @@ const Homepage = () => {
 
   return (
     <Main>
-      <Search>
-        <button type="submit">
-          <img src={searchglass} />
-        </button>
-        <input type="text" placeholder="Search..." />
-      </Search>
+      {/*
+        <Search>
+          <button type="submit">
+            <img src={searchglass} />
+          </button>
+          <input type="text" placeholder="Search..." />
+        </Search>
+      */}
 
       <MapContainer>
         <Map height={"100%"} width={"100%"} setCoordinates={setCoordinates} />
