@@ -13,7 +13,6 @@ export const Main= styled.div`
 `
 
 export const NameContainer = styled.div`
-    /* border: 2px solid blue; */
     width: 90%;
     height: 12%;
     margin-top: 2%;
@@ -30,7 +29,6 @@ export const NameContainer = styled.div`
 `
 
 export const AvatarContainer = styled.div`
-    /* border: 2px solid red; */
     width: 90%;
     height: 17%;
     display: flex;
@@ -38,8 +36,8 @@ export const AvatarContainer = styled.div`
     margin-top: 0%;
 
     .avatar {
-        height: 90%;
-        width: 90%;
+        height: 100%;
+        width: 100%;
         padding-top: 0%;
         padding-left: 30%;
         padding-right: 1%;
@@ -58,60 +56,58 @@ export const AvatarContainer = styled.div`
     
 `
 export const StatusConatiner = styled.div`
-    border: 2px solid green;
+    /* border: 2px solid green; */
     width: 90%;
-    height: 15%;
+    height: 12%;
     display: flex;
-    padding-left: 20%;
     
+    
+    img {
+        width: 35%;
+        height: 50%;
+    }
     
     p {
         color: white;
-        margin-top: 0%;
+        margin: 0%;
     }
 
     .left {
         margin-left: 0%;
-    }
-
-    .points {
-        /* padding-left: 20%; */
-        width: 35%;
-        height: 35%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
     }
 
     .middle {
-        /* padding-left: 0%; */
-        /* padding-right: 2%; */
         margin-left: 0%;
-    }
-
-    .tools {
-        /* padding-left: 23%; */
-        width: 35%;
-        height: 35%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
     }
 
     .right {
-        /* padding-left: 0%; */
         margin-left: 0%;
-    }
-
-    .medal {
-        /* padding-left: 27%; */
-        width: 35%;
-        height: 35%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
     }
 `
 
 export const LastReported = styled.div`
-    border: 2px solid purple;
+    /* border: 2px solid purple; */
+    width: 90%;
+    height: 5%;
+
 `
 
 export const UserDetails = styled.div`
-    border: 2px solid yellow;
+    /* border: 2px solid yellow; */
     width: 90%;
-    height: 46%;
+    height: 39%;
     display: flex;
     
 
@@ -122,13 +118,11 @@ export const UserDetails = styled.div`
     }
 
     .left {
-        
     }
 
     .right {
-
-    
     }
+
 
     input {
         width: 90%;
@@ -145,5 +139,7 @@ export const UserDetails = styled.div`
 `
 
 export const SaveBox = styled.div`
-    border: 2px solid pink;
+    /* border: 2px solid pink; */
+    width: 90%;
+    height: 7%;
 `
