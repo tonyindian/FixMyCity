@@ -1,41 +1,35 @@
-import React, {useState, useEffect} from 'react';
-import { Main, ReportButton, Search, MapContainer } from './Styled';
-import Map from '../../components/Map/Map';
-import searchglass from '../../assets/images/search.png';
-import FilterButton from './FilterButton';
-
-
-
+import React, { useState, useEffect } from "react";
+import { Main, ReportButton, Search, MapContainer } from "./Styled";
+import Map from "../../components/Map/Map";
+import searchglass from "../../assets/images/search.png";
+import FilterButton from "./FilterButton";
 
 const Homepage = () => {
+  const [coordinates, setCoordinates] = useState(null);
 
-    const [coordinates, setCoordinates] = useState(null);
+  useEffect(() => {
+    console.log(coordinates);
+  }, [coordinates]);
 
-    useEffect(() => {
-        console.log(coordinates);
-    },  [coordinates]);
+  return (
+    <Main>
+      <Search>
+        <input type="text" placeholder="Search..." />
+        <button type="submit">
+          <img src={searchglass} alt={"search icon"} />
+        </button>
+      </Search>
 
-    return (
-        <Main>
-            <Search>
-                <input type="text" placeholder="Search..."/>        
-                <button type="submit"><img src={searchglass} /> </button>
-			</Search>
-            
-            <MapContainer>
-                <Map height={"100%"} width={"100%"} setCoordinates={setCoordinates}/>
-            </MapContainer>
-                {
-                    coordinates === null ? (
-                        <FilterButton/>
-                    ) : (
-                        <ReportButton name="Report">Report</ReportButton>
-                    )
-                }
+      <MapContainer>
+        <Map height={"100%"} width={"100%"} setCoordinates={setCoordinates} />
+      </MapContainer>
+      {coordinates === null ? (
+        <FilterButton />
+      ) : (
+        <ReportButton name="Report">Report</ReportButton>
+      )}
+    </Main>
+  );
+};
 
-        </Main>
-    )
-
-}
-
-export default Homepage
+export default Homepage;
