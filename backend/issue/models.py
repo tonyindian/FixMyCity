@@ -11,7 +11,7 @@ def user_directory_path(instance, filename):
 class Issue(models.Model):
     title = models.TextField(max_length=50)
     image = models.ImageField(upload_to=user_directory_path)
-    content = models.TextField(max_length=300)
+    content = models.TextField(max_length=300, null=True, blank=True)
     category = models.TextField(max_length=300, default=None)
     adress = models.TextField(max_length=300, default=None)
     zip = models.CharField(max_length=5)
