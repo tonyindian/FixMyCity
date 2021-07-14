@@ -9,6 +9,4 @@ urlpatterns = [
     path('issues/user/<int:pk>/', ListIssuesByUserView.as_view()),
     path('issues/upvote/<int:pk>/', ToggleUpvoteIssueView.as_view()),
     path('issues/upvoted/', ListUpvotedIssuesByUserView.as_view()),
-
-    # path('issues/category/<int:pk>/', ListIssuesByCategoryView.as_view()),
 ]
