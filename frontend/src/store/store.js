@@ -1,8 +1,8 @@
 import { createStore, combineReducers } from 'redux';
-import createIssueReducer from "./createIssueReducer"
+import createIssueCoordinatesReducer from "./createIssueCoordinatesReducer"
 
 const reducers = combineReducers({
-    createIssueReducer,
+    createIssueCoordinatesReducer,
 })
 
 const store = createStore(reducers);

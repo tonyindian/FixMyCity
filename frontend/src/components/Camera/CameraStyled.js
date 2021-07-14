@@ -8,23 +8,36 @@ export const MainContainer = styled.div`
     align-items: center;
     height: 20%;
     text-align: center;
+    flex-grow: 1;
+
+    #cameraIcon{
+        width: 200px;
+        height: auto;
+    }
+
+    #cameraIconSmall{
+        width: 50px;
+        height: auto;
+    }
     
 `
 
 export const Box = styled.div`
-    display: flex;
-    justify-content: center;
-    border: 1px solid black;
-    width: 50px;
-    height: 50px;
+    /*display: flex;
+    justify-content: center;*/
+    width: 300px;
+    height: 500px;
     
     /*max-width: 80%;
     max-height: 80%;*/
     margin: 10px;
 
-    .img {
-    height: inherit;
-    max-width: inherit;
+    .img {            
+       max-width: 100%; 
+       height: auto;
+       max-height: 100%;   
+       object-fit: fill;
+   
     }
 `
 export const InputBox = styled.input`
