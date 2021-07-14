@@ -3,32 +3,31 @@ import {useDispatch} from "react-redux"
 import {MainContainer, Box, InputBox} from "./CameraStyled"
 import { IconButton } from '@material-ui/core';
 import PhotoCameraRoundedIcon from "@material-ui/icons/PhotoCameraRounded";
+import CameraIcon from "../../assets/images/photo-camera-white-tool.png"
 
-
+// if material-ui icon: <PhotoCameraRoundedIcon fontSize="large" color="primary" />
 //Camera app
-const Camera = () => {
+const Camera = (props) => {
+    
 
-    const dispatch = useDispatch();
-
-    const [source, setSource] = useState("");    
-
+   
     const handleCapture = (target) => {
         if (target.files) {
           if (target.files.length !== 0) {
             const file = target.files[0];
+            props.setImageFile(file);
             const newUrl = URL.createObjectURL(file);
-            setSource(newUrl);           
-            dispatch({type:"setIssuePicture",payload:file});
+            props.setImageURL(newUrl);   
+           
           }
         }
       };
 
     return(
-        <MainContainer>
-          <h5>Capture your image</h5>
-            {source &&
+        <MainContainer>          
+            {props.imageURL &&
               <Box>
-                <img src={source} alt={"snap"} className="img"></img>
+                <img src={props.imageURL} alt={"snap"} className="img"></img>
               </Box>}
               <InputBox
                   accept="image/*"
@@ -43,7 +42,7 @@ const Camera = () => {
                   aria-label="upload picture"
                   component="span"
                 >
-                  <PhotoCameraRoundedIcon fontSize="large" color="primary" />
+                <img id={props.imageURL===""?"cameraIcon":"cameraIconSmall"} src={CameraIcon}></img>
                 </IconButton>
               </label>
         </MainContainer> 
