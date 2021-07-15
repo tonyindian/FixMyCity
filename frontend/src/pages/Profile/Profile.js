@@ -1,6 +1,6 @@
 import React from 'react';
 import { Main, UserDetails, LastReported, SaveBox} from './ProfileStyled';
-import ProfileDownPart from './ProfileDownPart';
+import ProfileDownPart from './ProfileDownpart';
 import ProfileUpperPart from './ProfileUpperPart';
 import Navigation from '../../components/Navigation/Navigation';
 
