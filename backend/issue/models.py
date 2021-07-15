@@ -11,7 +11,7 @@ def user_directory_path(instance, filename):
 class Issue(models.Model):
     title = models.TextField(max_length=50)
     image = models.ImageField(upload_to=user_directory_path)
-    content = models.TextField(max_length=300)
+    content = models.TextField(max_length=300, null=True, blank=True)
     category = models.TextField(max_length=300, default=None)
     adress = models.TextField(max_length=300, default=None)
     zip = models.CharField(max_length=5)
@@ -22,6 +22,7 @@ class Issue(models.Model):
     modified = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(to=User, related_name='user_issues', on_delete=models.CASCADE)
     upvoted_by = models.ManyToManyField(to=User, related_name='upvoted_issues')
+
 
     def __str__(self):
         return self.title

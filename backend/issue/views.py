@@ -79,6 +79,5 @@ class ListUpvotedIssuesByUserView(ListAPIView):
     serializer_class = IssueSerializer
     permission_classes = [IsAuthenticated]
 
-    def get_queryset(self):
-        upvoted = self.request.user.upvoted_issues_issues.all()
-        return Issue.objects.filter(id__in=upvoted).order_by("-created")
+
+
