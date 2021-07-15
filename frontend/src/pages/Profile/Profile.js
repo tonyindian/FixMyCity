@@ -1,7 +1,7 @@
 import React from 'react';
 import { Main, UserDetails, LastReported, SaveBox} from './ProfileStyled';
-import ProfileDownpart from './ProfileDownpart';
-import ProfileUperpart from './ProfileUperpart';
+import ProfileDownPart from './ProfileDownPart';
+import ProfileUpperPart from './ProfileUpperPart';
 import Banner from './../../components/Banner/Banner.js';
 
 
@@ -22,10 +22,10 @@ const Profile = () => {
         <>
             <Banner/>
                 <Main>
-                    <ProfileUperpart/>
+                    <ProfileUpperPart/>
 
 
-                    <ProfileDownpart/>
+                    <ProfileDownPart/>
                     
                     <SaveBox></SaveBox>
                 </Main>

@@ -8,7 +8,7 @@ import MedalPic from '../../assets/svgs/medal.svg';
 
 
 
-const ProfileUperpart = () => {
+const ProfileUpperPart = () => {
 
 return (
     <>
@@ -58,4 +58,4 @@ return (
 
 }
 
-export default ProfileUperpart
+export default ProfileUpperPart
