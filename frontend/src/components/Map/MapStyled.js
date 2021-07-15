@@ -22,6 +22,8 @@ export const MarkerDivStyle = styled.div`
 `;
 
 export const MarkerImgStyle = styled.img`
+  width: 36px;
+  height: auto;
   cursor: pointer;
 `;
 

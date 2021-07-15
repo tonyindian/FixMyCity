@@ -20,7 +20,13 @@ import {
   SatelliteButton,
 } from "./MapStyled";
 import { FaSatelliteDish } from "react-icons/fa";
-import MarkerPng from "../../assets/map/marker.png";
+import RedMarker from "../../assets/map/markers/red-marker.png";
+import RedishOrangeMarker from "../../assets/map/markers/redish-orange-marker.png";
+import OrangeMarker from "../../assets/map/markers/orange-marker.png";
+import YellowMarker from "../../assets/map/markers/yellow-marker.png";
+import BlueMarker from "../../assets/map/markers/blue-marker.png";
+import PopupContent from "./Popup/PopupContent";
+import MoreDetails from "./Popup/MoreDetails";
 
 const Map = (props) => {
   // Styles to place the buttons somewhere on the map (absolute position)
@@ -92,6 +98,8 @@ const Map = (props) => {
   const [mapStyle, setMapStyle] = useState(
     "mapbox://styles/mapbox/streets-v11"
   );
+
+  const [toggleMoreDetails, setToggleMoreDetails] = useState(false);
 
   // Functions
   /*
@@ -219,6 +227,7 @@ const Map = (props) => {
             category: issue.category,
             author: issue.user.username,
             created: issue.created,
+            upvoteCount: issue.issue_count,
           },
           geometry: {
             type: "Point",
@@ -242,194 +251,220 @@ const Map = (props) => {
   });
 
   return (
-    <MainContainer height={props.height} width={props.width}>
-      <div ref={geocoderContainerRef} style={{ marginBottom: "0%" }} />
-      <ReactMapGL
-        {...viewport}
-        mapboxApiAccessToken={MAPBOX_TOKEN}
-        mapStyle={mapStyle}
-        onClick={handleMapClick}
-        onViewportChange={(viewport) => {
-          if (toggleUserMarker && userMarker) {
-            setViewport({
-              ...viewport,
-              latitude: userMarker.latitude,
-              longitude: userMarker.longitude,
-              zoom: 19,
-              transitionInterpolator: new FlyToInterpolator(),
-              transitionDuration: 500,
-            });
-          }
-          setViewport(viewport);
-        }}
-        scrollZoom={toggleUserMarker && userMarker ? false : true}
-        touchZoom={toggleUserMarker && userMarker ? false : true}
-        doubleClickZoom={toggleUserMarker && userMarker ? false : true}
-        width="100%"
-        height="100%"
-        maxZoom={20}
-        ref={mapRef}
-      >
-        <Geocoder
-          mapRef={mapRef}
-          containerRef={geocoderContainerRef}
-          onViewportChange={(viewport) => {
-            setViewport({
-              ...viewport,
-              transitionInterpolator: new FlyToInterpolator(),
-              transitionDuration: 500,
-            });
-          }}
+    <>
+      <MainContainer height={props.height} width={props.width}>
+        <div ref={geocoderContainerRef} style={{ marginBottom: "0%" }} />
+        <ReactMapGL
+          {...viewport}
           mapboxApiAccessToken={MAPBOX_TOKEN}
-          zoom={17}
-          inputValue={""}
-        />
-        {/*<FullscreenControl style={fullscreenControlStyle} />*/}
-        <GeolocateControl
-          style={geolocateControlStyle}
-          positionOptions={{ enableHighAccuracy: true }}
-          trackUserLocation={true}
-          showAccuracyCircle={false}
-          fitBoundsOptions={{ maxZoom: 17 }}
-          auto
-        />
-        <NavigationControl style={navControlStyle} />
-        <ScaleControl maxWidth={100} unit="metric" style={scaleControlStyle} />
-        <SatelliteButton
-          onClick={() => {
-            setExpandCluster(true);
-            setToggleSatellite(!toggleSatellite);
+          mapStyle={mapStyle}
+          onClick={handleMapClick}
+          onViewportChange={(viewport) => {
+            if (toggleUserMarker && userMarker) {
+              setViewport({
+                ...viewport,
+                latitude: userMarker.latitude,
+                longitude: userMarker.longitude,
+                zoom: 19,
+                transitionInterpolator: new FlyToInterpolator(),
+                transitionDuration: 500,
+              });
+            }
+            setViewport(viewport);
           }}
+          scrollZoom={toggleUserMarker && userMarker ? false : true}
+          touchZoom={toggleUserMarker && userMarker ? false : true}
+          doubleClickZoom={toggleUserMarker && userMarker ? false : true}
+          width="100%"
+          height="100%"
+          maxZoom={20}
+          ref={mapRef}
         >
-          <FaSatelliteDish
-            style={{ width: "15px", height: "15px", marginTop: "3px" }}
+          <Geocoder
+            mapRef={mapRef}
+            containerRef={geocoderContainerRef}
+            onViewportChange={(viewport) => {
+              setViewport({
+                ...viewport,
+                transitionInterpolator: new FlyToInterpolator(),
+                transitionDuration: 500,
+              });
+            }}
+            mapboxApiAccessToken={MAPBOX_TOKEN}
+            zoom={17}
+            inputValue={""}
           />
-        </SatelliteButton>
-        {clusters.map((cluster) => {
-          const [longitude, latitude] = cluster.geometry.coordinates;
-          const { cluster: isCluster, point_count: pointCount } =
-            cluster.properties;
+          {/*<FullscreenControl style={fullscreenControlStyle} />*/}
+          <GeolocateControl
+            style={geolocateControlStyle}
+            positionOptions={{ enableHighAccuracy: true }}
+            trackUserLocation={true}
+            showAccuracyCircle={false}
+            fitBoundsOptions={{ maxZoom: 17 }}
+            auto
+          />
+          <NavigationControl style={navControlStyle} />
+          <ScaleControl
+            maxWidth={100}
+            unit="metric"
+            style={scaleControlStyle}
+          />
+          <SatelliteButton
+            onClick={() => {
+              setExpandCluster(true);
+              setToggleSatellite(!toggleSatellite);
+            }}
+          >
+            <FaSatelliteDish
+              style={{ width: "15px", height: "15px", marginTop: "3px" }}
+            />
+          </SatelliteButton>
+          {clusters.map((cluster) => {
+            const [longitude, latitude] = cluster.geometry.coordinates;
+            const { cluster: isCluster, point_count: pointCount } =
+              cluster.properties;
 
-          // Clustering
-          // It creates clusters if there is more than 1 marker in radius: 75 (check useSupercluster)
-          if (isCluster) {
+            // Clustering
+            // It creates clusters if there is more than 1 marker in radius: 75 (check useSupercluster)
+            if (isCluster) {
+              return (
+                <Marker
+                  key={cluster.id}
+                  latitude={latitude}
+                  longitude={longitude}
+                  offsetLeft={
+                    -1 * ((14 + (pointCount / points.length) * 30) / 2)
+                  }
+                  offsetTop={
+                    -1 * ((14 + (pointCount / points.length) * 30) / 2)
+                  }
+                  onClick={() => {
+                    const expansionZoom = Math.min(
+                      supercluster.getClusterExpansionZoom(cluster.id),
+                      15
+                    );
+                    setViewport({
+                      ...viewport,
+                      latitude,
+                      longitude,
+                      zoom: expansionZoom,
+                      transitionInterpolator: new FlyToInterpolator(),
+                      transitionDuration: 500,
+                    });
+                    setExpandCluster(true);
+                  }}
+                >
+                  <MarkerDivStyle
+                    height={`${14 + (pointCount / points.length) * 30}px`}
+                    width={`${14 + (pointCount / points.length) * 30}px`}
+                    lineHeight={`${
+                      14 + (pointCount / points.length) * 30 - 1
+                    }px`}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      hideUserMarker();
+                    }}
+                  >
+                    {pointCount}
+                  </MarkerDivStyle>
+                </Marker>
+              );
+            }
+            // It creates markers if there is no more than 1 cluster in radius: 75 (check useSupercluster)
             return (
               <Marker
-                key={cluster.id}
+                key={cluster.properties.issueId}
                 latitude={latitude}
                 longitude={longitude}
-                offsetLeft={-1 * ((14 + (pointCount / points.length) * 30) / 2)}
-                offsetTop={-1 * ((14 + (pointCount / points.length) * 30) / 2)}
-                onClick={() => {
-                  const expansionZoom = Math.min(
-                    supercluster.getClusterExpansionZoom(cluster.id),
-                    15
-                  );
-                  setViewport({
-                    ...viewport,
-                    latitude,
-                    longitude,
-                    zoom: expansionZoom,
-                    transitionInterpolator: new FlyToInterpolator(),
-                    transitionDuration: 500,
-                  });
-                  setExpandCluster(true);
-                }}
+                offsetLeft={-18}
+                offsetTop={-30}
               >
-                <MarkerDivStyle
-                  height={`${14 + (pointCount / points.length) * 30}px`}
-                  width={`${14 + (pointCount / points.length) * 30}px`}
-                  lineHeight={`${14 + (pointCount / points.length) * 30 - 1}px`}
+                <MarkerImgStyle
+                  src={
+                    cluster.upvoteCount >= 3
+                      ? OrangeMarker
+                      : cluster.upvoteCount >= 5
+                      ? RedishOrangeMarker
+                      : cluster.upvoteCount >= 10
+                      ? RedMarker
+                      : YellowMarker
+                  }
+                  alt="marker"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setSelectedIssue(cluster);
+                    hideUserMarker();
+                    setViewport({
+                      ...viewport,
+                      latitude,
+                      longitude,
+                      zoom: 17,
+                      transitionInterpolator: new FlyToInterpolator(),
+                      transitionDuration: 500,
+                    });
+                  }}
+                />
+              </Marker>
+            );
+          })}
+          {
+            // It displays the Popup with datas in it for the marker if the user has clicked on one
+            selectedIssue && (
+              <Popup
+                latitude={selectedIssue.geometry.coordinates[1]}
+                longitude={selectedIssue.geometry.coordinates[0]}
+                onClose={() => {
+                  setSelectedIssue(null);
+                }}
+                closeOnClick={false}
+                closeButton={true}
+                offsetTop={-20}
+              >
+                <PopupContent
+                  upvoteCount={selectedIssue.properties.upvoteCount}
+                  title={selectedIssue.properties.title}
+                  image={selectedIssue.properties.image}
+                  author={selectedIssue.properties.author}
+                  created={selectedIssue.properties.created}
+                  setToggleMoreDetails={setToggleMoreDetails}
+                />
+              </Popup>
+            )
+          }
+          {
+            // It displays the user's marker if the user has clicked on somewhere on the map
+            toggleUserMarker && userMarker && (
+              <Marker
+                key={userMarker.id}
+                latitude={userMarker.latitude}
+                longitude={userMarker.longitude}
+                offsetLeft={-18}
+                offsetTop={-30}
+              >
+                <MarkerImgStyle
+                  src={BlueMarker}
+                  alt="marker"
                   onClick={(e) => {
                     e.preventDefault();
                     hideUserMarker();
+                    setViewport({
+                      ...viewport,
+                      latitude: userMarker.latitude,
+                      longitude: userMarker.longitude,
+                      zoom: 17,
+                      transitionInterpolator: new FlyToInterpolator(),
+                      transitionDuration: 500,
+                    });
                   }}
-                >
-                  {pointCount}
-                </MarkerDivStyle>
+                  style={{ cursor: "auto" }}
+                />
               </Marker>
-            );
+            )
           }
-          // It creates markers if there is no more than 1 cluster in radius: 75 (check useSupercluster)
-          return (
-            <Marker
-              key={cluster.properties.issueId}
-              latitude={latitude}
-              longitude={longitude}
-              offsetLeft={-16}
-              offsetTop={-30}
-            >
-              <MarkerImgStyle
-                src={MarkerPng}
-                alt="marker"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setSelectedIssue(cluster);
-                  hideUserMarker();
-                  setViewport({
-                    ...viewport,
-                    latitude,
-                    longitude,
-                    zoom: 17,
-                    transitionInterpolator: new FlyToInterpolator(),
-                    transitionDuration: 500,
-                  });
-                }}
-              />
-            </Marker>
-          );
-        })}
-        {
-          // It displays the Popup with datas in it for the marker if the user has clicked on one
-          selectedIssue && (
-            <Popup
-              latitude={selectedIssue.geometry.coordinates[1]}
-              longitude={selectedIssue.geometry.coordinates[0]}
-              onClose={() => {
-                setSelectedIssue(null);
-              }}
-              closeOnClick={false}
-              closeButton={false}
-              offsetTop={-20}
-            >
-              <div>
-                <h2>{selectedIssue.properties.title}</h2>
-              </div>
-            </Popup>
-          )
-        }
-        {
-          // It displays the user's marker if the user has clicked on somewhere on the map
-          toggleUserMarker && userMarker && (
-            <Marker
-              key={userMarker.id}
-              latitude={userMarker.latitude}
-              longitude={userMarker.longitude}
-              offsetLeft={-16}
-              offsetTop={-30}
-            >
-              <MarkerImgStyle
-                src={MarkerPng}
-                alt="marker"
-                onClick={(e) => {
-                  e.preventDefault();
-                  hideUserMarker();
-                  setViewport({
-                    ...viewport,
-                    latitude: userMarker.latitude,
-                    longitude: userMarker.longitude,
-                    zoom: 17,
-                    transitionInterpolator: new FlyToInterpolator(),
-                    transitionDuration: 500,
-                  });
-                }}
-                style={{ cursor: "auto" }}
-              />
-            </Marker>
-          )
-        }
-      </ReactMapGL>
-    </MainContainer>
+        </ReactMapGL>
+      </MainContainer>
+      {toggleMoreDetails && <MoreDetails></MoreDetails>}
+    </>
   );
 };
 
