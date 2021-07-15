@@ -2,6 +2,7 @@ import React from 'react';
 import { Main, UserDetails, LastReported, SaveBox} from './ProfileStyled';
 import ProfileDownpart from './ProfileDownpart';
 import ProfileUperpart from './ProfileUperpart';
+import Banner from './../../components/Banner/Banner.js';
 
 
 const Profile = () => {
@@ -18,16 +19,18 @@ const Profile = () => {
     //     };
     
     return (
-        <Main>
-            <ProfileUperpart/>
+        <>
+            <Banner/>
+                <Main>
+                    <ProfileUperpart/>
 
-            <LastReported></LastReported>
+                    <LastReported></LastReported>
 
-            <ProfileDownpart/>
-            
-            <SaveBox></SaveBox>
-        </Main>
-
+                    <ProfileDownpart/>
+                    
+                    <SaveBox></SaveBox>
+                </Main>
+        </>
 
     )
 }

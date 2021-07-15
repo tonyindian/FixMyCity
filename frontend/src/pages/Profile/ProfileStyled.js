@@ -8,11 +8,12 @@ export const Main= styled.div`
     align-items: center;
     flex-direction: column;
     box-sizing: border-box;
-    background: #7cdbd5;
+    /* background: #7cdbd5; */
 
 `
 
 export const NameContainer = styled.div`
+    border: 2px solid red;
     width: 90%;
     height: 12%;
     margin-top: 2%;
@@ -29,6 +30,7 @@ export const NameContainer = styled.div`
 `
 
 export const AvatarContainer = styled.div`
+    border: 2px solid green;
     width: 90%;
     height: 17%;
     display: flex;
@@ -56,7 +58,7 @@ export const AvatarContainer = styled.div`
     
 `
 export const StatusConatiner = styled.div`
-    /* border: 2px solid green; */
+    border: 2px solid yellow;
     width: 90%;
     height: 12%;
     display: flex;
