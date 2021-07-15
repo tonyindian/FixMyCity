@@ -24,7 +24,6 @@ const Profile = () => {
                 <Main>
                     <ProfileUperpart/>
 
-                    <LastReported></LastReported>
 
                     <ProfileDownpart/>
                     
