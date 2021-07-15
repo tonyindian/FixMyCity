@@ -2,7 +2,7 @@ import React from 'react';
 import { Main, UserDetails, LastReported, SaveBox} from './ProfileStyled';
 import ProfileDownPart from './ProfileDownPart';
 import ProfileUpperPart from './ProfileUpperPart';
-import Banner from './../../components/Banner/Banner.js';
+import Navigation from '../../components/Navigation/Navigation';
 
 
 const Profile = () => {
@@ -20,7 +20,7 @@ const Profile = () => {
     
     return (
         <>
-            <Banner/>
+            <Navigation/>
                 <Main>
                     <ProfileUpperPart/>
 
