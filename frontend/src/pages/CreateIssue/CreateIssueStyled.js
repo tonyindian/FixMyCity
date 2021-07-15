@@ -141,6 +141,16 @@ export const ReviewContainer = styled.div`
         p{
             margin-left: 10px;
         }
+        .reviewIconNameContainer{
+            display: flex;
+            align-items: center;
+            margin-left: 10px;
+        }
+
+        .reviewIcons{
+            width: 30px;
+            height: auto;
+        }
     }
 
 `
@@ -160,6 +170,41 @@ export const Box = styled.div`
     }
 `
 
+export const ThankYouContainer = styled.div`
+    background-color: #7CDBD5;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    height: 90%;
+   
+    h1{
+        margin-left: 30px;
+        margin-right: 20px;
+        text-align: center;
+    }
+    #confirmationIcon{
+        width: 200px;
+        height: auto;
+    }
+`
+
+export const SomethingWentWrongContainer = styled.div`
+    background-color: #7CDBD5;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    height: 90%;
+   
+    h1{
+        margin-left: 20px;
+        margin-right: 20px;
+        text-align: center;
+    }
+`
 
 
 

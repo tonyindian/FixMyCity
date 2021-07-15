@@ -8,6 +8,7 @@ class IssueSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
     issue_count = serializers.SerializerMethodField(read_only=True)
 
+
     def get_issue_count(self, obj):
         return obj.upvoted_by.count()
 

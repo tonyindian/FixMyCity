@@ -4,6 +4,7 @@ import { CatBox } from './Styled';
 
 const CategoryBox = () => {
 
+
   return (
     <CatBox>
       <form>
@@ -15,11 +16,11 @@ const CategoryBox = () => {
             <option value="items with no owner">[Hardcoded]Items with no owner</option>
           </select>
   
-          <p>Description:</p>
+          {/* <p>Description:</p>
           <input type="text"/>
 
           <p>Older/more recent than:</p>
-          <input type="text"/>
+          <input type="text"/> */}
         </form>
 
     </CatBox>
