@@ -10,8 +10,7 @@ import Homepage from "./pages/Homepage/Homepage";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Banner />
+    <BrowserRouter>      
       {/*<Spaceholder/>*/}
       <Switch>
         <Route exact path="/" component={Homepage} />

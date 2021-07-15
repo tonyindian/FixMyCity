@@ -12,7 +12,7 @@ const createIssueCoordinatesReducer = (state,action) => {
     else if(action.type==="setCoordinates"){
         const newState = {...state};
         newState.coordinates = action.payload;
-        console.log("I am your new state:", newState);
+        //console.log("I am your new state:", newState);
         return newState
     }
     return state;
