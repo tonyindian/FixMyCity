@@ -11,10 +11,10 @@ import Profile from './pages/Profile/Profile';
 
 
 
+
 function App() {
   return (
-    <BrowserRouter>
-      <Banner />
+    <BrowserRouter>      
       {/*<Spaceholder/>*/}
       <Switch>
         <Route exact path="/" component={Homepage}/>

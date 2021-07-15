@@ -7,33 +7,31 @@ import FilterButton from "./FilterButton";
 import { useDispatch } from "react-redux";
 
 const Homepage = () => {
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const [coordinates, setCoordinates] = useState(null);
 
-    const [coordinates, setCoordinates] = useState(null);
+  useEffect(() => {
+    console.log(coordinates);
+  }, [coordinates]);
 
-    useEffect(() => {
-        console.log(coordinates);
-    },  [coordinates]);
+  const reportButtonOnClickHandler = () => {
+    dispatch({ type: "setCoordinates", payload: coordinates });
+    history.push("/createissue");
+  };
 
-    return (
-        <Main>
-            <Search>
-                <input type="text" placeholder="Search..."/>        
-                <button type="submit"><img src={searchglass} /> </button>
-			</Search>
-            
-            <MapContainer>
-                <Map height={"100%"} width={"100%"} setCoordinates={setCoordinates}/>
-            </MapContainer>
-                {
-                    coordinates === null ? (
-                        <FilterButton/>
-                    ) : (
-                        <ReportButton name="Report">Report</ReportButton>
-                    )
-                }
+  return (
+    <Main>
+      <Map height={"100%"} width={"100%"} setCoordinates={setCoordinates} />
+      {coordinates === null ? (
+        <FilterButton />
+      ) : (
+        <ReportButton name="Report" onClick={reportButtonOnClickHandler}>
+          Report
+        </ReportButton>
+      )}
+    </Main>
+  );
+};
 
-        </Main>
-    )
-}
-
-export default Homepage
+export default Homepage;
