@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { MainContainer } from "./CreateIssueStyled";
 import {
   StepOneContainer,
@@ -6,6 +7,8 @@ import {
   StepThreeContainer,
   ReviewContainer,
   Box,
+  ThankYouContainer,
+  SomethingWentWrongContainer,
 } from "./CreateIssueStyled";
 import leftArrow from "../../assets/images/left-arrow.png";
 import rightArrow from "../../assets/images/right-arrow.png";
@@ -13,11 +16,16 @@ import Map from "../../components/Map/Map";
 import Camera from "../../components/Camera/Camera";
 import Axios from "../../helpers/axios";
 import { useSelector } from "react-redux";
-
 import { StaticMap, Marker } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { MarkerImgStyle } from "../../components/Map/MapStyled";
 import MarkerPng from "../../assets/map/marker.png";
+import reviewAddress from "../../assets/images/review_address.png"
+import reviewCategory from "../../assets/images/review_category.png"
+import reviewTitle from "../../assets/images/review_title.png"
+import reviewDescription from "../../assets/images/review_description.png"
+import confirmation from "../../assets/svgs/confirmation.svg"
+import Navigation from "../../components/Navigation/Navigation"
 
 const StepOne = () => {
   const pinnedCoordinates = useSelector(
@@ -147,63 +155,93 @@ const Review = (props) => {
               src={props.imageURL}
               alt="selected_image"
             ></img>
-          </Box>
-          <p>Title: {props.title}</p>
-          <p>Address: {props.address}</p>
-          <p>Category: {props.category}</p>
-          <p>Description: {props.description}</p>
+          </Box>          
+          <div className="reviewIconNameContainer"><img className="reviewIcons" src={reviewTitle} alt="title"></img> <p>{props.title}</p></div>
+          <div className="reviewIconNameContainer"><img className="reviewIcons" src={reviewAddress} alt="address"/><p> {props.address}, {props.postcode}, {props.city}</p></div>
+          <div className="reviewIconNameContainer"><img className="reviewIcons" src={reviewCategory} alt="category"/><p>Category: {props.category}</p></div>
+          <div className="reviewIconNameContainer"><img className="reviewIcons" src={reviewDescription} alt="description"/><p>Description: {props.description}</p></div>
         </div>
       </ReviewContainer>
     </>
   );
 };
 
+const ThankYouPage = () => {
+
+  return(
+    <ThankYouContainer>
+      <img src={confirmation} id="confirmationIcon" alt="confirmation"></img>
+      <h1>Thank you for making your city a better place to live in!</h1>
+    </ThankYouContainer>
+  )
+}
+
+const SomethingWentWrongPage = () => {
+
+  return(
+    <SomethingWentWrongContainer>
+      <h1>Oops... something went wrong. Please try again</h1>
+    </SomethingWentWrongContainer>
+  )
+}
+
 const CreateIssue = () => {
   const pinnedCoordinates = useSelector(
     (state) => state.createIssueCoordinatesReducer.coordinates
   );
 
+  const history = useHistory();
   const [fetchAddress, setFetchAddress] = useState("");
 
   const MAPBOX_TOKEN =
     "pk.eyJ1IjoiYWxleDI2MCIsImEiOiJja3FxazJuYnQwcnRxMzFxYXNpaHV2NHR3In0.sClUCkiGXj9AQubDvnv68A";
-
+  
+    useEffect(() => {
+      console.log(pinnedCoordinates);
+      setLatitude(pinnedCoordinates.latitude);
+      setLongitude(pinnedCoordinates.longitude);
+    }, [pinnedCoordinates]);
+  
   useEffect(() => {
     const fetchData = async () => {
       const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${pinnedCoordinates.longitude}%2C%20${pinnedCoordinates.latitude}.json?access_token=${MAPBOX_TOKEN}`;
 
       await fetch(url)
         .then((res) => res.json())
-        .then((data) => setFetchAddress(data.features[0].place_name));
+        //.then((data) => setFetchAddress(data.features[0].place_name));
+        
+        .then((data) => {              
+              setAddress(data.features[0].place_name.split(",")[0]);              
+              setPostCode(data.features[0].place_name.split(",")[1].split(" ")[1]);
+              setCity(data.features[0].place_name.split(",")[1].split(" ")[2]);
+            }
+          );
+                 
     };
 
     fetchData();
   }, [pinnedCoordinates.latitude, pinnedCoordinates.longitude]);
 
-  console.log(fetchAddress);
+  
 
   const [toggleShowStep1, setToggleShowStep1] = useState(true);
   const [toggleShowStep2, setToggleShowStep2] = useState(false);
   const [toggleShowStep3, setToggleShowStep3] = useState(false);
   const [toggleShowReview, setToggleShowReview] = useState(false);
+  const [toggleShowThankYou, setToggleShowThankyou] = useState(false);
+  const [toggleShowSomethingWentWrong, setShowToggleShowSomethingWentWrong] = useState(false);
   const [toggleIsPageComplete, setToggleIsPageComplete] = useState(true);
   const [title, setTitle] = useState("");
-  const [address, setAddress] = useState("HARDCODED Heinrichstrasse 200");
-  const [postcode, setPostCode] = useState("8005");
-  const [city, setCity] = useState("HARDCODED Zurich");
+  const [address, setAddress] = useState("");
+  const [postcode, setPostCode] = useState("");
+  const [city, setCity] = useState("");
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
   const [imageFile, setImageFile] = useState("");
   const [imageURL, setImageURL] = useState("");
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
-
-  useEffect(() => {
-    console.log(pinnedCoordinates);
-    setLatitude(pinnedCoordinates.latitude);
-    setLongitude(pinnedCoordinates.longitude);
-  }, [pinnedCoordinates]);
-
+  
   const nextButtonHandler = () => {
     if (
       toggleShowStep1 === true &&
@@ -231,6 +269,10 @@ const CreateIssue = () => {
         `title: ${title}`,
         "\n",
         `address: ${address}`,
+        "\n",
+        `city: ${city}`,
+        "\n",
+        `postcode: ${postcode}`,
         "\n",
         `image: ${imageURL}`,
         "\n",
@@ -263,7 +305,18 @@ const CreateIssue = () => {
       setToggleShowReview(false);
       setToggleShowStep3(true);
     }
+    if(toggleShowSomethingWentWrong===true){
+      setShowToggleShowSomethingWentWrong(false);
+      setToggleShowReview(true);
+    }
   };
+
+  const leaveOnClickHandler = () => {
+    history.push("/");
+
+
+  }
+
 
   const sendOnClickHandler = async () => {
     //console.log("you hit me");
@@ -294,16 +347,21 @@ const CreateIssue = () => {
       const resp = await Axios.post(url, formdata, config);
       if (resp.status === 201) {
         console.log("Success.");
+        setToggleShowReview(false);
+        setToggleShowThankyou(true);
       }
     } catch (err) {
       if (err) {
         console.log(err.response);
+        setToggleShowReview(false);
+        setShowToggleShowSomethingWentWrong(true);
       }
     }
   };
 
   return (
     <MainContainer>
+      <Navigation showBackButton={true}/>
       {toggleShowStep1 === true ? <StepOne /> : null}
       {toggleShowStep2 === true ? (
         <>
@@ -332,20 +390,28 @@ const CreateIssue = () => {
             imageURL={imageURL}
             title={title}
             address={address}
+            postcode={postcode}
+            city={city}
             category={category}
             description={description}
           />
         </>
       ) : null}
+      {toggleShowThankYou===true?
+        <ThankYouPage/>
+        :null}
+      {toggleShowSomethingWentWrong===true?
+        <SomethingWentWrongPage/>
+        :null}
       <div id="footer">
-        {toggleShowStep1 === false ? (
+        {toggleShowStep1 === false && toggleShowThankYou === false? (
           <button id="backArrowButton" onClick={backButtonHandler}>
             <img src={leftArrow} id="backArrow" alt="back"></img>
           </button>
         ) : null}
         <div id="buttonsContainer">
-          {toggleShowStep1 === true ? (
-            <button id="leaveButton">Leave</button>
+          {toggleShowStep1 === true || toggleShowThankYou === true || toggleShowSomethingWentWrong? (
+            <button id="leaveButton" onClick={leaveOnClickHandler}>Home</button>
           ) : null}
 
           {toggleShowReview === true && toggleIsPageComplete === true ? (
@@ -354,7 +420,7 @@ const CreateIssue = () => {
             </button>
           ) : null}
         </div>
-        {toggleIsPageComplete === true && toggleShowReview === false ? (
+        {toggleIsPageComplete === true && toggleShowReview === false && toggleShowSomethingWentWrong === false && toggleShowThankYou === false? (
           <button id="nextArrowButton" onClick={nextButtonHandler}>
             <img src={rightArrow} id="nextArrow" alt="next"></img>
           </button>
