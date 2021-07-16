@@ -10,7 +10,6 @@ export const GlobalStyle = createGlobalStyle`
         font-size: 13px;
         font-family: Roboto, sans-serif;
         font-weight: normal;
-        background-color: white;
     }
 
 `

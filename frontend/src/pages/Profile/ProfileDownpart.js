@@ -1,41 +1,37 @@
 import React from 'react';
-import { UserDetails, ProfileDetails } from './ProfileStyled';
+import { UserDetails } from './ProfileStyled';
 
 
 
-const ProfileDownPart = () => {
+const ProfileDownpart = () => {
 
     return (
         <>
-            <ProfileDetails>
-                <h2>Profile Details</h2>
-            </ProfileDetails>
             <UserDetails>
                 <aside className='left'>
-                    <h2>Username:</h2>
-                    <p>Maximilian</p>
+                    <p>Username:</p>
+                    <input type="text"/>
 
-                    <h2>First Name:</h2>
-                    <p>Max</p>
+                    <p>First Name:</p>
+                    <input type="text"/>
 
-                    <h2>Last Name:</h2>
-                    <p>Meyer</p>
+                    <p>Last Name:</p>
+                    <input type="text"/>
                 </aside>
 
                 <aside className='right'>
-                    <h2>Email:</h2>
-                    <p>max.m@gmail.com</p>
+                    <p>Email:</p>
+                    <input type="text"/>
 
-                    <h2>Phone number:</h2>
-                    <p>+41 76 234 56 78</p>
+                    <p>Phone number:</p>
+                    <input type="text"/>
 
-                    <h2>Password:</h2>
-                    <p>.........</p>
-    
+                    <p>Password:</p>
+                    <input type="text"/>
                 </aside>
             </UserDetails>
         </>
 
     )
 }
-export default ProfileDownPart
+export default ProfileDownpart
