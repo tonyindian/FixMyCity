@@ -1,4 +1,3 @@
-from fixmycity.backend.comment.serializers import CommentSerializer
 from rest_framework import serializers
 
 from issue.models import Issue
