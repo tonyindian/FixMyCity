@@ -4,7 +4,9 @@ import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import Axios from "../../Axios/index";
-
+import { EmailPasswordField } from "../../globalstyles/Input";
+import { LoginSignUpButton } from "../../globalstyles/ButtonStyles";
+import fixmycitylogo from "../../assets/svgs/fixmycitylogonew.svg"
 
 const Container = styled.div`
     display: flex;
@@ -14,8 +16,7 @@ const Container = styled.div`
     align-items: center;
     height: 90vh;
     width: 100vw;
-    background-color: #7cdbd5;
-    
+    background-color: white;
     `
 
 const FormWrapper = styled.form`
@@ -25,26 +26,29 @@ const FormWrapper = styled.form`
     flex-direction: column;
     align-content: space-between;
     align-items: center;
-    height: 55vh;
-    width: 85vh;
-    max-width: 330px;
-    border-radius: 28px;
-    background-color: #4abdac;
-    
     `
 
-/* const TitleWrapper = styled.div`
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-end;
-    font-size: 56px;
-    color: white;
-    font-family: sans-serif, 'roboto';
+const TitleWrapper = styled.div`
+    position: absolute;
+    width: 220px;
+    height: 52px;
+    left: 64px;
+    top: 229px;
+    font-family: Roboto;
+    font-weight: bold;
+    font-size: 35px;
+    line-height: 41px;
+    color: #000000;
     `
- */
+ 
+const LogoWrapper = styled.div`
+    position: absolute;
+    width: 140px;
+    height: 87.18px;
+    left: 64px;
+    top: 74px;
 
+    `
 
 const InputWrapper = styled.div`
     display: flex;
@@ -53,36 +57,33 @@ const InputWrapper = styled.div`
     align-items: center;
     margin-top: 1vh;
     `
-const BaseInput = styled.input`
-    outline: none;
-    margin-bottom: 18px;
-    border-radius: 28px;
-    padding: 10px 30px;
 
-    ::placeholder {
-        font-weight: bold;
-        color: grey;
-    }
+const EmailField = styled(EmailPasswordField)`
+    position: absolute;
+    width: 254px;
+    height: 51px;
+    left: 64px;
+    top: 361px;
     `
+const PasswordField = styled(EmailPasswordField)`
+    position: absolute;
+    width: 254px;
+    height: 51px;
+    left: 64px;
+    top: 459px;
+`
+
+
 
 const ButtonWrapper = styled.div`
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     `
 
-const LoginButton = styled.button`
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 56px;
-        width: 200px;
-        border-radius: 28px;
-        border: none;
-        background-color: #F53240;
-        color: white;
-        font-size: 28px;
-        `
+const LoginButton = styled(LoginSignUpButton)`
 
+        `
+ 
 const Login = () => {
 
 const [email, setEmail] = useState("");
@@ -114,10 +115,10 @@ const onHandleSubmit = async (e) => {
             setEmail("");
             setPassword("");
 
-            dispatch({
+/*             dispatch({
                 type: 'auth/login',
                 payload: resp.data,
-            });
+            }); */
 
             localStorage.setItem("token", resp.data.access);
             history.push("/");
@@ -132,10 +133,17 @@ const onHandleSubmit = async (e) => {
 
 return (
     <Container>
+        <LogoWrapper>
+            <img src={fixmycitylogo}alt='logo'/>
+        </LogoWrapper>
+        <TitleWrapper>
+            Welcome <br/>
+            back.
+        </TitleWrapper>
     <FormWrapper onSubmit={onHandleSubmit}>
         <InputWrapper>
-            <BaseInput placeholder='Email' type='email' required='This field is required' onChange={onUsernameChange}/>
-            <BaseInput placeholder='Password' type='password' required='This field is required' onChange={onPasswordChange}/>
+            <EmailField placeholder='Email' type='email' required='This field is required' onChange={onUsernameChange}/>
+            <PasswordField placeholder='Password' type='password' required='This field is required' onChange={onPasswordChange}/>
         </InputWrapper>
         <ButtonWrapper>
             <LoginButton type={"submit"}>
