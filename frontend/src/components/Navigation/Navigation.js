@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { MainContainer, MenuStyled } from "./NavigationStyled";
 import MenuImage from "../../assets/images/menu.png";
-import leftArrow from "../../assets/images/left-arrow-navigation.png"
+import leftArrow from "../../assets/images/left-arrow-navigation.png";
 
 export const Menu = () => {
   return (
@@ -14,7 +14,6 @@ export const Menu = () => {
 };
 
 const Navigation = (props) => {
-
   const [showMenu, toggleShowMenu] = useState(false);
 
   const menuIconOnClickHandler = () => {
@@ -22,23 +21,29 @@ const Navigation = (props) => {
   };
 
   const backButtonOnClickHandler = () => {
-    console.log("you clicked me!")
-  }
+    console.log("you clicked me!");
+    switch (props.page) {
+      case "MoreDetails":
+        props.setToggleMoreDetails(false);
+        break;
+      default:
+        break;
+    }
+  };
 
   return (
     <>
-      <MainContainer>
-        {props.showBackButton===true?
+      <MainContainer position={props.position}>
+        {props.showBackButton ? (
           <button id="back" onClick={backButtonOnClickHandler}>
             <img id="leftArrow" src={leftArrow} alt="left_arrow"></img>
-          </button> 
-          :null    
-        }        
+          </button>
+        ) : null}
         <button id="menu" onClick={menuIconOnClickHandler}>
           <img id="menu_img" src={MenuImage} alt="menu_icon"></img>
         </button>
       </MainContainer>
-      {showMenu && <Menu/>}      
+      {showMenu && <Menu />}
     </>
   );
 };

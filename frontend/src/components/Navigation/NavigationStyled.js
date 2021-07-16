@@ -1,21 +1,24 @@
 import styled from "styled-components";
 
 export const MainContainer = styled.div`
-  background-color: transparent;
+  background: transparent;
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 10%;
-  position: relative;
+  position: ${(props) => props.position || "relative"};
+  z-index: 4;
+  top: ${(props) => props.top || "0px"};
   width: 100%;
 
   #leftArrow {
     width: 30px;
     height: auto;
     margin-left: 10px;
+    cursor: pointer;
   }
 
-  #back{
+  #back {
     background: none;
     border: none;
   }
@@ -38,12 +41,12 @@ export const MenuStyled = styled.div`
   width: 100px;
   height: 120px;
   position: absolute;
-  z-index: 10;
+  z-index: 4;
   top: 60px;
   right: 10px;
-  background-color:white;
+  background-color: white;
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
 
   .menuOption {
     background: none;

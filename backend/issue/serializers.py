@@ -2,11 +2,14 @@ from rest_framework import serializers
 
 from issue.models import Issue
 from user.serializers import UserSerializer
+from comment.serializers import CommentSerializer
 
 
 class IssueSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
     issue_count = serializers.SerializerMethodField(read_only=True)
+# many2many -> many=True!
+    issue_comments = CommentSerializer(read_only=True, many=True)
 
 
     def get_issue_count(self, obj):
@@ -14,8 +17,7 @@ class IssueSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Issue
-        fields = ['id', 'title', 'content', 'category', 'user', 'adress', 'longitude', 'latitude', 'city', 'zip',
-                  'image', 'created', 'modified', 'issue_comments', 'upvoted_by', 'issue_count']
+        fields = ['id', 'title', 'content', 'category', 'status', 'adress', 'longitude', 'latitude', 'city', 'zip', 'image', 'created', 'modified', 'issue_comments', 'upvoted_by', 'issue_count', 'user']
         read_only_fields = ['id', 'created', 'modified', 'user', 'upvoted_by', 'issue_count']
 
 

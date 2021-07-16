@@ -10,14 +10,13 @@ import Profile from './pages/Profile/Profile';
 
 function App() {
   return (
-    <BrowserRouter>      
-      {/*<Spaceholder/>*/}
+    <BrowserRouter>
       <Switch>
-        <Route exact path="/" component={Homepage}/>
-        <Route exact path="/createissue" component={CreateIssue}/>
-        <Route exact path="/map" component={Map}/>
-        <Route exact path="/login" component={Login}/>
-        <Route exact path="/profile" component={Profile}/>
+        <Route exact path="/" component={Homepage} />
+        <Route exact path="/createissue" component={CreateIssue} />
+        <Route exact path="/map" component={Map} />
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/profile" component={Profile} />
       </Switch>
     </BrowserRouter>
   );
