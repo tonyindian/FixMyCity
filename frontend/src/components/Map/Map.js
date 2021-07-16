@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef,useCallback } from "react";
 import ReactMapGL, {
   Marker,
   Popup,
@@ -220,6 +220,21 @@ const Map = (props) => {
     options: { radius: 100, maxZoom: 15 },
   });
 
+  /*const handleGeocoderViewportChange = useCallback((newViewport) => {
+    const geocoderDefaultOverrides = { transitionDuration: 1000 };*/
+
+  const handleGeocoderViewportChange = useCallback((viewport) => {/*onViewportChange*/
+    //console.log(viewport);
+    setToggleUserMarker(false);  
+    setUserMarker(null);
+    setViewport({
+      ...viewport,
+      transitionInterpolator: new FlyToInterpolator(),
+      transitionDuration: 500,
+    });
+  },[])
+
+
   return (
     <MainContainer height={props.height} width={props.width}>
       <div ref={geocoderContainerRef} style={{ marginBottom: "0%" }} />
@@ -252,16 +267,11 @@ const Map = (props) => {
         <Geocoder
           mapRef={mapRef}
           containerRef={geocoderContainerRef}
-          onViewportChange={(viewport) => {
-            setViewport({
-              ...viewport,
-              transitionInterpolator: new FlyToInterpolator(),
-              transitionDuration: 500,
-            });
-          }}
+          onViewportChange={handleGeocoderViewportChange}
           mapboxApiAccessToken={MAPBOX_TOKEN}
           zoom={17}
-          inputValue={""}
+          marker = {false}
+          //inputValue={""}
         />
         {/*<FullscreenControl style={fullscreenControlStyle} />*/}
         <GeolocateControl

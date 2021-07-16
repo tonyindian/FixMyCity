@@ -25,8 +25,8 @@ export const MainContainer = styled.div`
 export const Box = styled.div`
     /*display: flex;
     justify-content: center;*/
-    width: 300px;
-    height: 500px;
+    width: 200px;
+    height: 300px;
     
     /*max-width: 80%;
     max-height: 80%;*/

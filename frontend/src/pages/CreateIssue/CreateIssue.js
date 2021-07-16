@@ -25,9 +25,11 @@ import reviewCategory from "../../assets/images/review_category.png"
 import reviewTitle from "../../assets/images/review_title.png"
 import reviewDescription from "../../assets/images/review_description.png"
 import confirmation from "../../assets/svgs/confirmation.svg"
-import Navigation from "../../components/Navigation/Navigation"
+import Navigation from "../../components/Navigation_CreateIssue/NavigationCreateIssue"
+import Sad from "../../assets/images/sad.png"
+import Confirmation from "../../assets/images/confirmation.png"
 
-const StepOne = () => {
+const StepOne = (props) => {
   const pinnedCoordinates = useSelector(
     (state) => state.createIssueCoordinatesReducer.coordinates
   );
@@ -37,14 +39,14 @@ const StepOne = () => {
   return (
     <>
       <StepOneContainer>
-        <h1>Step 1/3</h1>
+        
         {
           //<div id="step1">
         }
         <StaticMap
           key={"map"}
-          width={"100%"}
-          height={"100%"}
+          width={"90%"}
+          height={"70%"}
           latitude={pinnedCoordinates.latitude}
           longitude={pinnedCoordinates.longitude}
           zoom={19}
@@ -65,6 +67,7 @@ const StepOne = () => {
             />
           </Marker>
         </StaticMap>
+        <p>{props.address} <br></br> {props.postcode} {props.city}</p>
         {
           //</div>
         }
@@ -77,7 +80,7 @@ const StepTwo = (props) => {
   return (
     <>
       <StepTwoContainer>
-        <h1>Step 2/3</h1>
+        <h3>Share a picture of the issue with us!</h3>
         <Camera
           imageURL={props.imageURL}
           setImageURL={props.setImageURL}
@@ -104,18 +107,19 @@ const StepThree = (props) => {
   return (
     <>
       <StepThreeContainer>
-        <h1>Step 3/3</h1>
+        <h3 id="pageTitle">Tell us more about this issue</h3>
         <div id="titleCategoryDescriptionContainer">
           <div id="titleContainer">
-            <h3>Add a title:</h3>
+            <h3>Title:</h3>
             <input
+              id = "title"
               type="text"
               value={props.title}
               onChange={titleOnChangeHandler}
             ></input>
           </div>
           <div id="categoryContainer">
-            <h3>Add a category:</h3>
+            <h3>Category:</h3>
             <select
               id="selectCategory"
               defaultValue={props.category === "" ? "default" : props.category}
@@ -129,13 +133,19 @@ const StepThree = (props) => {
             </select>
           </div>
           <div id="descriptionContainer">
-            <h3>Add a description:</h3>
+            <h3>Description:</h3>
             <textarea
+              id = "description"
+              type="text"
+              value= {props.description}
+              onChange={descriptionOnChangeHandler}
+            ></textarea>
+              {/*<textarea
               rows="10"
               cols="37"
               value={props.description}
               onChange={descriptionOnChangeHandler}
-            ></textarea>
+            ></textarea>*/}
           </div>
         </div>
       </StepThreeContainer>
@@ -146,20 +156,28 @@ const StepThree = (props) => {
 const Review = (props) => {
   return (
     <>
-      <ReviewContainer>
-        <h1>Review</h1>
+      <ReviewContainer>        
+        <h3 id="pageTitle">Review</h3>
         <div id="reviewContainerBox">
+          <div className="itemTitleText">
+            <h3 className="itemTitle" id="powerTitle">{props.title}</h3>
+            <p className="itemText"> @{props.address}, {props.postcode}, {props.city}</p>
+          </div> 
           <Box>
             <img
               id="selectedImage"
               src={props.imageURL}
               alt="selected_image"
             ></img>
-          </Box>          
-          <div className="reviewIconNameContainer"><img className="reviewIcons" src={reviewTitle} alt="title"></img> <p>{props.title}</p></div>
-          <div className="reviewIconNameContainer"><img className="reviewIcons" src={reviewAddress} alt="address"/><p> {props.address}, {props.postcode}, {props.city}</p></div>
-          <div className="reviewIconNameContainer"><img className="reviewIcons" src={reviewCategory} alt="category"/><p>Category: {props.category}</p></div>
-          <div className="reviewIconNameContainer"><img className="reviewIcons" src={reviewDescription} alt="description"/><p>Description: {props.description}</p></div>
+          </Box>
+          <div className="itemTitleText">     
+            <h3 className="itemTitle">Category</h3>
+            <p className="itemText">{props.category}</p>
+          </div>   
+          <div className="itemTitleText"> 
+            <h3 className="itemTitle">Description</h3>
+            <p className="itemText">{props.description}</p>       
+          </div>       
         </div>
       </ReviewContainer>
     </>
@@ -170,7 +188,7 @@ const ThankYouPage = () => {
 
   return(
     <ThankYouContainer>
-      <img src={confirmation} id="confirmationIcon" alt="confirmation"></img>
+      <img src={Confirmation} id="confirmationIcon" alt="confirmation"></img>
       <h1>Thank you for making your city a better place to live in!</h1>
     </ThankYouContainer>
   )
@@ -180,6 +198,7 @@ const SomethingWentWrongPage = () => {
 
   return(
     <SomethingWentWrongContainer>
+      <img id="sad" src={Sad} alt="sad"></img>
       <h1>Oops... something went wrong. Please try again</h1>
     </SomethingWentWrongContainer>
   )
@@ -231,6 +250,7 @@ const CreateIssue = () => {
   const [toggleShowThankYou, setToggleShowThankyou] = useState(false);
   const [toggleShowSomethingWentWrong, setShowToggleShowSomethingWentWrong] = useState(false);
   const [toggleIsPageComplete, setToggleIsPageComplete] = useState(true);
+  const [toggleShowNavigation, setToggleShowNavigation] = useState(true);
   const [title, setTitle] = useState("");
   const [address, setAddress] = useState("");
   const [postcode, setPostCode] = useState("");
@@ -283,46 +303,15 @@ const CreateIssue = () => {
     }
   };
 
-  const backButtonHandler = () => {
-    if (
-      toggleShowStep2 === true &&
-      !(toggleShowStep1 && toggleShowStep3 && toggleShowReview)
-    ) {
-      setToggleShowStep2(false);
-      setToggleShowStep1(true);
-    }
-    if (
-      toggleShowStep3 === true &&
-      !(toggleShowStep1 && toggleShowStep2 && toggleShowReview)
-    ) {
-      setToggleShowStep3(false);
-      setToggleShowStep2(true);
-    }
-    if (
-      toggleShowReview === true &&
-      !(toggleShowStep1 && toggleShowStep2 && toggleShowStep3)
-    ) {
-      setToggleShowReview(false);
-      setToggleShowStep3(true);
-    }
-    if(toggleShowSomethingWentWrong===true){
-      setShowToggleShowSomethingWentWrong(false);
-      setToggleShowReview(true);
-    }
-  };
-
-  const leaveOnClickHandler = () => {
+  const homeOnClickHandler = () =>{
     history.push("/");
-
-
   }
-
 
   const sendOnClickHandler = async () => {
     //console.log("you hit me");
     const url = "/issues/new/";
     const postmanToken =
-      "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjI2MzY4MzA5LCJqdGkiOiI3MzFkOThiODJiNWU0ZjRmYjkxZjcwOTgzYzg5ZThhOCIsInVzZXJfaWQiOjF9.l0rl5zqGADavU3JaNLoUqod5CM6gZIG4LKmB2Rkvgis";
+      "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjI2NTQxMzczLCJqdGkiOiIxZmRjNjk0MjNhY2U0ODA1YmQwNzc0NzIxOTk3MDc2NiIsInVzZXJfaWQiOjF9.2X0FirNVsdcMPdHyuW2hfoEKY66Og-PG2Gc9ooGWswA";
 
     let formdata = new FormData();
     formdata.append("title", title);
@@ -348,21 +337,42 @@ const CreateIssue = () => {
       if (resp.status === 201) {
         console.log("Success.");
         setToggleShowReview(false);
+        setToggleShowNavigation(false)
         setToggleShowThankyou(true);
       }
     } catch (err) {
       if (err) {
         console.log(err.response);
         setToggleShowReview(false);
+        setToggleShowNavigation(false)
         setShowToggleShowSomethingWentWrong(true);
       }
     }
   };
 
   return (
+    <>
+    
     <MainContainer>
-      <Navigation showBackButton={true}/>
-      {toggleShowStep1 === true ? <StepOne /> : null}
+      {toggleShowNavigation===true?
+        <Navigation 
+          setToggleShowNavigation={setToggleShowNavigation}
+          showBackButton={true} 
+          toggleShowStep1={toggleShowStep1}
+          setToggleShowStep1 = {setToggleShowStep1} 
+          toggleShowStep2={toggleShowStep2}
+          setToggleShowStep2 = {setToggleShowStep2} 
+          toggleShowStep3={toggleShowStep3}
+          setToggleShowStep3 = {setToggleShowStep3} 
+          toggleShowReview = {toggleShowReview}
+          setToggleShowReview = {setToggleShowReview}
+          toggleShowSomethingWentWrong = {toggleShowSomethingWentWrong}
+          setShowToggleShowSomethingWentWrong = {setShowToggleShowSomethingWentWrong}
+        />
+        :null}
+      {toggleShowStep1 === true ? 
+      <StepOne address={address} postcode={postcode} city={city} />        
+      : null}
       {toggleShowStep2 === true ? (
         <>
           <StepTwo
@@ -403,30 +413,22 @@ const CreateIssue = () => {
       {toggleShowSomethingWentWrong===true?
         <SomethingWentWrongPage/>
         :null}
-      <div id="footer">
-        {toggleShowStep1 === false && toggleShowThankYou === false? (
-          <button id="backArrowButton" onClick={backButtonHandler}>
-            <img src={leftArrow} id="backArrow" alt="back"></img>
-          </button>
-        ) : null}
-        <div id="buttonsContainer">
-          {toggleShowStep1 === true || toggleShowThankYou === true || toggleShowSomethingWentWrong? (
-            <button id="leaveButton" onClick={leaveOnClickHandler}>Home</button>
-          ) : null}
-
-          {toggleShowReview === true && toggleIsPageComplete === true ? (
-            <button id="sendButton" onClick={sendOnClickHandler}>
-              Send
-            </button>
-          ) : null}
-        </div>
-        {toggleIsPageComplete === true && toggleShowReview === false && toggleShowSomethingWentWrong === false && toggleShowThankYou === false? (
-          <button id="nextArrowButton" onClick={nextButtonHandler}>
-            <img src={rightArrow} id="nextArrow" alt="next"></img>
-          </button>
-        ) : null}
-      </div>
+      <div id="footer">       
+          <div id="buttonsContainer">
+            {toggleIsPageComplete === true && toggleShowReview === false && toggleShowSomethingWentWrong === false && toggleShowThankYou === false? (
+              <button id="nextButton" onClick={nextButtonHandler}>Next</button>
+            ) : null}
+                
+            {toggleShowReview === true && toggleIsPageComplete === true ? (
+              <button id="sendButton" onClick={sendOnClickHandler}>Send</button>            
+            ) : null}
+            {toggleShowSomethingWentWrong === true || toggleShowThankYou === true ? (
+              <button id="homeButton" onClick={homeOnClickHandler}>Home</button>            
+            ) : null}
+          </div> 
+        </div>       
     </MainContainer>
+    </>
   );
 };
 

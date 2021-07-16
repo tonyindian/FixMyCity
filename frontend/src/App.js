@@ -4,11 +4,8 @@ import './App.css';
 import Login from "./pages/Login/Login"
 import CreateIssue from "./pages/CreateIssue/CreateIssue"
 import Map from './components/Map/Map';
-import Banner from './components/Banner/Banner';
-import { Spaceholder } from './components/navbar';
 import Homepage from './pages/Homepage/Homepage';
 import Profile from './pages/Profile/Profile';
-
 
 
 function App() {
