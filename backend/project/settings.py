@@ -151,15 +151,17 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
+# Static files (CSS, JavaScript, Img)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 
 STATIC_URL = '/static-files/'
-STATIC_ROOT = '/static-files/'
+# STATIC_ROOT = '/static-files/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static-files')
 
 MEDIA_URL = '/media-files/'
-MEDIA_ROOT = '/media-files/'
+# MEDIA_ROOT = '/media-files/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media-files')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
