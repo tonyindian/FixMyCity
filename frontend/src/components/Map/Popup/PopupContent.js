@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 const MainContainer = styled.div`
-  width: 150px;
+  width: 160px;
 
   display: flex;
   flex-direction: column;
@@ -25,7 +25,10 @@ const Title = styled.h1`
   margin-bottom: 0px;
 `;
 
-const IssueImg = styled.img``;
+const IssueImg = styled.img`
+  height: 30%;
+  width: auto;
+`;
 
 const Text = styled.p`
   font-size: ${(props) => props.fontSize || "12px"};
@@ -59,10 +62,10 @@ const PopupContent = (props) => {
     <>
       <MainContainer>
         <Title>{props.title}</Title>
-        <Text fontStyle={"italic"} fontSize={"10px"} marginBottom={"10px"}>
+        <Text fontStyle={"italic"} fontSize={"11px"} marginBottom={"10px"}>
           {issueCreated.toLocaleDateString("en-UK")}
         </Text>
-        <Text marginRight={"auto"}>{props.upvoteCount} upvotes</Text>
+        <IssueImg src={props.image} alt={"image of the issue"} />
         <MoreDetailsLink
           marginTop={"10px"}
           onClick={() => props.setToggleMoreDetails(true)}
@@ -75,3 +78,5 @@ const PopupContent = (props) => {
 };
 
 export default PopupContent;
+
+/* <Text marginRight={"auto"}>{props.upvoteCount} upvotes</Text> */

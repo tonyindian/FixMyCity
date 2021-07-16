@@ -27,6 +27,7 @@ import YellowMarker from "../../assets/map/markers/yellow-marker.png";
 import BlueMarker from "../../assets/map/markers/blue-marker.png";
 import PopupContent from "./Popup/PopupContent";
 import MoreDetails from "./Popup/MoreDetails";
+import Navigation from "../Navigation/Navigation";
 
 const Map = (props) => {
   // Styles to place the buttons somewhere on the map (absolute position)
@@ -37,19 +38,19 @@ const Map = (props) => {
   };
   */
   const geolocateControlStyle = {
-    left: 15,
-    top: 15,
+    left: "3%",
+    top: "20%",
   };
 
   const navControlStyle = {
-    left: 15,
-    top: 60,
+    left: "3%",
+    top: "26%",
   };
 
   const scaleControlStyle = {
     left: "50%",
     transform: "translate(-50%, 0)",
-    bottom: 15,
+    bottom: "2%",
   };
 
   // Token for Mapbox (to be able to use Mapbox)
@@ -228,6 +229,7 @@ const Map = (props) => {
             author: issue.user.username,
             created: issue.created,
             upvoteCount: issue.issue_count,
+            description: issue.content,
           },
           geometry: {
             type: "Point",
@@ -253,7 +255,8 @@ const Map = (props) => {
   return (
     <>
       <MainContainer height={props.height} width={props.width}>
-        <div ref={geocoderContainerRef} style={{ marginBottom: "0%" }} />
+        <Navigation position="absolute" />
+        <div ref={geocoderContainerRef} />
         <ReactMapGL
           {...viewport}
           mapboxApiAccessToken={MAPBOX_TOKEN}
@@ -358,7 +361,7 @@ const Map = (props) => {
                     height={`${14 + (pointCount / points.length) * 30}px`}
                     width={`${14 + (pointCount / points.length) * 30}px`}
                     lineHeight={`${
-                      14 + (pointCount / points.length) * 30 - 1
+                      14 + (pointCount / points.length) * 30 + 1
                     }px`}
                     onClick={(e) => {
                       e.preventDefault();
@@ -463,7 +466,21 @@ const Map = (props) => {
           }
         </ReactMapGL>
       </MainContainer>
-      {toggleMoreDetails && <MoreDetails></MoreDetails>}
+      {toggleMoreDetails && (
+        <MoreDetails
+          setToggleMoreDetails={setToggleMoreDetails}
+          title={selectedIssue.properties.title}
+          author={selectedIssue.properties.author}
+          created={selectedIssue.properties.created}
+          upvoteCount={selectedIssue.properties.upvoteCount}
+          category={selectedIssue.properties.category}
+          image={selectedIssue.properties.image}
+          description={selectedIssue.properties.description}
+          streetAndNumber={selectedIssue.properties.streetAndNumber}
+          zip={selectedIssue.properties.zip}
+          city={selectedIssue.properties.city}
+        />
+      )}
     </>
   );
 };

@@ -54,8 +54,8 @@ export const SatelliteButton = styled.button`
   cursor: pointer;
 
   position: absolute;
-  right: 15px;
-  top: 15px;
+  right: 3%;
+  top: 20%;
   z-index: 2;
 
   :hover {
