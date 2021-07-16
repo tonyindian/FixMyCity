@@ -8,7 +8,8 @@ from comment.serializers import CommentSerializer
 class IssueSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
     issue_count = serializers.SerializerMethodField(read_only=True)
-    issue_comments = CommentSerializer(read_only=True)
+# many2many -> many=True!
+    issue_comments = CommentSerializer(read_only=True, many=True)
 
 
     def get_issue_count(self, obj):
