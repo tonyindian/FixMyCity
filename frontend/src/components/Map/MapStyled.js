@@ -22,6 +22,8 @@ export const MarkerDivStyle = styled.div`
 `;
 
 export const MarkerImgStyle = styled.img`
+  width: 36px;
+  height: auto;
   cursor: pointer;
 `;
 
@@ -52,8 +54,8 @@ export const SatelliteButton = styled.button`
   cursor: pointer;
 
   position: absolute;
-  right: 15px;
-  top: 15px;
+  right: 3%;
+  top: 20%;
   z-index: 2;
 
   :hover {

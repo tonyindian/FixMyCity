@@ -3,7 +3,7 @@ import { UserDetails } from './ProfileStyled';
 
 
 
-const ProfileDownPart = () => {
+const ProfileDownpart = () => {
 
     return (
         <>
@@ -34,4 +34,4 @@ const ProfileDownPart = () => {
 
     )
 }
-export default ProfileDownPart
+export default ProfileDownpart

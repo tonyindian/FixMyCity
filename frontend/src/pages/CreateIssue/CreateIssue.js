@@ -49,7 +49,7 @@ const StepOne = () => {
           longitude={pinnedCoordinates.longitude}
           zoom={19}
           mapboxApiAccessToken={MAPBOX_TOKEN}
-          mapStyle={"mapbox://styles/mapbox/satellite-v9"}
+          mapStyle={"mapbox://styles/mapbox/streets-v11"}
         >
           <Marker
             key={"userMarker"}

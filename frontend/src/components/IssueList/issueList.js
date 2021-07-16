@@ -54,6 +54,7 @@ const IssueList = () => {
                 if (err.response.status === 400) {
                     console.log(err.response);
                 }
+                
             }
         }
 

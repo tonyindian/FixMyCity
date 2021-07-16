@@ -5,6 +5,7 @@ import Map from "../../components/Map/Map";
 import searchglass from "../../assets/images/search.png";
 import FilterButton from "./FilterButton";
 import { useDispatch } from "react-redux";
+import Navigation from "../../components/Navigation/Navigation";
 
 const Homepage = () => {
   const dispatch = useDispatch();
@@ -23,13 +24,13 @@ const Homepage = () => {
   return (
     <Main>
       <Map height={"100%"} width={"100%"} setCoordinates={setCoordinates} />
-      {coordinates === null ? (
+      {/*coordinates === null ? (
         <FilterButton />
       ) : (
         <ReportButton name="Report" onClick={reportButtonOnClickHandler}>
           Report
         </ReportButton>
-      )}
+      )*/}
     </Main>
   );
 };
