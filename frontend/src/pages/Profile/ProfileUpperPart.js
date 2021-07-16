@@ -18,7 +18,7 @@ return (
             {/* <img alt="upload" className="upload" src={UploadPic}></img> */}
         </aside>
         <aside className='right'>
-            <h2>Max Meyer</h2>
+            <h1>Max Meyer</h1>
             <p>Member since 12.02.2021</p>
         </aside>  
         </NameContainer>

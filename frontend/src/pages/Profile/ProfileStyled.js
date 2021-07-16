@@ -9,6 +9,7 @@ export const Main= styled.div`
     align-items: center;
     flex-direction: column;
     box-sizing: border-box;
+    padding-left: 7%;
 `
 
 export const NameContainer = styled.div`
@@ -29,7 +30,7 @@ export const NameContainer = styled.div`
         margin-top: 15%;
     }
     
-    h2 {
+    h1 {
         font-style: normal;
         font-weight: bold;
         font-size: 24px;
@@ -38,7 +39,9 @@ export const NameContainer = styled.div`
     }
 
     p {
-        margin-top: 0%;
+        margin-top: 5%;
+        font-size: 14px;
+        font-weight: 300;
     }
 
     .avatar {
@@ -106,8 +109,8 @@ export const IssueContainer = styled.div`
         font-weight: bold;
         font-size: 15px;
         line-height: 18px;
-        margin-top: 5%;
-        margin-bottom: 4%;
+        margin-top: 7%;
+        margin-bottom: 6%;
     }
     }
     
@@ -119,49 +122,61 @@ export const IssueContainer = styled.div`
         font-weight: bold;
         font-size: 15px;
         line-height: 18px;
-        margin-top: 5%;
-        margin-bottom: 4%;
+        margin-top: 7%;
+        margin-bottom: 6%;
         }
     }
     
 `
 
+export const ProfileDetails = styled.div`
+    /* border: solid red 2px; */
+    height: 10%;
+    width: 90%;
+
+    h2 {
+        font-weight: bold;
+        font-size: 20px;
+        line-height: 23px;
+        margin-top: 5%;
+
+color: #F8CE46;
+    }
+`
+
 
 export const UserDetails = styled.div`
-    border: 2px solid blue;
+    /* border: 2px solid blue; */
     width: 90%;
     height: 40%;
     display: flex;
     
+    h2{
+        font-weight: bold;
+        font-size: 14px;
+        margin-top: 7%;
+        margin-bottom: 5%;
+    }
+    
     p {
-        color: white;
-        padding-left: 10%;
-        margin-bottom: 2%;
+        margin-bottom: 10%;
+        font-size: 12px;
+        font-weight: 300;
     }
 
     .left {
+        width: 50%;
+        margin-top: 2%;
     }
 
     .right {
-    }
-
-
-    input {
-        width: 90%;
-        height: 27px;
-        border-radius: 25px;
-        background-color: white;
-        text-align: center;
-        border-bottom: 1px solid rgb(206, 206, 206);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-left: 4%;
+        width: 50%;
+        margin-top: 2%;
     }
 `
 
 export const SaveBox = styled.div`
-    border: 2px solid pink;
+    /* border: 2px solid pink; */
     width: 90%;
     height: 7%;
 `
