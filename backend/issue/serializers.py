@@ -1,12 +1,15 @@
+from fixmycity.backend.comment.serializers import CommentSerializer
 from rest_framework import serializers
 
 from issue.models import Issue
 from user.serializers import UserSerializer
+from comment.serializers import CommentSerializer
 
 
 class IssueSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
     issue_count = serializers.SerializerMethodField(read_only=True)
+    issue_comments = CommentSerializer(read_only=True)
 
 
     def get_issue_count(self, obj):
