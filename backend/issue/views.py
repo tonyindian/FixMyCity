@@ -58,9 +58,9 @@ class ToggleUpvoteIssueView(UpdateAPIView):
         issue = self.get_object()
         user = self.request.user
 
-        if user == issue.user:
-            return Response({'error': 'Cannot upvote own post'},
-                            status=status.HTTP_400_BAD_REQUEST)
+#        if user == issue.user:
+#            return Response({'error': 'Cannot upvote own post'},
+#                            status=status.HTTP_400_BAD_REQUEST)
 
         if user in issue.upvoted_by.all():
             issue.upvoted_by.remove(user)

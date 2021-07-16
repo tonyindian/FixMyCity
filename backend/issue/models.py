@@ -22,6 +22,7 @@ class Issue(models.Model):
     modified = models.DateTimeField(auto_now=True)
     user = models.ForeignKey(to=User, related_name='user_issues', on_delete=models.CASCADE)
     upvoted_by = models.ManyToManyField(to=User, related_name='upvoted_issues')
+    status = models.TextField (max_length=100, default='open')
 
 
     def __str__(self):

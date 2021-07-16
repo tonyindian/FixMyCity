@@ -20,7 +20,7 @@ export const ReportButton = styled(NextButton)`
 `
 
 //Sign Up, Up-vote issue,
-export const SignUpButton = styled.div`
+export const SignUpButton = styled.button`
     position: absolute;
     width: 196px;
     height: 51px;
@@ -28,7 +28,7 @@ export const SignUpButton = styled.div`
     top: 480px;
 `
 //smaller Login & Sign Up Button
-export const LoginSignUpButton = styled.div`
+export const LoginSignUpButton = styled.button`
     position: absolute;
     width: 125px;
     height: 39px;
@@ -37,6 +37,9 @@ export const LoginSignUpButton = styled.div`
     background: #5D61F6;
     border-radius: 4px;
     color: white;
+    display: grid;
+    justify-items: center;
+    align-items: center;
 `
 //(Add filters to your search) (Apply filters) (Clear all) BUTTONS just the width must be changed!
 export const FilterButton = styled.button`

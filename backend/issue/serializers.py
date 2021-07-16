@@ -14,8 +14,7 @@ class IssueSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Issue
-        fields = ['id', 'title', 'content', 'category', 'user', 'adress', 'longitude', 'latitude', 'city', 'zip',
-                  'image', 'created', 'modified', 'issue_comments', 'upvoted_by', 'issue_count']
+        fields = ['id', 'title', 'content', 'category', 'status', 'adress', 'longitude', 'latitude', 'city', 'zip', 'image', 'created', 'modified', 'issue_comments', 'upvoted_by', 'issue_count', 'user']
         read_only_fields = ['id', 'created', 'modified', 'user', 'upvoted_by', 'issue_count']
 
 
