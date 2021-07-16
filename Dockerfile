@@ -16,6 +16,7 @@ RUN mkdir -p /frontend
 RUN mkdir -p /frontend_tmp
 RUN mkdir -p /scripts
 RUN mkdir -p /static-files
+RUN mkdir -p /media-files
 
 # copy files from local to container
 COPY ./backend/requirements.yml /backend/requirements.yml
