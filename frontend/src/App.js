@@ -1,12 +1,12 @@
 //import logo from './logo.svg';
-import { BrowserRouter, Route, Switch } from "react-router-dom";
-import "./App.css";
-import Login from "./pages/Login/Login";
-import CreateIssue from "./pages/CreateIssue/CreateIssue";
-import Map from "./components/Map/Map";
-import Banner from "./components/Banner/Banner";
-import Homepage from "./pages/Homepage/Homepage";
-import Profile from "./pages/Profile/Profile";
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import './App.css';
+import Login from "./pages/Login/Login"
+import CreateIssue from "./pages/CreateIssue/CreateIssue"
+import Map from './components/Map/Map';
+import Homepage from './pages/Homepage/Homepage';
+import Profile from './pages/Profile/Profile';
+
 
 function App() {
   return (

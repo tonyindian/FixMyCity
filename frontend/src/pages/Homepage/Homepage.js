@@ -26,13 +26,13 @@ const Homepage = () => {
     <Div100vh>
       <Main>
         <Map height={"100%"} width={"100%"} setCoordinates={setCoordinates} />
-        {/*coordinates === null ? (
+        {coordinates === null ? (
         <FilterButton />
       ) : (
         <ReportButton name="Report" onClick={reportButtonOnClickHandler}>
           Report
         </ReportButton>
-      )*/}
+      )}
       </Main>
     </Div100vh>
   );
