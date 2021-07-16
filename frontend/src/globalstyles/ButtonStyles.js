@@ -11,7 +11,7 @@ export const NextButton = styled.button`
     border: 3.5px solid #5D61F6;
     box-sizing: border-box;
     border-radius: 4px;
-    /* box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25); */
+    
 `
 
 //Report, Save, Verify

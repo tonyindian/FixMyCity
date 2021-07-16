@@ -1,4 +1,7 @@
 import styled from 'styled-components';
+import { EmailPasswordField } from "../../globalstyles/Input";
+import { ReportButton } from "../../globalstyles/ButtonStyles";
+import LastReport from './LastReport1';
 
 
 export const Main= styled.div`
@@ -64,8 +67,7 @@ export const StatusConatiner = styled.div`
     height: 12%;
     display: flex;
     
-    
-    
+
     img {
         width: 35%;
         height: 50%;
@@ -78,6 +80,7 @@ export const StatusConatiner = styled.div`
         line-height: 28px;
         color: #E26236;
     }
+
     .blackP {
         color: black;
     }
@@ -130,7 +133,6 @@ export const IssueContainer = styled.div`
 `
 
 export const ProfileDetails = styled.div`
-    /* border: solid red 2px; */
     height: 10%;
     width: 90%;
 
@@ -146,7 +148,6 @@ color: #F8CE46;
 
 
 export const UserDetails = styled.div`
-    /* border: 2px solid blue; */
     width: 90%;
     height: 40%;
     display: flex;
@@ -176,7 +177,114 @@ export const UserDetails = styled.div`
 `
 
 export const SaveBox = styled.div`
-    /* border: 2px solid pink; */
     width: 90%;
     height: 7%;
 `
+
+export const FormWrapper = styled.form`
+    height: 87%;
+    display: flex;
+    flex-direction: column;
+    
+
+    h1 {
+        font-size: 30px;
+        color: black;
+        font-weight: bold;
+        margin-top: 50%;
+        padding-left: 15%;
+    }
+
+`
+
+export const EmailField = styled(EmailPasswordField)`
+    border: none;
+    outline: none;
+    border-bottom: 2px solid grey;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 21px;
+    top: 280px;
+`
+
+export const SaveButton = styled(ReportButton)`
+    top: 380px;
+    font-weight: bold;
+    font-size: 18px;
+    
+    
+    :active {
+        background: #E26236;
+        color: white;
+    }
+`
+
+export const PhoneNumber =styled.div`
+    border: 2px solid red;
+    width: 50%;
+    height: 50%;
+`
+
+
+export const LastReportContainer =styled.div`
+    border: solid red 2px;
+    height: 40%;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+
+    h1 {
+        font-weight: bold;
+        font-size: 20px;
+        line-height: 23px;
+        color: #F8CE46;
+    }
+`
+
+export const FetschingContainer =styled.div`
+    /* border: solid green 2px; */
+    height: 35%;
+    width: 99%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: solid black 2px;
+    
+
+
+    p {
+        font-weight: bold;
+        font-size: 14px;
+        line-height: 16px;
+    }
+`
+
+export const AddressContainer =styled.p`
+    /* border: solid yellow 2px; */
+    height: 20%;
+    width: 49%;
+    
+
+    p {
+        font-weight: bold;
+        font-size: 14px;
+        line-height: 16px;
+    }
+`
+
+export const MoreContainer =styled.div`
+    border: solid blue 2px;
+    height: 10%;
+    width: 90%;
+    
+
+    p {
+        font-weight: bold;
+        font-size: 13px;
+        line-height: 15px;
+        text-align: right;
+        color: #F8CE46;
+    }
+`
+

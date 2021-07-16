@@ -10,10 +10,22 @@ import MedalPic from '../../assets/svgs/medal.svg';
 
 const ProfileUpperPart = () => {
 
+    // const reduxProfileData = useSelector(reduxState=>reduxState.profileReducer); 
+
+    // const editProfileBtnHandler = () => {
+    //     history.push("/editprofile");
+    //  }
+ 
+
 return (
     <>
         <NameContainer>
         <aside className='left'>
+            {/* <img src={reduxProfileData.avatar} id="profilePictureMain" alt="profile_avatar"></img>
+            <p className="mediumSizeBold">{reduxProfileData.firstName} {reduxProfileData.lastName}</p>
+            <p>{reduxProfileData.location}</p>
+            <button id="editProfileBtn" onClick={editProfileBtnHandler}>Edit Profile</button> */}
+
             <img alt="profile_avatar" className="avatar" src={ProfilePic}></img>
             {/* <img alt="upload" className="upload" src={UploadPic}></img> */}
         </aside>
