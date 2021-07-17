@@ -296,7 +296,7 @@ const Map = (props) => {
     points,
     zoom: viewport.zoom,
     bounds,
-    options: { radius: 100, maxZoom: 15 },
+    options: { radius: 100, maxZoom: 20 },
   });
 
   return (
@@ -385,7 +385,7 @@ const Map = (props) => {
                   onClick={() => {
                     const expansionZoom = Math.min(
                       supercluster.getClusterExpansionZoom(cluster.id),
-                      15
+                      20
                     );
                     setViewport({
                       ...viewport,
