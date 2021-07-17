@@ -1,5 +1,5 @@
 import React from 'react';
-import { PhoneNumber } from './ProfileStyled';
+import { FormWrapper, EmailField, SaveButton } from './ProfileStyled';
 import Navigation from '../../components/Navigation/Navigation';
 
 
@@ -8,9 +8,18 @@ const EditProfile5 = () => {
     return (
         <>
             <Navigation/>
-                <PhoneNumber>
-                    <h1>Pohne Number</h1>
-                </PhoneNumber>
+                <FormWrapper> 
+                    {/* onSubmit={onHandleSubmit}> */}
+                    <h1>New Password</h1>
+                    <EmailField type='email' required='This field is required'/> 
+                    {/* onChange={onUsernameChange} */}
+                    <SaveButton type={"submit"}>
+                    Update
+                    </SaveButton>
+                </FormWrapper>
+
+            {/* <PasswordField placeholder='Password' type='password' required='This field is required'/>  */}
+               {/* onChange={onPasswordChange} */}
         </>
         )
 }

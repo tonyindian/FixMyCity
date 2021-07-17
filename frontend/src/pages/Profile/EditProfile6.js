@@ -10,7 +10,7 @@ const EditProfile6 = () => {
             <Navigation/>
                 <FormWrapper> 
                     {/* onSubmit={onHandleSubmit}> */}
-                    <h1>New Password</h1>
+                    <h1>Password</h1>
                     <EmailField type='email' required='This field is required'/> 
                     {/* onChange={onUsernameChange} */}
                     <SaveButton type={"submit"}>
