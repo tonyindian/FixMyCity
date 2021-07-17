@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import React, {useEffect, useState} from "react";
 import Axios from "../../Axios/index";
-import IssueComponent from './issuesComponent';
+import IssueComponent, { ListLine } from './issuesComponent';
 
 
 const Main= styled.div`
@@ -68,7 +68,8 @@ const IssueList = () => {
             <ListWrapper>
                 <ListTitle>Reported by</ListTitle>
                 <ListOrigin>Sophia</ListOrigin>
-                <div>
+
+                <ListLine/>
                 {
                     issues
                     ?
@@ -76,8 +77,7 @@ const IssueList = () => {
                     :
                     <h1>No entries found!</h1>
                 }
-                </div>
-
+                
             </ListWrapper>
         </Main>
     )

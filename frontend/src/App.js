@@ -7,6 +7,7 @@ import Map from "./components/Map/Map";
 import Banner from "./components/Banner/Banner";
 import Homepage from "./pages/Homepage/Homepage";
 import Profile from "./pages/Profile/Profile";
+import PageIssueList from "./pages/PageIssueList/pageIssueList";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route exact path="/map" component={Map} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/profile" component={Profile} />
+        <Route exact path="/issuelist" component={PageIssueList} />
       </Switch>
     </BrowserRouter>
   );
