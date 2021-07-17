@@ -88,9 +88,11 @@ export const StepTwoContainer = styled.div`
     color: black;
     height: 90%;
    
-    h1,h3{
-        margin-left: 10px;
-    }
+    .pageTitle{
+        font-size: 20px;
+        margin-left: 20px;
+        margin-top: 40px;
+    }   
 `
 export const StepThreeContainer = styled.div`
    
@@ -100,10 +102,12 @@ export const StepThreeContainer = styled.div`
     color: black;
     height: 90%;
    
-    #pageTitle {
+    .pageTitle{
+        font-size: 20px;
         margin-left: 20px;
+        margin-top: 40px;
         align-self: flex-start;
-    }
+    }   
 
     #titleCategoryDescriptionContainer{
         display: flex;
@@ -112,13 +116,15 @@ export const StepThreeContainer = styled.div`
         border: none;
         width: 80%;
         height: 80%;
+        margin-top: 30px;
         
 
         #titleContainer{
             margin-left: 20px;
+            height: 10%;
             #title{
             width: 90%;
-            height: 40%;
+            height: 20px;           
             border: 1px solid black;
             }
         }
@@ -126,18 +132,20 @@ export const StepThreeContainer = styled.div`
         #categoryContainer{
             margin-top: 20px;
             margin-left: 20px;
+            height: 10%;
             #selectCategory{                
                 border: 1px solid black;
                 width: 90%;
-                height: 40%;
+                height: 20px;
             }
         }
         #descriptionContainer{
             margin-top: 20px;
             margin-left: 20px;
+            flex-grow: 1;
             #description{
-            width: 90%;
-            height: 100%;
+            width: 90%;     
+            height: 60%;     
             border: 1px solid black;
             }
         }
