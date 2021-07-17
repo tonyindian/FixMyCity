@@ -219,12 +219,55 @@ export const SaveButton = styled(ReportButton)`
         color: white;
     }
 `
+export const FormContainer =styled.div`
+    border: solid red 2px;
+    height: 87%;
+    display: flex;
+    flex-direction: column;
+    
 
-export const PhoneNumber =styled.div`
-    width: 50%;
-    height: 50%;
+    h1 {
+        font-size: 30px;
+        color: black;
+        font-weight: bold;
+        margin-top: 30%;
+        padding-left: 15%;
+    }
+
+    p {
+        font-weight: 300;
+        font-size: 17px;
+        line-height: 20px;
+        padding-left: 15%;
+        margin-top: 5%;
+    }
 `
 
+export const PContainer =styled.div`
+    width: 50%;
+    margin-left: 10%;
+    margin-top: 25%;
+
+    p {
+        font-weight: 300;
+        font-size: 14px;
+        line-height: 16px;
+    }
+    
+`
+
+export const UpdateButton =styled(ReportButton)`
+    top: 380px;
+    font-weight: bold;
+    font-size: 18px;
+    margin-top: 15%;
+
+
+    :active {
+        background: #E26236;
+        color: white;
+    }
+`
 
 export const LastReportContainer =styled.div`
     height: 40%;
