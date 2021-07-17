@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import ReactMapGL, {
   Marker,
   Popup,
@@ -57,7 +58,7 @@ const Map = (props) => {
   const MAPBOX_TOKEN =
     "pk.eyJ1IjoiYWxleDI2MCIsImEiOiJja3FxazJuYnQwcnRxMzFxYXNpaHV2NHR3In0.sClUCkiGXj9AQubDvnv68A";
 
-  // States & Ref
+  // States & Ref & Selectors
 
   // Initial viewport for the first rendering
   const [viewport, setViewport] = useState({
@@ -67,6 +68,11 @@ const Map = (props) => {
     height: "100%",
     zoom: 15,
   });
+
+  const dispatch = useDispatch();
+
+  // Get filter's value from redux state
+  const filterValue = useSelector((state) => state.filterReducer.filter);
 
   // Reference for the map
   const mapRef = useRef();
@@ -79,6 +85,9 @@ const Map = (props) => {
 
   // State to save the fetched datas
   const [issues, setIssues] = useState([]);
+
+  // State to save filtered issues
+  const [filteredIssues, setFilteredIssues] = useState([]);
 
   // State to save the converted issues (from json to geojson)
   const [points, setPoints] = useState([]);
@@ -100,6 +109,7 @@ const Map = (props) => {
     "mapbox://styles/mapbox/streets-v11"
   );
 
+  // State to display or not the MoreDetails component
   const [toggleMoreDetails, setToggleMoreDetails] = useState(false);
 
   // Functions
@@ -168,6 +178,19 @@ const Map = (props) => {
     setSelectedIssue(null);
   };
 
+  // Handle geocoder's viewport change
+  const handleGeocoderViewportChange = useCallback((viewport) => {
+    /*onViewportChange*/
+    //console.log(viewport);
+    setToggleUserMarker(false);
+    setUserMarker(null);
+    setViewport({
+      ...viewport,
+      transitionInterpolator: new FlyToInterpolator(),
+      transitionDuration: 500,
+    });
+  }, []);
+
   // onClick event handle, to hide user's marker if he/she clicked on a marker or a cluster
   const hideUserMarker = () => {
     setToggleUserMarker(true);
@@ -184,7 +207,10 @@ const Map = (props) => {
 
     fetch(url)
       .then((res) => res.json())
-      .then((data) => setIssues(data));
+      .then((data) => {
+        setIssues(data);
+        setFilteredIssues(data);
+      });
   }, []);
 
   // It keeps the parent component's coordinate state up to date
@@ -209,13 +235,34 @@ const Map = (props) => {
     }
   }, [toggleSatellite]);
 
-  //Clustering
+  // Unmount: Set filter's value back to "default"
+  useEffect(() => {
+    return () => {
+      dispatch({
+        type: "applyFilter",
+        payload: "default",
+      });
+    };
+  }, []);
+
+  // Filtering
+  useEffect(() => {
+    if (filterValue === "default") {
+      setFilteredIssues(issues);
+    } else {
+      setFilteredIssues(
+        issues.filter((issue) => issue.category === filterValue)
+      );
+    }
+  }, [filterValue]);
+
+  // Clustering
 
   // Prepare data for clustering (from json to geojson)
   useEffect(() => {
-    if (issues.length > 0) {
+    if (filteredIssues.length > 0) {
       setPoints(
-        issues.map((issue) => ({
+        filteredIssues.map((issue) => ({
           type: "Feature",
           properties: {
             cluster: false,
@@ -238,7 +285,7 @@ const Map = (props) => {
         }))
       );
     }
-  }, [issues]);
+  }, [filteredIssues]);
 
   // Get map bounds
   const bounds =
@@ -251,21 +298,6 @@ const Map = (props) => {
     bounds,
     options: { radius: 100, maxZoom: 15 },
   });
-
-  /*const handleGeocoderViewportChange = useCallback((newViewport) => {
-    const geocoderDefaultOverrides = { transitionDuration: 1000 };*/
-
-  const handleGeocoderViewportChange = useCallback((viewport) => {
-    /*onViewportChange*/
-    //console.log(viewport);
-    setToggleUserMarker(false);
-    setUserMarker(null);
-    setViewport({
-      ...viewport,
-      transitionInterpolator: new FlyToInterpolator(),
-      transitionDuration: 500,
-    });
-  }, []);
 
   return (
     <>

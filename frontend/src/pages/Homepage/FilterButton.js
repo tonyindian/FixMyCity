@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { ReportButton } from "./Styled";
 import { MdKeyboardArrowDown } from "react-icons/md";
@@ -56,11 +57,20 @@ const FilterButtonStyle = styled.button`
 `;
 
 const FilterButton = () => {
+  const dispatch = useDispatch();
+
+  const filterRedux = useSelector((state) => state.filterReducer.filter);
+
   const [toggleFilter, setToggleFilter] = useState(false);
 
   const [filterValue, setFilterValue] = useState("default");
 
-  const handleFilter = () => {};
+  const handleFilter = () => {
+    dispatch({
+      type: "applyFilter",
+      payload: filterValue,
+    });
+  };
 
   return (
     <>
@@ -110,7 +120,9 @@ const FilterButton = () => {
               </select>
             </SubContainer>
             <SubContainer justifyContent={"flex-end"}>
-              <FilterButtonStyle>Apply filter</FilterButtonStyle>
+              <FilterButtonStyle onClick={handleFilter}>
+                Apply filter
+              </FilterButtonStyle>
             </SubContainer>
           </FilterContainer>
         </MainContainer>

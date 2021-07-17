@@ -7,8 +7,8 @@ import searchglass from "../../assets/images/search.png";
 import FilterButton from "./FilterButton";
 import { useDispatch } from "react-redux";
 import Navigation from "../../components/Navigation/Navigation";
-import {fetchProfileInfo,patchProfileInfo} from "../../Axios/fetches"
-import {fetchLatestProfileInfoAndUpdateRedux} from "../../middleware/fetchUpdateRedux"
+import { fetchProfileInfo, patchProfileInfo } from "../../Axios/fetches";
+import { fetchLatestProfileInfoAndUpdateRedux } from "../../middleware/fetchUpdateRedux";
 
 const Homepage = () => {
   const dispatch = useDispatch();
@@ -17,7 +17,7 @@ const Homepage = () => {
 
   useEffect(() => {
     console.log(coordinates);
-    fetchLatestProfileInfoAndUpdateRedux(dispatch); 
+    fetchLatestProfileInfoAndUpdateRedux(dispatch);
   }, [coordinates]);
 
   const reportButtonOnClickHandler = () => {
