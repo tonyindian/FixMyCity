@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef,useCallback } from "react";
 import ReactMapGL, {
   Marker,
   Popup,
@@ -252,67 +252,75 @@ const Map = (props) => {
     options: { radius: 100, maxZoom: 15 },
   });
 
+  /*const handleGeocoderViewportChange = useCallback((newViewport) => {
+    const geocoderDefaultOverrides = { transitionDuration: 1000 };*/
+
+  const handleGeocoderViewportChange = useCallback((viewport) => {/*onViewportChange*/
+    //console.log(viewport);
+    setToggleUserMarker(false);  
+    setUserMarker(null);
+    setViewport({
+      ...viewport,
+      transitionInterpolator: new FlyToInterpolator(),
+      transitionDuration: 500,
+    });
+  },[])
+
+
   return (
     <>
-      <MainContainer height={props.height} width={props.width}>
-        <Navigation position="absolute" />
-        <div ref={geocoderContainerRef} />
-        <ReactMapGL
-          {...viewport}
+    <MainContainer height={props.height} width={props.width}>
+      <Navigation position="absolute" />
+      <div ref={geocoderContainerRef} />
+      <ReactMapGL
+        {...viewport}
+        mapboxApiAccessToken={MAPBOX_TOKEN}
+        mapStyle={mapStyle}
+        onClick={handleMapClick}
+        onViewportChange={(viewport) => {
+          if (toggleUserMarker && userMarker) {
+            setViewport({
+              ...viewport,
+              latitude: userMarker.latitude,
+              longitude: userMarker.longitude,
+              zoom: 19,
+              transitionInterpolator: new FlyToInterpolator(),
+              transitionDuration: 500,
+            });
+          }
+          setViewport(viewport);
+        }}
+        scrollZoom={toggleUserMarker && userMarker ? false : true}
+        touchZoom={toggleUserMarker && userMarker ? false : true}
+        doubleClickZoom={toggleUserMarker && userMarker ? false : true}
+        width="100%"
+        height="100%"
+        maxZoom={20}
+        ref={mapRef}
+      >
+        <Geocoder
+          mapRef={mapRef}
+          containerRef={geocoderContainerRef}
+          onViewportChange={handleGeocoderViewportChange}
           mapboxApiAccessToken={MAPBOX_TOKEN}
-          mapStyle={mapStyle}
-          onClick={handleMapClick}
-          onViewportChange={(viewport) => {
-            if (toggleUserMarker && userMarker) {
-              setViewport({
-                ...viewport,
-                latitude: userMarker.latitude,
-                longitude: userMarker.longitude,
-                zoom: 19,
-                transitionInterpolator: new FlyToInterpolator(),
-                transitionDuration: 500,
-              });
-            }
-            setViewport(viewport);
-          }}
-          scrollZoom={toggleUserMarker && userMarker ? false : true}
-          touchZoom={toggleUserMarker && userMarker ? false : true}
-          doubleClickZoom={toggleUserMarker && userMarker ? false : true}
-          width="100%"
-          height="100%"
-          maxZoom={20}
-          ref={mapRef}
-        >
-          <Geocoder
-            mapRef={mapRef}
-            containerRef={geocoderContainerRef}
-            onViewportChange={(viewport) => {
-              setViewport({
-                ...viewport,
-                transitionInterpolator: new FlyToInterpolator(),
-                transitionDuration: 500,
-              });
-            }}
-            mapboxApiAccessToken={MAPBOX_TOKEN}
-            zoom={17}
-            inputValue={""}
-          />
-          {/*<FullscreenControl style={fullscreenControlStyle} />*/}
-          <GeolocateControl
-            style={geolocateControlStyle}
-            positionOptions={{ enableHighAccuracy: true }}
-            trackUserLocation={true}
-            showAccuracyCircle={false}
-            fitBoundsOptions={{ maxZoom: 17 }}
-            auto
-          />
-          <NavigationControl style={navControlStyle} />
-          <ScaleControl
-            maxWidth={100}
-            unit="metric"
-            style={scaleControlStyle}
-          />
-          <SatelliteButton
+          zoom={17}
+          marker = {false}
+        />
+        {/*<FullscreenControl style={fullscreenControlStyle} />*/}
+        <GeolocateControl
+          style={geolocateControlStyle}
+          positionOptions={{ enableHighAccuracy: true }}
+          trackUserLocation={true}
+          showAccuracyCircle={false}
+          fitBoundsOptions={{ maxZoom: 17 }}
+          auto
+        />
+        <NavigationControl style={navControlStyle} />
+        <ScaleControl 
+            maxWidth={100} 
+            unit="metric" 
+            style={scaleControlStyle} />
+        <SatelliteButton
             onClick={() => {
               setExpandCluster(true);
               setToggleSatellite(!toggleSatellite);
@@ -321,7 +329,7 @@ const Map = (props) => {
             <FaSatelliteDish
               style={{ width: "15px", height: "15px", marginTop: "3px" }}
             />
-          </SatelliteButton>
+        </SatelliteButton>                   
           {clusters.map((cluster) => {
             const [longitude, latitude] = cluster.geometry.coordinates;
             const { cluster: isCluster, point_count: pointCount } =

@@ -1,141 +1,183 @@
 import styled from "styled-components";
 
 export const MainContainer = styled.div`
-    height: 90%;
+    height: 100%;
     display: flex;
     flex-direction: column;
-    background-color: #7CDBD5;   
-    color: white;
+    background-color: white;   
+    color: black;
     
     
     #footer{
-    display: flex;
-    background-color: #7CDBD5;
-    color: white;
+    display: flex;   
+    color: black;
     height: 10%;
     justify-content: center;
     align-items: center;
+    margin-bottom: 100px;
+   
     
     #backArrowButton{
         background: none;
         border: none;
         
-    }
-
-    #nextArrowButton{
-        background: none;
-        border: none;
-    }    
-    
-    #backArrow {
-        width: 40px;
-        height: auto;
-    }
-    #nextArrow {
-        width: 40px;
-        height: auto;
-    }
+    }   
     
     #buttonsContainer{
+        display: flex;
         margin-left: 50px;
         margin-right: 50px;
-    }
+        justify-content: center;
+        align-items: center;
 
-    #leaveButton{
-        border-radius: 20px;
-        border: none; 
-        background-color: #F53240;
-        color: white;
-        padding: 10px 20px;
-        
-    }
-    #sendButton{
-        border-radius: 20px;
-        border: none; 
-        background-color: #F53240;
-        color: white;
-        padding: 10px 20px;
-    }
+        #nextButton {
+            border: 2px solid #5D61F6;
+            background-color: white;
+            font-size: 20px;
+            font-weight: bold;
+            width: 240px;
+            height: 60px;
+            margin-left: auto;
+        }  
+
+        #sendButton{
+            border: 2px solid #E26236;
+            background-color: white;
+            font-size: 20px;
+            font-weight: bold;
+            width: 240px;
+            height: 60px;
+            margin-left: auto;
+        }
+
+        #homeButton{
+            border: 2px solid #5D61F6;
+            background-color: white;
+            font-size: 20px;
+            font-weight: bold;
+            width: 240px;
+            height: 60px;
+            margin-left: auto;
+        }
+    }    
 }
 `
-
 export const StepOneContainer = styled.div`
-    background-color: #7CDBD5;
-    
+       
     display: flex;
     flex-direction: column;
-    color: white;
+    align-items: center;
+    color: black;
     height: 90%;
     #stepOneMain {
        
         flex-grow: 1;
     }
-    h1{
-        margin-left: 10px;
+    p{
+        font-size: 20px;
+        margin-top: 20px;
+        margin-left: 20px;
+        align-self: flex-start;
     }
 
 `
 export const StepTwoContainer = styled.div`
-    background-color: #7CDBD5;
+   
     display: flex;
     flex-direction: column;
-    color: white;
+    color: black;
     height: 90%;
    
-    h1{
+    h1,h3{
         margin-left: 10px;
     }
 `
 export const StepThreeContainer = styled.div`
-    background-color: #7CDBD5;
+   
     display: flex;
     flex-direction: column;
     align-items: center;
-    color: white;
+    color: black;
     height: 90%;
    
-    h1{
-        margin-left: 10px;
+    #pageTitle {
+        margin-left: 20px;
         align-self: flex-start;
     }
+
     #titleCategoryDescriptionContainer{
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        background-color: #02C8A7;
+        justify-content: flex-start;       
+        border: none;
         width: 80%;
         height: 80%;
+        
+
+        #titleContainer{
+            margin-left: 20px;
+            #title{
+            width: 90%;
+            height: 40%;
+            border: 1px solid black;
+            }
+        }
+       
         #categoryContainer{
-            margin-left: 10px;
+            margin-top: 20px;
+            margin-left: 20px;
+            #selectCategory{                
+                border: 1px solid black;
+                width: 90%;
+                height: 40%;
+            }
         }
         #descriptionContainer{
-            margin-left: 10px;
+            margin-top: 20px;
+            margin-left: 20px;
+            #description{
+            width: 90%;
+            height: 100%;
+            border: 1px solid black;
+            }
         }
-        #titleContainer{
-            margin-left: 10px;
-        }
+       
     }
 `
 
 export const ReviewContainer = styled.div`
-    background-color: #7CDBD5;
+    
     display: flex;
     flex-direction: column;
     align-items: center;
-    color: white;
+    color: black;
     height: 90%;
  
-    h1{
-        margin-left: 10px;
+    #pageTitle{
+        margin-left: 20px;
         align-self: flex-start;
     }
 
-    
+    .itemTitle{
+        margin: 5px;
+        margin-left: 10px;
+        color: #E26236;        
+    } 
+    #powerTitle{
+        font-size: 30px;
+    }
+
+    .itemText{
+        margin: 0px;
+        margin-bottom: 5px;
+        word-wrap: break-word;
+        margin-right: 10px;
+    }
+
     #reviewContainerBox{
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        background-color: #02C8A7;
+        justify-content: space-around;
         width: 80%;
         height: 80%;
         p{
@@ -157,8 +199,8 @@ export const ReviewContainer = styled.div`
 
 export const Box = styled.div`
  
-    width: 150px;
-    height: 250px;
+    width: 100px;
+    height: 100px;
     margin: 10px;
 
     #selectedImage {            
@@ -171,12 +213,12 @@ export const Box = styled.div`
 `
 
 export const ThankYouContainer = styled.div`
-    background-color: #7CDBD5;
+    
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    color: white;
+    color: black;
     height: 90%;
    
     h1{
@@ -185,20 +227,24 @@ export const ThankYouContainer = styled.div`
         text-align: center;
     }
     #confirmationIcon{
-        width: 200px;
+        width: 150px;
         height: auto;
     }
 `
 
 export const SomethingWentWrongContainer = styled.div`
-    background-color: #7CDBD5;
+    
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    color: white;
+    color: black;
     height: 90%;
    
+    #sad{
+        width: 100px;
+        height: auto;
+    }
     h1{
         margin-left: 20px;
         margin-right: 20px;

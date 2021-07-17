@@ -3,7 +3,7 @@ import {useDispatch} from "react-redux"
 import {MainContainer, Box, InputBox} from "./CameraStyled"
 import { IconButton } from '@material-ui/core';
 import PhotoCameraRoundedIcon from "@material-ui/icons/PhotoCameraRounded";
-import CameraIcon from "../../assets/images/photo-camera-white-tool.png"
+import CameraIcon from "../../assets/images/photo-camera-black-tool-light.png"
 
 // if material-ui icon: <PhotoCameraRoundedIcon fontSize="large" color="primary" />
 //Camera app

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import Div100vh from "react-div-100vh";
 import { Main, ReportButton, Search, MapContainer } from "./Styled";
 import Map from "../../components/Map/Map";
 import searchglass from "../../assets/images/search.png";
@@ -22,16 +23,18 @@ const Homepage = () => {
   };
 
   return (
-    <Main>
-      <Map height={"100%"} width={"100%"} setCoordinates={setCoordinates} />
-      {/*coordinates === null ? (
+    <Div100vh>
+      <Main>
+        <Map height={"100%"} width={"100%"} setCoordinates={setCoordinates} />
+        {coordinates === null ? (
         <FilterButton />
       ) : (
         <ReportButton name="Report" onClick={reportButtonOnClickHandler}>
           Report
         </ReportButton>
-      )*/}
-    </Main>
+      )}
+      </Main>
+    </Div100vh>
   );
 };
 
