@@ -221,29 +221,37 @@ export const SaveButton = styled(ReportButton)`
 `
 
 export const PhoneNumber =styled.div`
-    border: 2px solid red;
     width: 50%;
     height: 50%;
 `
 
 
 export const LastReportContainer =styled.div`
-    border: solid red 2px;
     height: 40%;
     width: 90%;
     display: flex;
     flex-direction: column;
+
+    
+`
+
+
+export const TitleContainer =styled.div`
+        width: 90%;
 
     h1 {
         font-weight: bold;
         font-size: 20px;
         line-height: 23px;
         color: #F8CE46;
+        padding-bottom: 3%;
+        border-bottom: solid black 2px;
+        
     }
 `
 
+
 export const FetschingContainer =styled.div`
-    /* border: solid green 2px; */
     height: 35%;
     width: 99%;
     display: flex;
@@ -253,7 +261,7 @@ export const FetschingContainer =styled.div`
     
 
 
-    p {
+    .issue {
         font-weight: bold;
         font-size: 14px;
         line-height: 16px;
@@ -261,30 +269,36 @@ export const FetschingContainer =styled.div`
 `
 
 export const AddressContainer =styled.p`
-    /* border: solid yellow 2px; */
-    height: 20%;
+    height: 96%;
     width: 49%;
-    
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 300;
 
-    p {
-        font-weight: bold;
-        font-size: 14px;
-        line-height: 16px;
-    }
 `
 
-export const MoreContainer =styled.div`
-    border: solid blue 2px;
+export const ButtonContainer =styled.div`
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
     height: 10%;
     width: 90%;
     
-
-    p {
+    
+    button {
+        border: none;
+        background-color: white;
         font-weight: bold;
-        font-size: 13px;
+        font-size: 14px;
         line-height: 15px;
+        padding-top: 3%;
         text-align: right;
         color: #F8CE46;
+      
+        &:active {
+            transform: translateY(4px);
+        }
     }
 `
 
