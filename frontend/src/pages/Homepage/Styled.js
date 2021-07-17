@@ -20,24 +20,19 @@ export const MapContainer = styled.div`
 `;
 
 export const ReportButton = styled.button`
-  margin: 10px;
-  background: #f53240;
-  border: 1.5px rgba(212, 208, 208, 0.619) solid;
-  width: 30%;
-  height: 40px;
-  border-radius: 25px;
-  color: white;
-  font-size: medium;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 5px;
+  width: 60%;
+  height: 35px;
+  background-color: #ffffff;
   cursor: pointer;
+  font-size: 13px;
+  font-weight: bold;
+  border: 2px solid ${(props) => props.theme.yellowColor};
+  outline-style: none;
+  border-radius: 5px;
 
-  &:active {
-    background-color: grey;
-    transform: translateY(4px);
-  }
+  position: absolute;
+  bottom: 6%;
+  z-index: 2;
 `;
 export const Search = styled.div`
   width: 85%;
