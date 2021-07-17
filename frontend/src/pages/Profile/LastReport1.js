@@ -1,5 +1,5 @@
 import React from 'react';
-import { LastReportContainer, Main, MoreContainer, FetschingContainer, AddressContainer} from './ProfileStyled';
+import { LastReportContainer, Main, ButtonContainer, TitleContainer, FetschingContainer, AddressContainer} from './ProfileStyled';
 import Navigation from '../../components/Navigation/Navigation';
 import ProfileUpperPart from './ProfileUpperPart';
 
@@ -10,21 +10,11 @@ const LastReport = () => {
             <Navigation/>
                 <Main>
                     <ProfileUpperPart/>
-
-                        <LastReportContainer>
+                        <TitleContainer>
                             <h1>Last reported</h1>
-
-                            <FetschingContainer>
-                                <p className='issue'>Broken bench</p>
-                                <AddressContainer>Argauerstrasse 12</AddressContainer>
-                            </FetschingContainer>
-
-                            
-
-                            <FetschingContainer>
-                                <p className='issue'>Broken bench</p>
-                                <AddressContainer>Argauerstrasse 12</AddressContainer>
-                            </FetschingContainer>
+                        </TitleContainer>
+    
+                        <LastReportContainer>
 
                             <FetschingContainer>
                                 <p className='issue'>Broken bench</p>
@@ -33,9 +23,9 @@ const LastReport = () => {
 
                         </LastReportContainer>
 
-                        <MoreContainer>
-                            <p>More...</p>
-                        </MoreContainer>
+                        <ButtonContainer>
+                            <button>More...</button>
+                        </ButtonContainer>
 
                 </Main>
         </>
