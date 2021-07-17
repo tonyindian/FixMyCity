@@ -1,30 +1,65 @@
 import styled from "styled-components";
 import {Link} from "react-router-dom";
+import Navigation from "../Navigation/Navigation";
+import { AddressContainer, FetschingContainer, LastReportContainer, Main, MoreContainer } from "../../pages/Profile/ProfileStyled";
+import { MoreDetailsLink } from "../Map/Popup/PopupContent";
 
-export const ListLine = styled.div`
-  height: 8px;
-  width: 100%;
-  background: ${props => props.theme.yellowColor};
-  border-radius: 3px 3px 0 0;
-  border-color: black;
-  `
+
+export const Container =styled(FetschingContainer)`
+    /* border: solid green 2px; */
+/*     height: 35%;
+    width: 99%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: solid black 1px; */
+    padding: 4.2%;
+
+
+    p {
+        font-weight: bold;
+        font-size: 14px;
+        line-height: 18px;
+    }
+`
+export const AdressWrapper =styled(AddressContainer)`   
+        
+        p {
+        font-weight: normal;
+        font-size: 12px;
+        padding: 2%;
+
+
+    }`
 
 
 const IssueComponent = (props) => {
     return (
-        <Link to={`/issues/${props.issue.id}`} style={{"textDecoration": "none"}}>
-                <h1>{props.issue.title}</h1>
-                <h2>{props.issue.user.username}</h2>
-                <p>{props.issue.issue_count}</p>
-                {
-                    props.issue.image
-                    ?
-                    <img src={props.issue.image} alt={"issue-pix"}/>
-                    :
-                    <div>No image</div>
-                }
-        </Link>
+        <>
+        
+                    <Container onClick={() => {
+                        props.setSelectedIssue(props.issue)
+                        props.setToggleMoreDetails(true)
+                    }}>
+                        <p>{props.issue.title}</p>
+                        <AdressWrapper>
+                            <p>{props.issue.adress}</p>
+                            <p> {props.issue.zip} {props.issue.city}</p>
+                        </AdressWrapper>
+
+                    </Container>
+        </>
     )
 }
 
 export default IssueComponent;
+
+/* 
+<p>{props.issue.issue_count}</p>
+                        {
+                            props.issue.image
+                            ?
+                            <img src={props.issue.image} alt={"issue-pix"}/>
+                            :
+                            <div>No image</div>
+                        } */
