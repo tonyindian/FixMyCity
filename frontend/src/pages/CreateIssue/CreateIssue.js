@@ -14,7 +14,7 @@ import leftArrow from "../../assets/images/left-arrow.png";
 import rightArrow from "../../assets/images/right-arrow.png";
 import Map from "../../components/Map/Map";
 import Camera from "../../components/Camera/Camera";
-import Axios from "../../helpers/axios";
+import Axios from "../../Axios/index";
 import { useSelector } from "react-redux";
 import { StaticMap, Marker } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -80,7 +80,7 @@ const StepTwo = (props) => {
   return (
     <>
       <StepTwoContainer>
-        <h3>Share a picture of the issue with us!</h3>
+        <h3 className="pageTitle">Share a picture of the issue with us!</h3>
         <Camera
           imageURL={props.imageURL}
           setImageURL={props.setImageURL}
@@ -107,7 +107,7 @@ const StepThree = (props) => {
   return (
     <>
       <StepThreeContainer>
-        <h3 id="pageTitle">Tell us more about this issue</h3>
+        <h3 className="pageTitle">Tell us more about this issue:</h3>
         <div id="titleCategoryDescriptionContainer">
           <div id="titleContainer">
             <h3>Title:</h3>
@@ -127,8 +127,9 @@ const StepThree = (props) => {
             >
               <option value="default">--select--</option>
               <option>graffiti</option>
-              <option>damages</option>
+              <option>damaged items</option>
               <option>litter</option>
+              <option>insects and animals</option>
               <option>items with no owner</option>
             </select>
           </div>
