@@ -27,12 +27,12 @@ const Homepage = () => {
       <Main>
         <Map height={"100%"} width={"100%"} setCoordinates={setCoordinates} />
         {coordinates === null ? (
-        <FilterButton />
-      ) : (
-        <ReportButton name="Report" onClick={reportButtonOnClickHandler}>
-          Report
-        </ReportButton>
-      )}
+          <FilterButton />
+        ) : (
+          <ReportButton onClick={reportButtonOnClickHandler}>
+            Report
+          </ReportButton>
+        )}
       </Main>
     </Div100vh>
   );

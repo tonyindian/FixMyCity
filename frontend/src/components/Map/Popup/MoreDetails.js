@@ -57,6 +57,7 @@ const UpvoteButton = styled.button`
   cursor: pointer;
   outline-style: none;
   border: 3px solid ${(props) => props.theme.yellowColor};
+  border-radius: 5px;
   font-size: 20px;
   font-weight: bold;
 `;
