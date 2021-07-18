@@ -32,7 +32,7 @@ class ListIssuesView(ListAPIView):
 
 
 class RetrieveUpdateDestroyIssueView(RetrieveUpdateDestroyAPIView):
-    queryset = Issue.objects.all()
+    queryset = Issue.objects.all().exclude(status='resolved')
     serializer_class = IssueSerializer
     permission_classes = [IsOwnerOrReadOnly]
 
@@ -46,7 +46,7 @@ class ListIssuesByUserView(ListAPIView):
 
     def get_queryset(self):
         user_id = self.kwargs["pk"]
-        return Issue.objects.filter(user=user_id).order_by("-created")
+        return Issue.objects.filter(user=user_id).exclude(status='resolved').order_by("-created")
 
 
 class ToggleUpvoteIssueView(UpdateAPIView):

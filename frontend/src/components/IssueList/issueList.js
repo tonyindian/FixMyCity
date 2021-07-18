@@ -4,6 +4,7 @@ import Axios from "../../Axios/index";
 import IssueComponent, { ListLine } from './issuesComponent';
 import { LastReportContainer } from '../../pages/Profile/ProfileStyled';
 import MoreDetails from '../Map/Popup/MoreDetails';
+import { fetchIssues } from '../../Axios/fetches';
 
 const Main= styled.div`
     width: 100%;
@@ -56,22 +57,14 @@ const IssueList = () => {
 
 
     useEffect(() => {
-        async function fetchIssues() {
-            const url = "issues/";
-            try {
-                const resp = await Axios.get(url);
-                if (resp.status === 200) {
-                    setIssues(resp.data);
-                }
-            } catch (err) {
-                if (err.response.status === 400) {
-                    console.log(err.response);
-                }
-                
+            async function fetchNewIssues() {
+                const data = await fetchIssues();
+                console.log(data);
+                setIssues(data);
             }
-        }
+         
 
-        fetchIssues();
+        fetchNewIssues();
     }, []);
 
 
@@ -118,3 +111,20 @@ const IssueList = () => {
     );
 };
 export default IssueList
+
+
+/*         async function fetchIssues() {
+            const url = "issues/";
+            try {
+                const resp = await Axios.get(url);
+                if (resp.status === 200) {
+                    setIssues(resp.data);
+                }
+            } catch (err) {
+                if (err.response.status === 400) {
+                    console.log(err.response);
+                }
+                
+            }
+        } */
+
