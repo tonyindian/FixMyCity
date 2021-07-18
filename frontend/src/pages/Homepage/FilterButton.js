@@ -59,11 +59,13 @@ const FilterButtonStyle = styled.button`
 const FilterButton = () => {
   const dispatch = useDispatch();
 
-  const filterRedux = useSelector((state) => state.filterReducer.filter);
+  const filterValueRedux = useSelector((state) => state.filterReducer.filter);
 
   const [toggleFilter, setToggleFilter] = useState(false);
 
-  const [filterValue, setFilterValue] = useState("default");
+  const [filterValue, setFilterValue] = useState(
+    filterValueRedux === "default" ? "default" : filterValueRedux
+  );
 
   const handleFilter = () => {
     dispatch({
@@ -111,7 +113,7 @@ const FilterButton = () => {
                 onChange={(e) => setFilterValue(e.target.value)}
                 value={filterValue}
               >
-                <option value="default"> </option>
+                <option value="default">--select--</option>
                 <option value="graffiti">graffiti</option>
                 <option value="damages">damages</option>
                 <option value="insects and animals">insects and animals</option>

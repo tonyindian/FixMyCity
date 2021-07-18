@@ -16,7 +16,6 @@ const Homepage = () => {
   const [coordinates, setCoordinates] = useState(null);
 
   useEffect(() => {
-    console.log(coordinates);
     fetchLatestProfileInfoAndUpdateRedux(dispatch);
   }, [coordinates]);
 

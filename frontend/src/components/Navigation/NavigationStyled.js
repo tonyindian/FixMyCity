@@ -5,7 +5,7 @@ export const MainContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 10%;
+  height: 60px;
   position: ${(props) => props.position || "relative"};
   z-index: 4;
   top: ${(props) => props.top || "0px"};
