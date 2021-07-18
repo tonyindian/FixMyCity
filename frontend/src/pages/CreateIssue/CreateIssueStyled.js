@@ -1,9 +1,12 @@
 import styled from "styled-components";
 
 export const MainContainer = styled.div`
+    width: 100%;
+    min-height: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
     background-color: white;   
     color: black;
     
@@ -14,6 +17,7 @@ export const MainContainer = styled.div`
     height: 10%;
     justify-content: center;
     align-items: center;
+    margin-top: 20px;
     margin-bottom: 100px;
    
     
@@ -101,53 +105,76 @@ export const StepThreeContainer = styled.div`
     align-items: center;
     color: black;
     height: 90%;
+    margin-bottom: 30px;
    
     .pageTitle{
         font-size: 20px;
         margin-left: 20px;
-        margin-top: 40px;
+        margin-top: 20px;
         align-self: flex-start;
     }   
 
     #titleCategoryDescriptionContainer{
         display: flex;
         flex-direction: column;
-        justify-content: flex-start;       
+        justify-content: flex-start;  
         border: none;
         width: 80%;
-        height: 80%;
+        height: 70%;
         margin-top: 30px;
+
         
 
         #titleContainer{
+
+            .fieldHeader{
+                font-size: 16px;
+            }  
+            
             margin-left: 20px;
-            height: 10%;
+            margin-bottom: 30px;
+            //height: 10%;
             #title{
+            font-size: 16px;
             width: 90%;
-            height: 20px;           
+            height: 40px;           
             border: 1px solid black;
             }
         }
        
-        #categoryContainer{
-            margin-top: 20px;
+        #categoryContainer{          
+
             margin-left: 20px;
-            height: 10%;
+            margin-bottom: 30px;
+            //height: 10%;
             #selectCategory{                
                 border: 1px solid black;
                 width: 90%;
-                height: 20px;
+                height: 40px;
+                font-size: 16px;
             }
+            .fieldHeader{
+                font-size: 16px;
+            }  
         }
-        #descriptionContainer{
-            margin-top: 20px;
+        #descriptionContainer{           
+
+            display: flex;
+            flex-direction: column;
             margin-left: 20px;
             flex-grow: 1;
             #description{
-            width: 90%;     
-            height: 60%;     
-            border: 1px solid black;
+                font-size: 16px;
+                width: 90%;     
+                min-height: 100px;
+                flex-grow: 1; 
+                border: 1px solid black;
             }
+
+            .fieldHeader{
+                font-size: 16px;
+            }  
+            
         }
        
     }
@@ -159,17 +186,21 @@ export const ReviewContainer = styled.div`
     flex-direction: column;
     align-items: center;
     color: black;
-    height: 90%;
- 
-    #pageTitle{
+    height: 90%;    
+    
+    .pageTitle{
+        font-size: 20px;
         margin-left: 20px;
+        margin-top: 20px;
         align-self: flex-start;
-    }
+    }  
+    
 
     .itemTitle{
         margin: 5px;
         margin-left: 10px;
-        color: #E26236;        
+        color: #E26236;    
+        font-size: 16px;    
     } 
     #powerTitle{
         font-size: 30px;
@@ -180,9 +211,11 @@ export const ReviewContainer = styled.div`
         margin-bottom: 5px;
         word-wrap: break-word;
         margin-right: 10px;
+        font-size: 16px;
     }
 
     #reviewContainerBox{
+        margin-top: 25px;
         display: flex;
         flex-direction: column;
         justify-content: space-around;
@@ -229,13 +262,15 @@ export const ThankYouContainer = styled.div`
     color: black;
     height: 90%;
    
-    h1{
+    #message{
+        margin-top: 30px;
         margin-left: 30px;
         margin-right: 20px;
+        font-size: 20px;
         text-align: center;
     }
     #confirmationIcon{
-        width: 150px;
+        width: 100px;
         height: auto;
     }
 `
@@ -248,7 +283,15 @@ export const SomethingWentWrongContainer = styled.div`
     align-items: center;
     color: black;
     height: 90%;
-   
+
+    #message{
+        margin-top: 30px;
+        margin-left: 30px;
+        margin-right: 20px;
+        font-size: 20px;
+        text-align: center;
+    }
+
     #sad{
         width: 100px;
         height: auto;

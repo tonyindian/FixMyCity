@@ -28,6 +28,8 @@ import confirmation from "../../assets/svgs/confirmation.svg"
 import Navigation from "../../components/Navigation_CreateIssue/NavigationCreateIssue"
 import Sad from "../../assets/images/sad.png"
 import Confirmation from "../../assets/images/confirmation.png"
+import Div100vh from "react-div-100vh";
+import {createIssue} from "../../Axios/fetches"
 
 const StepOne = (props) => {
   const pinnedCoordinates = useSelector(
@@ -80,7 +82,7 @@ const StepTwo = (props) => {
   return (
     <>
       <StepTwoContainer>
-        <h3 className="pageTitle">Share a picture of the issue with us!</h3>
+        <h3 className="pageTitle">Share a picture of the issue with us</h3>
         <Camera
           imageURL={props.imageURL}
           setImageURL={props.setImageURL}
@@ -110,7 +112,7 @@ const StepThree = (props) => {
         <h3 className="pageTitle">Tell us more about this issue:</h3>
         <div id="titleCategoryDescriptionContainer">
           <div id="titleContainer">
-            <h3>Title:</h3>
+            <h3 className="fieldHeader">Title*:</h3>
             <input
               id = "title"
               type="text"
@@ -119,7 +121,7 @@ const StepThree = (props) => {
             ></input>
           </div>
           <div id="categoryContainer">
-            <h3>Category:</h3>
+            <h3 className="fieldHeader">Category*:</h3>
             <select
               id="selectCategory"
               defaultValue={props.category === "" ? "default" : props.category}
@@ -127,14 +129,14 @@ const StepThree = (props) => {
             >
               <option value="default">--select--</option>
               <option>graffiti</option>
-              <option>damaged items</option>
-              <option>litter</option>
+              <option>damages</option>              
               <option>insects and animals</option>
               <option>items with no owner</option>
+              <option>litter</option>
             </select>
           </div>
           <div id="descriptionContainer">
-            <h3>Description:</h3>
+            <h3 className="fieldHeader">Description:</h3>
             <textarea
               id = "description"
               type="text"
@@ -158,7 +160,7 @@ const Review = (props) => {
   return (
     <>
       <ReviewContainer>        
-        <h3 id="pageTitle">Review</h3>
+        <h3 className="pageTitle">Review and send to us! :)</h3>
         <div id="reviewContainerBox">
           <div className="itemTitleText">
             <h3 className="itemTitle" id="powerTitle">{props.title}</h3>
@@ -175,10 +177,12 @@ const Review = (props) => {
             <h3 className="itemTitle">Category</h3>
             <p className="itemText">{props.category}</p>
           </div>   
+          {props.description? 
           <div className="itemTitleText"> 
             <h3 className="itemTitle">Description</h3>
-            <p className="itemText">{props.description}</p>       
-          </div>       
+            <p className="itemText">{props.description}</p>  
+          </div>
+          :null}          
         </div>
       </ReviewContainer>
     </>
@@ -190,7 +194,7 @@ const ThankYouPage = () => {
   return(
     <ThankYouContainer>
       <img src={Confirmation} id="confirmationIcon" alt="confirmation"></img>
-      <h1>Thank you for making your city a better place to live in!</h1>
+      <p id="message">Thank you! <br></br> For making your city a better place to live in :)</p>
     </ThankYouContainer>
   )
 }
@@ -200,7 +204,7 @@ const SomethingWentWrongPage = () => {
   return(
     <SomethingWentWrongContainer>
       <img id="sad" src={Sad} alt="sad"></img>
-      <h1>Oops... something went wrong. Please try again</h1>
+      <p id="message">Oops... something went wrong. Please try again</p>
     </SomethingWentWrongContainer>
   )
 }
@@ -250,7 +254,8 @@ const CreateIssue = () => {
   const [toggleShowReview, setToggleShowReview] = useState(false);
   const [toggleShowThankYou, setToggleShowThankyou] = useState(false);
   const [toggleShowSomethingWentWrong, setShowToggleShowSomethingWentWrong] = useState(false);
-  const [toggleIsPageComplete, setToggleIsPageComplete] = useState(true);
+  //const [toggleIsPageComplete, setToggleIsPageComplete] = useState(false);
+  //const [toggleIsStepOneComplete, setToggleIsStepOneComplete] = useState(false);
   const [toggleShowNavigation, setToggleShowNavigation] = useState(true);
   const [title, setTitle] = useState("");
   const [address, setAddress] = useState("");
@@ -271,36 +276,46 @@ const CreateIssue = () => {
       setToggleShowStep1(false);
       setToggleShowStep2(true);
     }
-    if (
-      toggleShowStep2 === true &&
-      !(toggleShowStep1 && toggleShowStep3 && toggleShowReview)
-    ) {
-      setToggleShowStep2(false);
-      setToggleShowStep3(true);
+    if (toggleShowStep2 === true && !(toggleShowStep1 && toggleShowStep3 && toggleShowReview))
+     {
+      if(imageURL)
+        {
+          setToggleShowStep2(false);
+          setToggleShowStep3(true);
+        }
+      else{
+        window.alert("Please upload a picture so we can better identify the issue :)")
+      }
     }
     if (
       toggleShowStep3 === true &&
       !(toggleShowStep1 && toggleShowStep2 && toggleShowReview)
     ) {
-      setToggleShowStep3(false);
-      setToggleShowReview(true);
-      console.log(
-        "At this stage, the following is stored in the state:",
-        "\n\n",
-        `title: ${title}`,
-        "\n",
-        `address: ${address}`,
-        "\n",
-        `city: ${city}`,
-        "\n",
-        `postcode: ${postcode}`,
-        "\n",
-        `image: ${imageURL}`,
-        "\n",
-        `category: ${category}`,
-        "\n",
-        `description: ${description}`
-      );
+
+      if(title && category){
+        setToggleShowStep3(false);
+        setToggleShowReview(true);
+        console.log(
+          "At this stage, the following is stored in the state:",
+          "\n\n",
+          `title: ${title}`,
+          "\n",
+          `address: ${address}`,
+          "\n",
+          `city: ${city}`,
+          "\n",
+          `postcode: ${postcode}`,
+          "\n",
+          `image: ${imageURL}`,
+          "\n",
+          `category: ${category}`,
+          "\n",
+          `description: ${description}`
+        );
+      }else{
+        window.alert("Please send us at least a 'title' and a 'category' :)")
+      }
+    
     }
   };
 
@@ -309,11 +324,6 @@ const CreateIssue = () => {
   }
 
   const sendOnClickHandler = async () => {
-    //console.log("you hit me");
-    const url = "/issues/new/";
-    const postmanToken =
-      "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjI2NTQxMzczLCJqdGkiOiIxZmRjNjk0MjNhY2U0ODA1YmQwNzc0NzIxOTk3MDc2NiIsInVzZXJfaWQiOjF9.2X0FirNVsdcMPdHyuW2hfoEKY66Og-PG2Gc9ooGWswA";
-
     let formdata = new FormData();
     formdata.append("title", title);
     formdata.append("longitude", longitude);
@@ -323,18 +333,10 @@ const CreateIssue = () => {
     formdata.append("zip", postcode);
     formdata.append("category", category);
     formdata.append("image", imageFile);
-    formdata.append("content", description);
-
-    const config = {
-      headers: {
-        //Authorization: `Bearer ${localStorage.getItem("token")}`,
-        Authorization: `Bearer ${postmanToken}`,
-        "Content-Type": "multipart/form-data",
-      },
-    };
+    formdata.append("content", description);    
 
     try {
-      const resp = await Axios.post(url, formdata, config);
+      const resp = await createIssue(formdata);
       if (resp.status === 201) {
         console.log("Success.");
         setToggleShowReview(false);
@@ -348,12 +350,11 @@ const CreateIssue = () => {
         setToggleShowNavigation(false)
         setShowToggleShowSomethingWentWrong(true);
       }
-    }
+    }    
   };
 
   return (
-    <>
-    
+        
     <MainContainer>
       {toggleShowNavigation===true?
         <Navigation 
@@ -376,10 +377,10 @@ const CreateIssue = () => {
       : null}
       {toggleShowStep2 === true ? (
         <>
-          <StepTwo
+          <StepTwo            
             setImageURL={setImageURL}
             imageURL={imageURL}
-            setImageFile={setImageFile}
+            setImageFile={setImageFile}            
           />
         </>
       ) : null}
@@ -416,11 +417,11 @@ const CreateIssue = () => {
         :null}
       <div id="footer">       
           <div id="buttonsContainer">
-            {toggleIsPageComplete === true && toggleShowReview === false && toggleShowSomethingWentWrong === false && toggleShowThankYou === false? (
+            {toggleShowReview === false && toggleShowSomethingWentWrong === false && toggleShowThankYou === false? (
               <button id="nextButton" onClick={nextButtonHandler}>Next</button>
             ) : null}
                 
-            {toggleShowReview === true && toggleIsPageComplete === true ? (
+            {toggleShowReview === true? (
               <button id="sendButton" onClick={sendOnClickHandler}>Send</button>            
             ) : null}
             {toggleShowSomethingWentWrong === true || toggleShowThankYou === true ? (
@@ -429,7 +430,7 @@ const CreateIssue = () => {
           </div> 
         </div>       
     </MainContainer>
-    </>
+    
   );
 };
 
