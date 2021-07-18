@@ -13,12 +13,12 @@ export const MarkerDivStyle = styled.div`
   height: ${(props) => props.height};
   width: ${(props) => props.width};
   line-height: ${(props) => props.lineHeight};
-  background-color: red;
-  color: white;
+  background-color: ${(props) => props.theme.blueColor};
+  color: #ffffff;
   border-radius: 50%;
   font-size: 22px;
   text-align: center;
-  border: 2px solid black;
+  border: 2px solid ${(props) => props.theme.blueColor};
 `;
 
 export const MarkerImgStyle = styled.img`
@@ -55,7 +55,7 @@ export const SatelliteButton = styled.button`
 
   position: absolute;
   right: 3%;
-  top: 20%;
+  top: 130px;
   z-index: 2;
 
   :hover {

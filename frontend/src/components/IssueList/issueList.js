@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 import React, {useEffect, useState} from "react";
 import Axios from "../../Axios/index";
-import IssueComponent from './issuesComponent';
-
+import IssueComponent, { ListLine } from './issuesComponent';
+import { LastReportContainer } from '../../pages/Profile/ProfileStyled';
+import MoreDetails from '../Map/Popup/MoreDetails';
 
 const Main= styled.div`
     width: 100%;
@@ -16,12 +17,13 @@ const Main= styled.div`
 const ListWrapper = styled.div`
     width: 100%;
     height: 10%;
-    margin-top:5%;
-    border: 1px solid black;
+    margin-top: 2%;
     border-radius: 3px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    padding-left: 5%;
+    padding-right: 5%;
 `
 
 const ListTitle = styled.h1`
@@ -35,12 +37,23 @@ const ListTitle = styled.h1`
     color: #F8CE46;
 `
 const ListOrigin = styled(ListTitle)`
+    padding-top: 2%;
     color: black;    
 `
+
+const IssueContainer = styled(LastReportContainer)`
+    padding-top: 30%;
+    `
+
 
 const IssueList = () => {
     
     const [issues, setIssues] = useState(null);
+ 
+    const [selectedIssue, setSelectedIssue] = useState(null);
+
+    const [toggleMoreDetails, setToggleMoreDetails] = useState(false);
+
 
     useEffect(() => {
         async function fetchIssues() {
@@ -64,23 +77,44 @@ const IssueList = () => {
 
 
     return(
+        <>
         <Main>
             <ListWrapper>
                 <ListTitle>Reported by</ListTitle>
                 <ListOrigin>Sophia</ListOrigin>
-                <div>
+            <IssueContainer>
                 {
                     issues
                     ?
-                    issues.map((item, index) => <IssueComponent key={`${index}-${item.title}`} issue={item}/>)
+                    issues.map((item, index) => 
+                    <IssueComponent key={`${index}-${item.title}`} issue={item}
+                        setSelectedIssue={setSelectedIssue}
+                        setToggleMoreDetails ={setToggleMoreDetails}
+                />)
                     :
-                    <h1>No entries found!</h1>
+                    <h1>Loading...</h1>
                 }
-                </div>
-
+            </IssueContainer>
             </ListWrapper>
         </Main>
-    )
+        {toggleMoreDetails && (
+        <MoreDetails
+          setToggleMoreDetails={setToggleMoreDetails}
+          title={selectedIssue.title}
+          author={selectedIssue.user.username}
+          created={selectedIssue.created}
+          upvoteCount={selectedIssue.issue_count}
+          category={selectedIssue.category}
+          image={selectedIssue.image}
+          description={selectedIssue.content}
+          streetAndNumber={selectedIssue.adress}
+          zip={selectedIssue.zip}
+          city={selectedIssue.city}
+        />
+      )}
+        
 
-}
+    </>
+    );
+};
 export default IssueList

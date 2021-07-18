@@ -23,7 +23,7 @@ class CreateCommentView(CreateAPIView):
 
 class ListCommentView(ListAPIView):
 
-    queryset = Issue.objects.all()
+    queryset = Issue.objects.all().order_by("-created")
     serializer_class = CommentSerializer
 
 

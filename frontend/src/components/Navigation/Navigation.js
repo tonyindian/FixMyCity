@@ -42,7 +42,6 @@ const Navigation = (props) => {
   };
 
   const backButtonOnClickHandler = () => {
-    console.log("you clicked me!");
     switch (props.page) {
       case "MoreDetails":
         props.setToggleMoreDetails(false);
