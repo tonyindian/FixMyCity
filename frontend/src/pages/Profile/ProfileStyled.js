@@ -220,7 +220,6 @@ export const SaveButton = styled(ReportButton)`
     }
 `
 export const FormContainer =styled.div`
-    border: solid red 2px;
     height: 87%;
     display: flex;
     flex-direction: column;
