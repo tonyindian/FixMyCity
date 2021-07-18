@@ -29,7 +29,7 @@ import Navigation from "../../components/Navigation_CreateIssue/NavigationCreate
 import Sad from "../../assets/images/sad.png"
 import Confirmation from "../../assets/images/confirmation.png"
 import Div100vh from "react-div-100vh";
-
+import {createIssue} from "../../Axios/fetches"
 
 const StepOne = (props) => {
   const pinnedCoordinates = useSelector(
@@ -324,11 +324,6 @@ const CreateIssue = () => {
   }
 
   const sendOnClickHandler = async () => {
-    //console.log("you hit me");
-    const url = "/issues/new/";
-    const postmanToken =
-      "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjI2NTQxMzczLCJqdGkiOiIxZmRjNjk0MjNhY2U0ODA1YmQwNzc0NzIxOTk3MDc2NiIsInVzZXJfaWQiOjF9.2X0FirNVsdcMPdHyuW2hfoEKY66Og-PG2Gc9ooGWswA";
-
     let formdata = new FormData();
     formdata.append("title", title);
     formdata.append("longitude", longitude);
@@ -338,18 +333,10 @@ const CreateIssue = () => {
     formdata.append("zip", postcode);
     formdata.append("category", category);
     formdata.append("image", imageFile);
-    formdata.append("content", description);
-
-    const config = {
-      headers: {
-        //Authorization: `Bearer ${localStorage.getItem("token")}`,
-        Authorization: `Bearer ${postmanToken}`,
-        "Content-Type": "multipart/form-data",
-      },
-    };
+    formdata.append("content", description);    
 
     try {
-      const resp = await Axios.post(url, formdata, config);
+      const resp = await createIssue(formdata);
       if (resp.status === 201) {
         console.log("Success.");
         setToggleShowReview(false);
@@ -363,7 +350,7 @@ const CreateIssue = () => {
         setToggleShowNavigation(false)
         setShowToggleShowSomethingWentWrong(true);
       }
-    }
+    }    
   };
 
   return (

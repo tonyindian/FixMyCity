@@ -51,3 +51,19 @@ export const patchProfileInfo = async (formdata) => {
     }
   }
 };
+
+
+export const createIssue = async (formdata) => {
+  const url = "/issues/new/"; 
+
+    const config = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    };
+
+    const resp = await Axios.post(url, formdata, config);
+    return resp;
+  } 
+    
+
