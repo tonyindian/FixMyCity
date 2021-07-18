@@ -6,14 +6,10 @@ import { MoreDetailsLink } from "../Map/Popup/PopupContent";
 
 
 export const Container =styled(FetschingContainer)`
-    /* border: solid green 2px; */
-/*     height: 35%;
-    width: 99%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: solid black 1px; */
-    padding: 4.2%;
+    height: 100%;
+    padding-top: 5%;
+    padding-bottom: 5%;
+
 
 
     p {
@@ -23,11 +19,16 @@ export const Container =styled(FetschingContainer)`
     }
 `
 export const AdressWrapper =styled(AddressContainer)`   
-        
-        p {
-        font-weight: normal;
+        height: 96%;
+        width: 49%;
+        display: flex;
+        align-items: center;
         font-size: 12px;
-        padding: 2%;
+        font-weight: 300;
+
+        p {
+            font-size: 12px;
+            font-weight: 300;
 
 
     }`
