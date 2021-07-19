@@ -269,6 +269,7 @@ export const UpdateButton =styled(ReportButton)`
 `
 
 export const LastReportContainer =styled.div`
+    border: solid green;
     height: 40%;
     width: 90%;
     display: flex;
@@ -279,6 +280,7 @@ export const LastReportContainer =styled.div`
 
 
 export const TitleContainer =styled.div`
+        border: solid blue;
         width: 90%;
 
     h1 {
@@ -294,6 +296,7 @@ export const TitleContainer =styled.div`
 
 
 export const FetschingContainer =styled.div`
+    border: solid blue;
     height: 35%;
     width: 99%;
     display: flex;
@@ -311,6 +314,7 @@ export const FetschingContainer =styled.div`
 `
 
 export const AddressContainer =styled.p`
+    border: solid orange;
     height: 96%;
     width: 49%;
     display: flex;
@@ -343,4 +347,10 @@ export const ButtonContainer =styled.div`
         }
     }
 `
+export const DateContainer =styled.div`
+    border: solid yellow;
+`
 
+export const UpvotesContainer =styled.div`
+    border: solid pink;
+`
