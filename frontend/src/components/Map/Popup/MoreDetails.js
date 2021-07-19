@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
+import { patchToggleUpvote } from "../../../Axios/fetches";
 import Navigation from "../../Navigation/Navigation";
+import StatusChanger from "./StatusChanger";
 
 const MainContainer = styled.div`
   width: 100vw;
@@ -26,7 +28,7 @@ const SubContainer = styled.div`
   margin-bottom: ${(props) => props.marginBottom || "35px"};
 
   display: flex;
-  flex-direction: column;
+  flex-direction: ${(props) => props.flexDirection || "column"};
   justify-content: ${(props) => props.justifyContent || "flex-start"};
   align-items: ${(props) => props.alignItems || "flex-start"};
 `;
@@ -53,13 +55,13 @@ const IssueImg = styled.img`
 
 const UpvoteButton = styled.button`
   height: 50px;
-  width: 200px;
-  background-color: #ffffff;
+  width: 45%;
+  background-color: ${(props) => props.backgroundColor};
   cursor: pointer;
   outline-style: none;
   border: 3px solid ${(props) => props.theme.yellowColor};
   border-radius: 5px;
-  font-size: 20px;
+  font-size: 19px;
   font-weight: bold;
 `;
 
@@ -68,7 +70,16 @@ const MoreDetails = (props) => {
 
   const history = useHistory();
 
-  const [showComments, setShowComments] = useState(false);
+  const [status, setStatus] = useState(props.status);
+
+  const [upvoted, setUpvoted] = useState(
+    props.upvotedBy.find((id) => id === props.currentUser.id) ? true : false
+  );
+
+  const handleUpvote = () => {
+    setUpvoted(!upvoted);
+    patchToggleUpvote(props.issueId);
+  };
 
   return (
     <MainContainer>
@@ -77,7 +88,7 @@ const MoreDetails = (props) => {
         setToggleMoreDetails={props.setToggleMoreDetails}
         page={"MoreDetails"}
       />
-      <SubContainer width={"75%"} alignItems={"center"}>
+      <SubContainer width={"75%"} alignItems={"center"} marginBottom={"0px"}>
         <SubContainer marginTop={"15px"}>
           <Title fontSize={"30px"}>{props.title}</Title>
           <Text>
@@ -96,7 +107,15 @@ const MoreDetails = (props) => {
             </span>{" "}
             on {issueCreated.toLocaleDateString("en-UK")}
           </Text>
-          <Text>{props.upvoteCount} Upvotes</Text>
+          <Text>
+            {upvoted ? props.upvoteCount + 1 : props.upvoteCount} Upvotes
+          </Text>
+          <Text>
+            Status:{" "}
+            <span style={{ fontWeight: "bold", fontSize: "19px" }}>
+              {status}
+            </span>
+          </Text>
         </SubContainer>
         <SubContainer
           style={{ height: "200px" }}
@@ -120,7 +139,25 @@ const MoreDetails = (props) => {
             {props.zip} {props.city}
           </Text>
         </SubContainer>
-        <UpvoteButton>Up-vote issue</UpvoteButton>
+        <SubContainer flexDirection={"row"} justifyContent={"space-around"}>
+          <UpvoteButton
+            onClick={handleUpvote}
+            backgroundColor={upvoted ? "#F8CE46" : "#FFFFFF"}
+          >
+            Up-vote
+          </UpvoteButton>
+          {props.currentUser !== undefined ? (
+            props.currentUser.is_superuser ? (
+              <StatusChanger
+                superUser={true}
+                setStatus={setStatus}
+                issueId={props.issueId}
+              />
+            ) : props.userId === props.currentUser.id ? (
+              <StatusChanger setStatus={setStatus} issueId={props.issueId} />
+            ) : null
+          ) : null}
+        </SubContainer>
       </SubContainer>
       <SubContainer></SubContainer>
     </MainContainer>
