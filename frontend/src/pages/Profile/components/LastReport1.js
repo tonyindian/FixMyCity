@@ -1,7 +1,7 @@
 import React from 'react';
-import { LastReportContainer, Main, ButtonContainer, TitleContainer, FetschingContainer, AddressContainer} from './ProfileStyled';
-import Navigation from '../../components/Navigation/Navigation';
-import ProfileUpperPart from './ProfileUpperPart';
+import { LastReportContainer, Main, ButtonContainer, TitleContainer, FetschingContainer, AddressContainer} from '../ProfileStyled';
+import Navigation from '../../../components/Navigation/Navigation';
+import ProfileUpperPart from './ProfileMainInfo';
 
 const LastReport = () => {
 

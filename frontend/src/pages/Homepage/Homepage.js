@@ -15,8 +15,7 @@ const Homepage = () => {
   const history = useHistory();
   const [coordinates, setCoordinates] = useState(null);
 
-  useEffect(() => {
-    fetchLatestProfileInfoAndUpdateRedux(dispatch);
+  useEffect(() => {    
   }, [coordinates]);
 
   const reportButtonOnClickHandler = () => {

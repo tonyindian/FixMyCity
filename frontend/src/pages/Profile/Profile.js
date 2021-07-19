@@ -1,32 +1,34 @@
-import React from 'react';
+import React, {useState,useEffect} from 'react';
+import { useSelector, useDispatch } from "react-redux";
 import { Main, UserDetails, LastReported, SaveBox} from './ProfileStyled';
-import ProfileDownPart from './ProfileDownpart';
-import ProfileUpperPart from './ProfileUpperPart';
+import ProfileDetails from './components/ProfileDetails';
+import ProfileMainInfo from './components/ProfileMainInfo';
 import Navigation from '../../components/Navigation/Navigation';
+import { fetchLatestProfileInfoAndUpdateRedux } from "../../middleware/fetchUpdateRedux";
 
 
 const Profile = () => {
+    
+    const dispatch = useDispatch();
+    const myProfileInfo = useSelector(
+        state => state.profileInfoReducer.info
+      );
 
-    // const UserProfileFullCard = ({ meData, getMyProfileAction, history }) => {
-    //     const { last_name, first_name, avatar, location, about_me, email, phone, things_user_likes } = meData;
-    
-    //     useEffect(() => {
-    //         getMyProfileAction();
-    //     }, [getMyProfileAction]);
-    
-    //     const editHandler = function () {
-    //         history.push('/userProfileUpdate')
-    //     };
+    useEffect(() => {          
+        fetchLatestProfileInfoAndUpdateRedux(dispatch);              
+    }, []);    
+
+    const [shouldIrender,setShouldIRender] = useState(false);
+    const [showEditMode, toggleShowEditMode] = useState(true);
+  
     
     return (
         <>
-            <Navigation/>
+            <Navigation showBackButton={true} page={"profile"}/>
                 <Main>
-                    <ProfileUpperPart/>
-
-
-                    <ProfileDownPart/>
-                    
+                    <ProfileMainInfo myProfileInfo = {myProfileInfo} showEditMode={showEditMode}/>
+                    {showEditMode===true?<ProfileDetails myProfileInfo = {myProfileInfo} setShouldIRender={setShouldIRender}/>:null}
+                    {showEditMode===false?<div><p>I'll store your issues.</p></div>:null}          
                     <SaveBox></SaveBox>
                 </Main>
         </>

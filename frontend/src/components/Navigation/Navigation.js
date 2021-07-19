@@ -36,7 +36,8 @@ export const Menu = (props) => {
 
 const Navigation = (props) => {
   const [showMenu, toggleShowMenu] = useState(false);
-
+  const history = useHistory();
+  
   const menuIconOnClickHandler = () => {
     toggleShowMenu(!showMenu);
   };
@@ -46,6 +47,12 @@ const Navigation = (props) => {
       case "MoreDetails":
         props.setToggleMoreDetails(false);
         break;
+      case "editProfileField":
+        props.setShowEditProfileField(false);  
+        break;
+      case "profile":
+        history.push("/");     
+        break; 
       default:
         break;
     }
