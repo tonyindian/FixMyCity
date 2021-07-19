@@ -1,8 +1,8 @@
 import axios from "axios";
 
 export const getToken = () => {
-  //return localStorage.getItem("token");
-  return "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjI2ODg2MTA1LCJqdGkiOiIzOGMyZGYyNTVlMTM0ZjZiYjNiODFkYTgxODJkMmVlNyIsInVzZXJfaWQiOjF9.vFeb9sL3QLhGEKwUHi8VyvHDIbyABpLQHSnoou_pIX8";
+  // return localStorage.getItem('token')
+  return "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjI2ODY2NzAyLCJqdGkiOiJiOTE0ZTM3ZDk2OTg0Y2U2OGRjOWUyYmQ1Nzg1MzZjZiIsInVzZXJfaWQiOjF9.0mXly3OdJOeS2Vg2TAlA2QzkzC8iLMqrsWnsJJ2A590";
 };
 
 const baseURL = "https://fix-my-city.propulsion-learn.ch/backend/api/";

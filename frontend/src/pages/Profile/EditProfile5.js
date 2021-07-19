@@ -11,7 +11,7 @@ const EditProfile5 = () => {
                 <FormContainer> 
                     {/* onSubmit={onHandleSubmit}> */}
                     <h1>Password</h1>
-                    <p>Insert your password</p>
+                    <p>Insert new password</p>
                     <EmailField type='email' required='This field is required'/> 
                     {/* onChange={onUsernameChange} */}
                     <PContainer>

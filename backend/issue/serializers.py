@@ -7,18 +7,17 @@ from comment.serializers import CommentSerializer
 
 class IssueSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
-    issue_count = serializers.SerializerMethodField(read_only=True)
-# many2many -> many=True!
+    upvote_count = serializers.SerializerMethodField(read_only=True)
+    # with a many 2 many relation you need to accept many=True
     issue_comments = CommentSerializer(read_only=True, many=True)
 
-
-    def get_issue_count(self, obj):
+    def get_upvote_count(self, obj):
         return obj.upvoted_by.count()
 
     class Meta:
         model = Issue
-        fields = ['id', 'title', 'content', 'category', 'status', 'adress', 'longitude', 'latitude', 'city', 'zip', 'image', 'created', 'modified', 'issue_comments', 'upvoted_by', 'issue_count', 'user']
-        read_only_fields = ['id', 'created', 'modified', 'user', 'upvoted_by', 'issue_count']
+        fields = ['id', 'title', 'content', 'category', 'status', 'adress', 'longitude', 'latitude', 'city', 'zip', 'image', 'created', 'modified', 'issue_comments', 'upvoted_by', 'upvote_count', 'user']
+        read_only_fields = ['id', 'created', 'modified', 'user', 'upvoted_by', 'upvote_count']
 
 
 class CreateIssueSerializer(serializers.ModelSerializer):

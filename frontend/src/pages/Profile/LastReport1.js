@@ -1,5 +1,5 @@
 import React from 'react';
-import { LastReportContainer, Main, ButtonContainer, TitleContainer, FetschingContainer, AddressContainer} from './ProfileStyled';
+import {  Main, ButtonContainer, TitleContainer, FetschingContainer, AddressContainer, DateContainer, UpvotesContainer} from './ProfileStyled';
 import Navigation from '../../components/Navigation/Navigation';
 import ProfileUpperPart from './ProfileUpperPart';
 
@@ -13,15 +13,22 @@ const LastReport = () => {
                         <TitleContainer>
                             <h1>Last reported</h1>
                         </TitleContainer>
-    
-                        <LastReportContainer>
 
                             <FetschingContainer>
-                                <p className='issue'>Broken bench</p>
-                                <AddressContainer>Argauerstrasse 12</AddressContainer>
-                            </FetschingContainer>
+                                
+                                <AddressContainer>
+                                    <p className='issue'>Broken bench</p>
+                                    Argauerstrasse 12, 8005 Zürich
+                                </AddressContainer>
 
-                        </LastReportContainer>
+                                <UpvotesContainer>
+                                    <DateContainer>
+                                    May 2021
+                                    </DateContainer>
+                                    <p className='upvotes'>38 upvotes</p>
+                                </UpvotesContainer>
+
+                            </FetschingContainer>
 
                         <ButtonContainer>
                             <button>More...</button>
@@ -29,8 +36,6 @@ const LastReport = () => {
 
                 </Main>
         </>
-
-
     )
 }
 export default LastReport

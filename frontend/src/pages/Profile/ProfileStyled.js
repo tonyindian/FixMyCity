@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { EmailPasswordField } from "../../globalstyles/Input";
 import { ReportButton } from "../../globalstyles/ButtonStyles";
-import LastReport from './LastReport1';
+
 
 
 export const Main= styled.div`
@@ -220,7 +220,6 @@ export const SaveButton = styled(ReportButton)`
     }
 `
 export const FormContainer =styled.div`
-    border: solid red 2px;
     height: 87%;
     display: flex;
     flex-direction: column;
@@ -270,7 +269,8 @@ export const UpdateButton =styled(ReportButton)`
 `
 
 export const LastReportContainer =styled.div`
-    height: 40%;
+    border: solid green;
+    height: 100%;
     width: 90%;
     display: flex;
     flex-direction: column;
@@ -295,14 +295,13 @@ export const TitleContainer =styled.div`
 
 
 export const FetschingContainer =styled.div`
-    height: 35%;
-    width: 99%;
+    height: 10%;
+    width: 90%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-bottom: solid black 2px;
     
-
 
     .issue {
         font-weight: bold;
@@ -313,11 +312,17 @@ export const FetschingContainer =styled.div`
 
 export const AddressContainer =styled.p`
     height: 96%;
-    width: 49%;
+    width: 65%;
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    justify-content: center;
     font-size: 12px;
     font-weight: 300;
+
+    .issue {
+        padding-bottom: 2%;
+        color: #E26236;
+    }
 
 `
 
@@ -344,4 +349,26 @@ export const ButtonContainer =styled.div`
         }
     }
 `
+export const DateContainer =styled.div`
+    font-size: 12px;
+    font-size: 12px;
+    font-weight: 300;
+    font-weight: bold;
+    margin-bottom: 1.5%;
+    margin-top: 1%;
+    padding-bottom: 5%;
+`
 
+export const UpvotesContainer =styled.div`
+    height: 96%;
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    p {
+        font-size: 12px;
+        font-weight: 300;
+        color: #E26236;
+    }
+`

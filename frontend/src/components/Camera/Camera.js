@@ -7,8 +7,7 @@ import CameraIcon from "../../assets/images/photo-camera-black-tool-light.png"
 
 // if material-ui icon: <PhotoCameraRoundedIcon fontSize="large" color="primary" />
 //Camera app
-const Camera = (props) => {
-    
+const Camera = (props) => {    
 
    
     const handleCapture = (target) => {
@@ -17,8 +16,7 @@ const Camera = (props) => {
             const file = target.files[0];
             props.setImageFile(file);
             const newUrl = URL.createObjectURL(file);
-            props.setImageURL(newUrl);   
-           
+            props.setImageURL(newUrl);            
           }
         }
       };
