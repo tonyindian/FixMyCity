@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 import Navigation from "../../Navigation/Navigation";
 
@@ -65,6 +66,10 @@ const UpvoteButton = styled.button`
 const MoreDetails = (props) => {
   const issueCreated = new Date(props.created);
 
+  const history = useHistory();
+
+  const [showComments, setShowComments] = useState(false);
+
   return (
     <MainContainer>
       <Navigation
@@ -72,16 +77,24 @@ const MoreDetails = (props) => {
         setToggleMoreDetails={props.setToggleMoreDetails}
         page={"MoreDetails"}
       />
-      <SubContainer
-        style={{ height: "90%" }}
-        width={"75%"}
-        alignItems={"center"}
-      >
+      <SubContainer width={"75%"} alignItems={"center"}>
         <SubContainer marginTop={"15px"}>
           <Title fontSize={"30px"}>{props.title}</Title>
           <Text>
-            Reported by {props.author} on{" "}
-            {issueCreated.toLocaleDateString("en-UK")}
+            Reported by{" "}
+            <span
+              style={{
+                cursor: "pointer",
+                fontWeight: "bold",
+                fontSize: "19px",
+              }}
+              onClick={() => {
+                history.push(`/profile/${props.userId}`);
+              }}
+            >
+              {props.author}
+            </span>{" "}
+            on {issueCreated.toLocaleDateString("en-UK")}
           </Text>
           <Text>{props.upvoteCount} Upvotes</Text>
         </SubContainer>
@@ -109,6 +122,7 @@ const MoreDetails = (props) => {
         </SubContainer>
         <UpvoteButton>Up-vote issue</UpvoteButton>
       </SubContainer>
+      <SubContainer></SubContainer>
     </MainContainer>
   );
 };

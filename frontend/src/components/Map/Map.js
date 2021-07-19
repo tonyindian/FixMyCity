@@ -292,6 +292,7 @@ const Map = (props) => {
             streetAndNumber: issue.adress,
             category: issue.category,
             author: issue.user.username,
+            userId: issue.user.id,
             created: issue.created,
             upvoteCount: issue.issue_count,
             description: issue.content,
@@ -533,6 +534,7 @@ const Map = (props) => {
           setToggleMoreDetails={setToggleMoreDetails}
           title={selectedIssue.properties.title}
           author={selectedIssue.properties.author}
+          userId={selectedIssue.properties.userId}
           created={selectedIssue.properties.created}
           upvoteCount={selectedIssue.properties.upvoteCount}
           category={selectedIssue.properties.category}
