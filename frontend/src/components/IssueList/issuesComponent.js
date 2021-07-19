@@ -6,17 +6,14 @@ import { MoreDetailsLink } from "../Map/Popup/PopupContent";
 
 
 export const Container =styled(FetschingContainer)`
-    height: 100%;
-    padding-top: 5%;
-    padding-bottom: 5%;
 
 
-
+/* 
     p {
         font-weight: bold;
         font-size: 14px;
         line-height: 18px;
-    }
+    } */
 `
 export const AdressWrapper =styled(AddressContainer)`   
         height: 96%;
@@ -33,11 +30,19 @@ export const AdressWrapper =styled(AddressContainer)`
 
     }`
 
+export const DateWrapper =styled.div`
+        border: solid green;
+    `
+
+export const UpvotesWrapper =styled.div`
+        border: solid red;
+    `
+
 
 const IssueComponent = (props) => {
     return (
         <>
-        
+                
                     <Container onClick={() => {
                         props.setSelectedIssue(props.issue)
                         props.setToggleMoreDetails(true)
@@ -45,10 +50,19 @@ const IssueComponent = (props) => {
                         <p>{props.issue.title}</p>
                         <AdressWrapper>
                             <p>{props.issue.adress}</p>
-                            <p> {props.issue.zip} {props.issue.city}</p>
+                            <p> {props.issue.zip}, {props.issue.city}</p>
                         </AdressWrapper>
 
+                        <DateWrapper>
+                            May 2021
+                        </DateWrapper>
+
+                        <UpvotesWrapper>
+                            38 upvotes
+                        </UpvotesWrapper>
+
                     </Container>
+                
         </>
     )
 }
