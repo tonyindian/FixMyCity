@@ -25,6 +25,7 @@ yarn-error.log*
 node_modules/mapbox-gl/*
 node_modules/mapbox-gl/dist/*
 
-!node_modules/mapbox-gl/
-!node_modules/mapbox-gl/dist/
+!node_modules
+!node_modules/mapbox-gl
+!node_modules/mapbox-gl/dist
 !node_modules/mapbox-gl/dist/mapbox-gl.css
