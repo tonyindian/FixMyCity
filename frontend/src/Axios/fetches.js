@@ -85,6 +85,8 @@ export const patchIssue = async (id, status) => {
 export const patchToggleUpvote = async (id) => {
   const url = `issues/upvote/${id}/`;
 
+  const body = {};
+
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -93,7 +95,7 @@ export const patchToggleUpvote = async (id) => {
   };
 
   try {
-    const response = await Axios.patch(url, config);
+    const response = await Axios.patch(url, body, config);
     if (response.status === 200) {
       console.log("Success. Issue upvote has been updated.");
     }
