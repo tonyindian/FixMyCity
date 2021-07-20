@@ -115,6 +115,7 @@ const Login = () => {
         });
 
         localStorage.setItem("token", resp.data.access);
+        history.push("/");
       }
     } catch (err) {
       if (err.response.status > 400) {
@@ -122,10 +123,6 @@ const Login = () => {
       }
     }
   };
-
-  useEffect(() => {
-    if (token) history.push("/");
-  }, [token]);
 
   return (
     <Container>

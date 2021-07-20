@@ -66,6 +66,7 @@ const UpvoteButton = styled.button`
 `;
 
 const MoreDetails = (props) => {
+  console.log(props);
   const issueCreated = new Date(props.created);
 
   const history = useHistory();

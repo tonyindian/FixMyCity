@@ -66,16 +66,15 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'project.urls'
 
-CORS_ALLOW_ALL_ORIGINS = True
-#CORS_ALLOWED_ORIGINS = [
- #       "https://fix-my-city.propulsion-learn.ch",
- #       "http://localhost:8000",
-  #      "http://localhost:3000",
- #       "http://127.0.0.1:8000",
- #       "http://127.0.0.1:3000",
- #       "http://192.168.178.30:3000",
- #       "http://192.168.1.9:3000"
-#]
+CORS_ALLOWED_ORIGINS = [
+        "https://fix-my-city.propulsion-learn.ch",
+        "http://localhost:8000",
+        "http://localhost:3000",
+        "http://127.0.0.1:8000",
+        "http://127.0.0.1:3000",
+        "http://192.168.178.30:3000",
+        "http://192.168.1.9:3000"
+]
 
 TEMPLATES = [
     {
