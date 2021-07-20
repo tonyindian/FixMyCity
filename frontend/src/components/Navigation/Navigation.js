@@ -5,31 +5,34 @@ import leftArrow from "../../assets/images/left-arrow-navigation.png";
 import { useHistory } from "react-router-dom";
 
 export const Menu = (props) => {
-  
   const history = useHistory();
 
-
-  const goToProfileOnClickHandler = () =>{
+  const goToProfileOnClickHandler = () => {
     history.push("/profile");
     props.toggleShowMenu(false);
-  }
+  };
 
-  const goToHomeOnClickHandler = () =>{
+  const goToHomeOnClickHandler = () => {
     history.push("/");
     props.toggleShowMenu(false);
-  }
+  };
 
-  const goToIssuesOnClickHandler = () =>{
-    console.log("no issues page yet ;)")
+  const goToIssuesOnClickHandler = () => {
+    console.log("no issues page yet ;)");
     props.toggleShowMenu(false);
-  }
-
+  };
 
   return (
     <MenuStyled>
-      <button className="menuOption" onClick={goToHomeOnClickHandler}>HOME</button>
-      <button className="menuOption" onClick={goToProfileOnClickHandler}>PROFILE</button>
-      <button className="menuOption" onClick={goToIssuesOnClickHandler}>ISSUES</button>
+      <button className="menuOption" onClick={goToHomeOnClickHandler}>
+        HOME
+      </button>
+      <button className="menuOption" onClick={goToProfileOnClickHandler}>
+        PROFILE
+      </button>
+      <button className="menuOption" onClick={goToIssuesOnClickHandler}>
+        ISSUES
+      </button>
     </MenuStyled>
   );
 };
@@ -45,6 +48,7 @@ const Navigation = (props) => {
     switch (props.page) {
       case "MoreDetails":
         props.setToggleMoreDetails(false);
+        props.setFetchIssues(!props.fetchIssues);
         break;
       default:
         break;
@@ -63,7 +67,7 @@ const Navigation = (props) => {
           <img id="menu_img" src={MenuImage} alt="menu_icon"></img>
         </button>
       </MainContainer>
-      {showMenu && <Menu toggleShowMenu={toggleShowMenu}/>}
+      {showMenu && <Menu toggleShowMenu={toggleShowMenu} />}
     </>
   );
 };
