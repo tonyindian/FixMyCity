@@ -7,6 +7,7 @@ export const fetchLatestProfileInfoAndUpdateRedux = async (dispatch) => {
 
    
             const action = {type:"updateProfileInfo",payload:{
+                avatar: data.profile_picture,
                 userName:data.username,
                 dateJoined:data.date_joined,
                 points:data.points,
