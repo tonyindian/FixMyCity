@@ -221,6 +221,7 @@ const Map = (props) => {
     const fetchProfile = async () => {
       const data = await fetchProfileInfo();
       setCurrentUser(data);
+      console.log(data);
     };
     fetchProfile();
   }, []);
