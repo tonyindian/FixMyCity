@@ -13,6 +13,7 @@ import EditProfile5 from "./pages/Profile/EditProfile5";
 import EditProfile6 from "./pages/Profile/EditProfile6";
 import LastReport1 from "./pages/Profile/LastReport1";
 import PageIssueList from "./pages/PageIssueList/pageIssueList";
+import SignUp from "./pages/SignUp/SignUp";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
         <Route exact path="/editprofile6" component={EditProfile6} />
         <Route exact path="/lastreport1" component={LastReport1} />
         <Route exact path="/issuelist" component={PageIssueList} />
+        <Route exact path="/signup" component={SignUp} />
 
         {/* <Route exact path="/lastreport2" component={LastReport2}/> */}
       </Switch>

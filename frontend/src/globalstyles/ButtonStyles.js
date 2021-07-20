@@ -24,6 +24,7 @@ export const SignUpButton = styled.button`
     position: absolute;
     width: 196px;
     height: 51px;
+    border-radius: 4px;
     left: 88px;
     top: 480px;
 `
