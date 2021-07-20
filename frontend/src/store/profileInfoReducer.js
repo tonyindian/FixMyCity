@@ -1,5 +1,6 @@
 const initialState = {
   info: {
+    avatar: "",
     userName: "",
     dateJoined: "",
     points: "",

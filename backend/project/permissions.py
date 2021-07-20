@@ -9,7 +9,7 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
 
         try:
             # issue
-            return obj.user == request.user
+            return obj.user == request.user or request.user.is_superuser
         except AttributeError:
             pass
 

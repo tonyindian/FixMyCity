@@ -5,23 +5,26 @@ import leftArrow from "../../assets/images/left-arrow-navigation.png";
 import { useHistory } from "react-router-dom";
 
 export const Menu = (props) => {
-  
   const history = useHistory();
 
-
-  const goToProfileOnClickHandler = () =>{
+  const goToProfileOnClickHandler = () => {
     history.push("/profile");
     props.toggleShowMenu(false);
-  }
+  };
 
-  const goToHomeOnClickHandler = () =>{
+  const goToHomeOnClickHandler = () => {
     history.push("/");
     props.toggleShowMenu(false);
-  }
+  };
 
   const goToIssuesOnClickHandler = () =>{
     history.push("/issuelist");
     props.toggleShowMenu(false);
+  }
+
+  const logoutOnClickHandler = () => {
+    localStorage.clear();
+    history.push("/login");
   }
 
 
@@ -30,13 +33,15 @@ export const Menu = (props) => {
       <button className="menuOption" onClick={goToHomeOnClickHandler}>HOME</button>
       <button className="menuOption" onClick={goToProfileOnClickHandler}>PROFILE</button>
       <button className="menuOption" onClick={goToIssuesOnClickHandler}>ISSUES</button>
+      <button className="menuOption" onClick={logoutOnClickHandler}>LOGOUT</button>
     </MenuStyled>
   );
 };
 
 const Navigation = (props) => {
   const [showMenu, toggleShowMenu] = useState(false);
-
+  const history = useHistory();
+  
   const menuIconOnClickHandler = () => {
     toggleShowMenu(!showMenu);
   };
@@ -45,7 +50,14 @@ const Navigation = (props) => {
     switch (props.page) {
       case "MoreDetails":
         props.setToggleMoreDetails(false);
+        props.setFetchIssues(!props.fetchIssues);
         break;
+      case "editProfileField":
+        props.setShowEditProfileField(false);  
+        break;
+      case "profile":
+        history.push("/");     
+        break; 
       default:
         break;
     }
@@ -63,7 +75,7 @@ const Navigation = (props) => {
           <img id="menu_img" src={MenuImage} alt="menu_icon"></img>
         </button>
       </MainContainer>
-      {showMenu && <Menu toggleShowMenu={toggleShowMenu}/>}
+      {showMenu && <Menu toggleShowMenu={toggleShowMenu} />}
     </>
   );
 };

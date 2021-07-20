@@ -3,11 +3,8 @@ import { useHistory } from "react-router-dom";
 import Div100vh from "react-div-100vh";
 import { Main, ReportButton, Search, MapContainer } from "./Styled";
 import Map from "../../components/Map/Map";
-import searchglass from "../../assets/images/search.png";
 import FilterButton from "./FilterButton";
 import { useDispatch } from "react-redux";
-import Navigation from "../../components/Navigation/Navigation";
-import { fetchProfileInfo, patchProfileInfo } from "../../Axios/fetches";
 import { fetchLatestProfileInfoAndUpdateRedux } from "../../middleware/fetchUpdateRedux";
 
 const Homepage = () => {
@@ -15,8 +12,7 @@ const Homepage = () => {
   const history = useHistory();
   const [coordinates, setCoordinates] = useState(null);
 
-  useEffect(() => {
-    fetchLatestProfileInfoAndUpdateRedux(dispatch);
+  useEffect(() => {    
   }, [coordinates]);
 
   const reportButtonOnClickHandler = () => {
