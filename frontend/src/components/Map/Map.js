@@ -73,7 +73,7 @@ const Map = (props) => {
   const dispatch = useDispatch();
 
   // Get token from redux state
-  const token = useSelector((state) => state.tokenReducer.token);
+  const token = localStorage.getItem("token");
 
   // Get filter's value from redux state
   const filterValueRedux = useSelector((state) => state.filterReducer.filter);
