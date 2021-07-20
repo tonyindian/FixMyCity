@@ -7,6 +7,7 @@ import Homepage from './pages/Homepage/Homepage';
 import Profile from './pages/Profile/Profile';
 import ProfileReadOnly from "./pages/ProfileReadOnly/ProfileReadOnly"
 import {withAuth} from "../src/withAuth/withAuth"
+import IssueList from "./components/IssueList/issueList"
 
 
 
@@ -18,7 +19,8 @@ function App() {
         <Route exact path="/createissue" component={withAuth(CreateIssue)}/>
         <Route exact path="/login" component={Login}/>
         <Route exact path="/profile/:id" component={withAuth(ProfileReadOnly)}/>         
-        <Route exact path="/profile" component={withAuth(Profile)}/>      
+        <Route exact path="/profile" component={withAuth(Profile)}/> 
+        <Route exact path="/issues" component={withAuth(IssueList)}/>
       </Switch>
     </BrowserRouter>
   );

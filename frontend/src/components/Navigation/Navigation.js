@@ -18,7 +18,7 @@ export const Menu = (props) => {
   };
 
   const goToIssuesOnClickHandler = () =>{
-    history.push("/issuelist");
+    history.push("/issues");
     props.toggleShowMenu(false);
   }
 
@@ -57,7 +57,10 @@ const Navigation = (props) => {
         break;
       case "profile":
         history.push("/");     
-        break; 
+        break;
+      case "issues":
+        history.push("/"); 
+        break;
       default:
         break;
     }

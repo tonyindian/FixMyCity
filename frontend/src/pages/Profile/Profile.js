@@ -5,6 +5,7 @@ import ProfileDetails from './components/ProfileDetails';
 import ProfileMainInfo from './components/ProfileMainInfo';
 import Navigation from '../../components/Navigation/Navigation';
 import { fetchLatestProfileInfoAndUpdateRedux } from "../../middleware/fetchUpdateRedux";
+import IssueList from "../../components/IssueList/issueList"
 
 const Profile = () => {
     
@@ -14,11 +15,12 @@ const Profile = () => {
       );
 
     useEffect(() => {          
-        fetchLatestProfileInfoAndUpdateRedux(dispatch);              
+        fetchLatestProfileInfoAndUpdateRedux(dispatch);           
     }, []);    
 
     
-    const [showEditMode, toggleShowEditMode] = useState(true);  
+    const [showEditMode, toggleShowEditMode] = useState(false);  
+    
     
     return (
         <>
@@ -26,7 +28,8 @@ const Profile = () => {
                 <Main>
                     <ProfileMainInfo myProfileInfo = {myProfileInfo} showEditMode={showEditMode}/>
                     {showEditMode===true?<ProfileDetails myProfileInfo = {myProfileInfo} />:null}
-                    {showEditMode===false?<div><p>I'll store your issues.</p></div>:null}          
+
+                    {(showEditMode===false)?<IssueList  hideNavBar={true} profile></IssueList>:null}         
                     <SaveBox></SaveBox>
                 </Main>
         </>       

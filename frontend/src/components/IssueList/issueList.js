@@ -1,22 +1,11 @@
 import styled from 'styled-components';
 import React, {useEffect, useState} from "react";
-import Axios from "../../Axios/index";
-import IssueComponent, { ListLine } from './issuesComponent';
-import { LastReportContainer, Main } from '../../pages/Profile/ProfileStyled';
+import IssueComponent from './issuesComponent';
 import MoreDetails from '../Map/Popup/MoreDetails';
-import { fetchIssues } from '../../Axios/fetches';
+import { fetchIssues,fetchProfileInfo } from '../../Axios/fetches';
 import Navigation from '../../components/Navigation/Navigation';
 
-/* const Main= styled.div`
-    width: 100%;
-    height:100%;
-    display: flex;
-    justify-content: start;
-    box-sizing: border-box;
-    background: white;
-    padding-left: 5%;
 
-` */
 const ListWrapper = styled.div`
     width: 100%;
     height: 100%;
@@ -24,65 +13,65 @@ const ListWrapper = styled.div`
     border-radius: 3px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
     padding-left: 5%;
-    padding-right: 5%;
-    
+    padding-right: 5%;    
+`
+const Main= styled.div`
+    width: 100%;
+    height:90%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding-left: 3%;
+    padding-right: 3%;
 `
 
-const ListTitle = styled.h1`
-    margin-left: 10px;
-    align-self: flex-start;
-    font-weight: bold;
-    font-size: 20px;
-    line-height: 23px;
-    color: #F8CE46;
-    
-`
+const IssueList = (props) => {       
 
-
-const ListOrigin = styled(ListTitle)`
-    padding-top: 2%;
-    width: 90%;
-    color: black;   
-    
-`
-
-const IssueContainer = styled(LastReportContainer)`
-    height: 100%;
-`
-
-const IssueList = () => {
-    
-    const [issues, setIssues] = useState(null);
- 
+    const [issues, setIssues] = useState(null); 
     const [selectedIssue, setSelectedIssue] = useState(null);
+    const [issuesLength,setIssuesLength] = useState(0);
+    const [toggleMoreDetails, setToggleMoreDetails] = useState(false);  
 
-    const [toggleMoreDetails, setToggleMoreDetails] = useState(false);
 
-
-    useEffect(() => {
-            async function fetchNewIssues() {
-                const data = await fetchIssues();
-                console.log(data);
-                setIssues(data);
+    useEffect(() => {               
+        async function fetchUserId() {
+            const profileInfo = await fetchProfileInfo();          
+            const userId = profileInfo.id;
+            let data;
+            if (props.profile){
+                data = await fetchIssues(userId);
+            }else{
+                data = await fetchIssues();
             }
+            console.log(data);
+            setIssues(data);
+            setIssuesLength(data.length);            
+        }
+    fetchUserId();
+}, []);    
 
-
-        fetchNewIssues();
-    }, []);
-
-
+    const lastIndex = () => {
+        
+        const returnValue = props.displayIssues? props.displayIssues : issuesLength;
+        return returnValue;
+    }
 
     return(
         <>
-        <Navigation/>
+        {props.hideNavBar?
+            null
+            :<Navigation showBackButton={true} page={"issues"}/>           
+        }
             <Main>
                 <ListWrapper>
 
                     {
                     (issues && issues.length !==0)?
-                        issues.map((item, index) =>
+                        issues.slice(0,lastIndex()).map((item, index)=> 
                         <IssueComponent key={`${index}-${item.title}`} issue={item}
                             setSelectedIssue={setSelectedIssue}
                             setToggleMoreDetails ={setToggleMoreDetails}

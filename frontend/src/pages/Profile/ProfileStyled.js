@@ -2,8 +2,6 @@ import styled from 'styled-components';
 import { EmailPasswordField } from "../../globalstyles/Input";
 import { ReportButton } from "../../globalstyles/ButtonStyles";
 
-
-
 export const Main= styled.div`
     width: 100%;
     height:90%;
@@ -15,6 +13,7 @@ export const Main= styled.div`
     padding-left: 3%;
     padding-right: 3%;
 `
+
 
 export const NameContainer = styled.div`
     width: 90%;
@@ -340,10 +339,8 @@ export const LastReportContainer =styled.div`
     width: 90%;
     display: flex;
     flex-direction: column;
-
     
 `
-
 
 export const TitleContainer =styled.div`
         width: 90%;
@@ -357,42 +354,6 @@ export const TitleContainer =styled.div`
         border-bottom: solid black 2px;
         
     }
-`
-
-
-export const FetschingContainer =styled.div`
-    height: 10%;
-    width: 90%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: solid black 2px;
-    
-
-    .issue {
-        font-weight: bold;
-        font-size: 16px;
-        line-height: 16px;
-    }
-`
-
-export const AddressContainer =styled.p`
-    height: 96%;
-    width: 65%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    font-size: 12px;
-    font-weight: 300;
-    padding-bottom: 3%;
-    padding-top: 3%;
-
-    .issue {
-        padding-top: 2%;
-        padding-bottom: 2%;
-        color: #E26236;
-    }
-
 `
 
 export const ButtonContainer =styled.div`
@@ -416,29 +377,5 @@ export const ButtonContainer =styled.div`
         &:active {
             transform: translateY(4px);
         }
-    }
-`
-export const DateContainer =styled.div`
-    font-size: 14px;
-    font-weight: 300;
-    font-weight: bold;
-    margin-bottom: 1.5%;
-    margin-top: 1%;
-    padding-bottom: 5%;
-`
-
-export const UpvotesContainer =styled.div`
-    height: 96%;
-    width: 25%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding-top: 3%;
-    padding-bottom: 3%;
-
-    p {
-        font-size: 13px;
-        font-weight: 300;
-        color: #E26236;
     }
 `

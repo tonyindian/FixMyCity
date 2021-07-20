@@ -38,10 +38,10 @@ return (
         <NameContainer>          
       
         <aside className='left'>
-            <img alt="profile_avatar" className="avatar" src={imageURL? imageURL : info.avatar? info.avatar : defaultAvatar}></img>            
+            <img alt="profile_avatar" className="avatar" src={imageURL? imageURL : info.profile_picture? info.profile_picture : defaultAvatar}></img>            
         </aside>
         <aside className='right'>
-            <h1>{info.firstName} {info.lastName}</h1>
+            <h1>{info.first_name} {info.last_name}</h1>
             <p>Member since {info.date_joined.substr(0,10)}</p>
             {props.showEditMode===true?
                 <>
