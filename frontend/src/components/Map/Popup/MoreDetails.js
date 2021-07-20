@@ -66,15 +66,20 @@ const UpvoteButton = styled.button`
 `;
 
 const MoreDetails = (props) => {
+  console.log(props);
   const issueCreated = new Date(props.created);
 
   const history = useHistory();
 
   const [status, setStatus] = useState(props.status);
 
-  const [upvoted, setUpvoted] = useState(
-    props.upvotedBy.find((id) => id === props.currentUser.id) ? true : false
-  );
+  const initialUpvoted = props.upvotedBy.find(
+    (id) => id === props.currentUser.id
+  )
+    ? true
+    : false;
+
+  const [upvoted, setUpvoted] = useState(initialUpvoted);
 
   const handleUpvote = () => {
     setUpvoted(!upvoted);
@@ -86,6 +91,8 @@ const MoreDetails = (props) => {
       <Navigation
         showBackButton={true}
         setToggleMoreDetails={props.setToggleMoreDetails}
+        setFetchIssues={props.setFetchIssues}
+        fetchIssues={props.fetchIssues}
         page={"MoreDetails"}
       />
       <SubContainer width={"75%"} alignItems={"center"} marginBottom={"0px"}>
@@ -108,7 +115,14 @@ const MoreDetails = (props) => {
             on {issueCreated.toLocaleDateString("en-UK")}
           </Text>
           <Text>
-            {upvoted ? props.upvoteCount + 1 : props.upvoteCount} Upvotes
+            {initialUpvoted
+              ? upvoted
+                ? props.upvoteCount
+                : props.upvoteCount - 1
+              : upvoted
+              ? props.upvoteCount + 1
+              : props.upvoteCount}{" "}
+            Upvotes
           </Text>
           <Text>
             Status:{" "}
@@ -159,7 +173,6 @@ const MoreDetails = (props) => {
           ) : null}
         </SubContainer>
       </SubContainer>
-      <SubContainer></SubContainer>
     </MainContainer>
   );
 };

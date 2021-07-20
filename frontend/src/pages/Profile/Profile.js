@@ -1,32 +1,35 @@
-import React from "react";
-import { Main, UserDetails, LastReported, SaveBox } from "./ProfileStyled";
-import ProfileDownPart from "./ProfileDownpart";
-import ProfileUpperPart from "./ProfileUpperPart";
-import Navigation from "../../components/Navigation/Navigation";
+import React, {useState,useEffect} from 'react';
+import { useSelector, useDispatch } from "react-redux";
+import { Main, UserDetails, LastReported, SaveBox} from './ProfileStyled';
+import ProfileDetails from './components/ProfileDetails';
+import ProfileMainInfo from './components/ProfileMainInfo';
+import Navigation from '../../components/Navigation/Navigation';
+import { fetchLatestProfileInfoAndUpdateRedux } from "../../middleware/fetchUpdateRedux";
 
-const Profile = (props) => {
-  // const UserProfileFullCard = ({ meData, getMyProfileAction, history }) => {
-  //     const { last_name, first_name, avatar, location, about_me, email, phone, things_user_likes } = meData;
+const Profile = () => {
+    
+    const dispatch = useDispatch();
+    const myProfileInfo = useSelector(
+        state => state.profileInfoReducer.info
+      );
 
-  //     useEffect(() => {
-  //         getMyProfileAction();
-  //     }, [getMyProfileAction]);
+    useEffect(() => {          
+        fetchLatestProfileInfoAndUpdateRedux(dispatch);              
+    }, []);    
 
-  //     const editHandler = function () {
-  //         history.push('/userProfileUpdate')
-  //     };
-
-  return (
-    <>
-      <Navigation />
-      <Main>
-        <ProfileUpperPart />
-
-        <ProfileDownPart />
-
-        <SaveBox></SaveBox>
-      </Main>
-    </>
-  );
+    
+    const [showEditMode, toggleShowEditMode] = useState(true);  
+    
+    return (
+        <>
+            <Navigation showBackButton={true} page={"profile"}/>
+                <Main>
+                    <ProfileMainInfo myProfileInfo = {myProfileInfo} showEditMode={showEditMode}/>
+                    {showEditMode===true?<ProfileDetails myProfileInfo = {myProfileInfo} />:null}
+                    {showEditMode===false?<div><p>I'll store your issues.</p></div>:null}          
+                    <SaveBox></SaveBox>
+                </Main>
+        </>       
+   );
 };
 export default Profile;

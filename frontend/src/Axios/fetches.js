@@ -15,8 +15,15 @@ export const fetchProfileInfo = async (user = "") => {
     url = "me/";
   }
 
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${localStorage.getItem("token")}`,
+    },
+  };
+
   try {
-    const response = await Axios.get(url);
+    const response = await Axios.get(url, config);
     if (response.status === 200) {
       return response.data;
     }
@@ -33,6 +40,7 @@ export const patchProfileInfo = async (formdata) => {
   const config = {
     headers: {
       "Content-Type": "multipart/form-data",
+      "Authorization": `Bearer ${localStorage.getItem("token")}`,
     },
   };
 
@@ -51,12 +59,19 @@ export const patchProfileInfo = async (formdata) => {
 export const patchIssue = async (id, status) => {
   const url = `issues/${id}/`;
 
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${localStorage.getItem("token")}`,
+    },
+  };
+
   const body = {
     status: `${status}`,
   };
 
   try {
-    const response = await Axios.patch(url, body);
+    const response = await Axios.patch(url, body, config);
     if (response.status === 200) {
       console.log("Success. Issue status has been updated.");
     }
@@ -70,8 +85,17 @@ export const patchIssue = async (id, status) => {
 export const patchToggleUpvote = async (id) => {
   const url = `issues/upvote/${id}/`;
 
+  const body = {};
+
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${localStorage.getItem("token")}`,
+    },
+  };
+
   try {
-    const response = await Axios.patch(url);
+    const response = await Axios.patch(url, body, config);
     if (response.status === 200) {
       console.log("Success. Issue upvote has been updated.");
     }
@@ -88,6 +112,7 @@ export const createIssue = async (formdata) => {
   const config = {
     headers: {
       "Content-Type": "multipart/form-data",
+      "Authorization": `Bearer ${localStorage.getItem("token")}`,
     },
   };
 
@@ -98,6 +123,13 @@ export const createIssue = async (formdata) => {
 export const fetchIssues = async (user = "") => {
   let url;
 
+  const config = {
+    headers: {
+      "Content-Type": "multipart/form-data",
+      "Authorization": `Bearer ${localStorage.getItem("token")}`,
+    },
+  };
+
   if (user) {
     url = `/issues/user/${user}/`;
   } else {
@@ -105,7 +137,7 @@ export const fetchIssues = async (user = "") => {
   }
 
   try {
-    const response = await Axios.get(url);
+    const response = await Axios.get(url, config);
     if (response.status === 200) {
       return response.data;
     }

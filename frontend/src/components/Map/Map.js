@@ -72,6 +72,9 @@ const Map = (props) => {
 
   const dispatch = useDispatch();
 
+  // Get token from redux state
+  const token = localStorage.getItem("token");
+
   // Get filter's value from redux state
   const filterValueRedux = useSelector((state) => state.filterReducer.filter);
 
@@ -112,6 +115,9 @@ const Map = (props) => {
   const [mapStyle, setMapStyle] = useState(
     "mapbox://styles/mapbox/streets-v11"
   );
+
+  // Toggling for refetching the issues
+  const [fetchIssues, setFetchIssues] = useState(false);
 
   // State to display or not the MoreDetails component
   const [toggleMoreDetails, setToggleMoreDetails] = useState(false);
@@ -205,8 +211,28 @@ const Map = (props) => {
 
   // Initial useEffect: Get current user's data and fetching in order to get the issues
   useEffect(() => {
-    // `Bearer ${localStorage.getItem("token")}`
     //current_location();
+    if (token) {
+      const urlIssues = `https://fix-my-city.propulsion-learn.ch/backend/api/issues/`;
+
+      fetch(urlIssues)
+        .then((res) => res.json())
+        .then((data) => {
+          setIssues(data);
+          setFilteredIssues(data);
+        });
+
+      const fetchProfile = async () => {
+        const data = await fetchProfileInfo();
+        setCurrentUser(data);
+        console.log(data);
+      };
+      fetchProfile();
+    }
+  }, [token]);
+
+  // Fetching issues every time when fetchIssues has been changed
+  useEffect(() => {
     const urlIssues = `https://fix-my-city.propulsion-learn.ch/backend/api/issues/`;
 
     fetch(urlIssues)
@@ -216,12 +242,8 @@ const Map = (props) => {
         setFilteredIssues(data);
       });
 
-    const fetchProfile = async () => {
-      const data = await fetchProfileInfo();
-      setCurrentUser(data);
-    };
-    fetchProfile();
-  }, []);
+    setSelectedIssue(null);
+  }, [fetchIssues]);
 
   // It keeps the parent component's coordinate state up to date
   // It will be triggered if the userMaker is visible on the map
@@ -458,12 +480,12 @@ const Map = (props) => {
                   >
                     <MarkerImgStyle
                       src={
-                        cluster.upvoteCount >= 3
-                          ? OrangeMarker
-                          : cluster.upvoteCount >= 5
-                          ? RedishOrangeMarker
-                          : cluster.upvoteCount >= 10
-                          ? RedMarker
+                        cluster.properties.upvoteCount >= 3
+                          ? cluster.properties.upvoteCount >= 10
+                            ? RedMarker
+                            : cluster.properties.upvoteCount >= 5
+                            ? RedishOrangeMarker
+                            : OrangeMarker
                           : YellowMarker
                       }
                       alt="marker"
@@ -544,6 +566,8 @@ const Map = (props) => {
       {toggleMoreDetails && (
         <MoreDetails
           setToggleMoreDetails={setToggleMoreDetails}
+          setFetchIssues={setFetchIssues}
+          fetchIssues={fetchIssues}
           issueId={selectedIssue.properties.issueId}
           title={selectedIssue.properties.title}
           author={selectedIssue.properties.author}
