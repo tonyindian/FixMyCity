@@ -29,6 +29,7 @@ import BlueMarker from "../../assets/map/markers/blue-marker.png";
 import PopupContent from "./Popup/PopupContent";
 import MoreDetails from "./Popup/MoreDetails";
 import Navigation from "../Navigation/Navigation";
+import { fetchProfileInfo } from "../../Axios/fetches";
 
 const Map = (props) => {
   // Styles to place the buttons somewhere on the map (absolute position)
@@ -85,6 +86,9 @@ const Map = (props) => {
 
   // State to save the fetched datas
   const [issues, setIssues] = useState([]);
+
+  // State to save current user's data
+  const [currentUser, setCurrentUser] = useState(null);
 
   // State to save filtered issues
   const [filteredIssues, setFilteredIssues] = useState([]);
@@ -199,18 +203,24 @@ const Map = (props) => {
 
   // useEffects
 
-  // Initial useEffect: Get the user's current location and fetching in order to get the Issues
+  // Initial useEffect: Get current user's data and fetching in order to get the issues
   useEffect(() => {
+    // `Bearer ${localStorage.getItem("token")}`
     //current_location();
-    //setIssues(fetchIssues);
-    const url = `https://fix-my-city.propulsion-learn.ch/backend/api/issues/`;
+    const urlIssues = `https://fix-my-city.propulsion-learn.ch/backend/api/issues/`;
 
-    fetch(url)
+    fetch(urlIssues)
       .then((res) => res.json())
       .then((data) => {
         setIssues(data);
         setFilteredIssues(data);
       });
+
+    const fetchProfile = async () => {
+      const data = await fetchProfileInfo();
+      setCurrentUser(data);
+    };
+    fetchProfile();
   }, []);
 
   // It keeps the parent component's coordinate state up to date
@@ -292,8 +302,11 @@ const Map = (props) => {
             streetAndNumber: issue.adress,
             category: issue.category,
             author: issue.user.username,
+            userId: issue.user.id,
             created: issue.created,
-            upvoteCount: issue.issue_count,
+            upvoteCount: issue.upvote_count,
+            upvotedBy: issue.upvoted_by,
+            status: issue.status,
             description: issue.content,
           },
           geometry: {
@@ -488,9 +501,9 @@ const Map = (props) => {
                 <PopupContent
                   upvoteCount={selectedIssue.properties.upvoteCount}
                   title={selectedIssue.properties.title}
-                  image={selectedIssue.properties.image}
                   author={selectedIssue.properties.author}
                   created={selectedIssue.properties.created}
+                  status={selectedIssue.properties.status}
                   setToggleMoreDetails={setToggleMoreDetails}
                 />
               </Popup>
@@ -531,10 +544,15 @@ const Map = (props) => {
       {toggleMoreDetails && (
         <MoreDetails
           setToggleMoreDetails={setToggleMoreDetails}
+          issueId={selectedIssue.properties.issueId}
           title={selectedIssue.properties.title}
           author={selectedIssue.properties.author}
+          userId={selectedIssue.properties.userId}
+          currentUser={currentUser}
           created={selectedIssue.properties.created}
           upvoteCount={selectedIssue.properties.upvoteCount}
+          upvotedBy={selectedIssue.properties.upvotedBy}
+          status={selectedIssue.properties.status}
           category={selectedIssue.properties.category}
           image={selectedIssue.properties.image}
           description={selectedIssue.properties.description}
