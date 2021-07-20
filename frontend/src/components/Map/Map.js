@@ -480,12 +480,12 @@ const Map = (props) => {
                   >
                     <MarkerImgStyle
                       src={
-                        cluster.upvoteCount >= 3
-                          ? OrangeMarker
-                          : cluster.upvoteCount >= 5
-                          ? RedishOrangeMarker
-                          : cluster.upvoteCount >= 10
-                          ? RedMarker
+                        cluster.properties.upvoteCount >= 3
+                          ? cluster.properties.upvoteCount >= 10
+                            ? RedMarker
+                            : cluster.properties.upvoteCount >= 5
+                            ? RedishOrangeMarker
+                            : OrangeMarker
                           : YellowMarker
                       }
                       alt="marker"

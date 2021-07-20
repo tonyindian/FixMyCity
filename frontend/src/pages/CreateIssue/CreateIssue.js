@@ -19,17 +19,17 @@ import { useSelector } from "react-redux";
 import { StaticMap, Marker } from "react-map-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { MarkerImgStyle } from "../../components/Map/MapStyled";
-import MarkerPng from "../../assets/map/marker.png";
-import reviewAddress from "../../assets/images/review_address.png"
-import reviewCategory from "../../assets/images/review_category.png"
-import reviewTitle from "../../assets/images/review_title.png"
-import reviewDescription from "../../assets/images/review_description.png"
-import confirmation from "../../assets/svgs/confirmation.svg"
-import Navigation from "../../components/Navigation_CreateIssue/NavigationCreateIssue"
-import Sad from "../../assets/images/sad.png"
-import Confirmation from "../../assets/images/confirmation.png"
+import BlueMarker from "../../assets/map/markers/blue-marker.png";
+import reviewAddress from "../../assets/images/review_address.png";
+import reviewCategory from "../../assets/images/review_category.png";
+import reviewTitle from "../../assets/images/review_title.png";
+import reviewDescription from "../../assets/images/review_description.png";
+import confirmation from "../../assets/svgs/confirmation.svg";
+import Navigation from "../../components/Navigation_CreateIssue/NavigationCreateIssue";
+import Sad from "../../assets/images/sad.png";
+import Confirmation from "../../assets/images/confirmation.png";
 import Div100vh from "react-div-100vh";
-import {createIssue} from "../../Axios/fetches"
+import { createIssue } from "../../Axios/fetches";
 
 const StepOne = (props) => {
   const pinnedCoordinates = useSelector(
@@ -41,7 +41,6 @@ const StepOne = (props) => {
   return (
     <>
       <StepOneContainer>
-        
         {
           //<div id="step1">
         }
@@ -63,13 +62,15 @@ const StepOne = (props) => {
             offsetTop={-30}
           >
             <MarkerImgStyle
-              src={MarkerPng}
+              src={BlueMarker}
               alt="marker"
               style={{ cursor: "auto" }}
             />
           </Marker>
         </StaticMap>
-        <p>{props.address} <br></br> {props.postcode} {props.city}</p>
+        <p>
+          {props.address} <br></br> {props.postcode} {props.city}
+        </p>
         {
           //</div>
         }
@@ -114,7 +115,7 @@ const StepThree = (props) => {
           <div id="titleContainer">
             <h3 className="fieldHeader">Title*:</h3>
             <input
-              id = "title"
+              id="title"
               type="text"
               value={props.title}
               onChange={titleOnChangeHandler}
@@ -129,7 +130,7 @@ const StepThree = (props) => {
             >
               <option value="default">--select--</option>
               <option>graffiti</option>
-              <option>damages</option>              
+              <option>damages</option>
               <option>insects and animals</option>
               <option>items with no owner</option>
               <option>litter</option>
@@ -138,12 +139,12 @@ const StepThree = (props) => {
           <div id="descriptionContainer">
             <h3 className="fieldHeader">Description:</h3>
             <textarea
-              id = "description"
+              id="description"
               type="text"
-              value= {props.description}
+              value={props.description}
               onChange={descriptionOnChangeHandler}
             ></textarea>
-              {/*<textarea
+            {/*<textarea
               rows="10"
               cols="37"
               value={props.description}
@@ -159,13 +160,18 @@ const StepThree = (props) => {
 const Review = (props) => {
   return (
     <>
-      <ReviewContainer>        
+      <ReviewContainer>
         <h3 className="pageTitle">Review and send to us! :)</h3>
         <div id="reviewContainerBox">
           <div className="itemTitleText">
-            <h3 className="itemTitle" id="powerTitle">{props.title}</h3>
-            <p className="itemText"> @{props.address}, {props.postcode}, {props.city}</p>
-          </div> 
+            <h3 className="itemTitle" id="powerTitle">
+              {props.title}
+            </h3>
+            <p className="itemText">
+              {" "}
+              @{props.address}, {props.postcode}, {props.city}
+            </p>
+          </div>
           <Box>
             <img
               id="selectedImage"
@@ -173,16 +179,16 @@ const Review = (props) => {
               alt="selected_image"
             ></img>
           </Box>
-          <div className="itemTitleText">     
+          <div className="itemTitleText">
             <h3 className="itemTitle">Category</h3>
             <p className="itemText">{props.category}</p>
-          </div>   
-          {props.description? 
-          <div className="itemTitleText"> 
-            <h3 className="itemTitle">Description</h3>
-            <p className="itemText">{props.description}</p>  
           </div>
-          :null}          
+          {props.description ? (
+            <div className="itemTitleText">
+              <h3 className="itemTitle">Description</h3>
+              <p className="itemText">{props.description}</p>
+            </div>
+          ) : null}
         </div>
       </ReviewContainer>
     </>
@@ -190,24 +196,24 @@ const Review = (props) => {
 };
 
 const ThankYouPage = () => {
-
-  return(
+  return (
     <ThankYouContainer>
       <img src={Confirmation} id="confirmationIcon" alt="confirmation"></img>
-      <p id="message">Thank you! <br></br> For making your city a better place to live in :)</p>
+      <p id="message">
+        Thank you! <br></br> For making your city a better place to live in :)
+      </p>
     </ThankYouContainer>
-  )
-}
+  );
+};
 
 const SomethingWentWrongPage = () => {
-
-  return(
+  return (
     <SomethingWentWrongContainer>
       <img id="sad" src={Sad} alt="sad"></img>
       <p id="message">Oops... something went wrong. Please try again</p>
     </SomethingWentWrongContainer>
-  )
-}
+  );
+};
 
 const CreateIssue = () => {
   const pinnedCoordinates = useSelector(
@@ -219,13 +225,13 @@ const CreateIssue = () => {
 
   const MAPBOX_TOKEN =
     "pk.eyJ1IjoiYWxleDI2MCIsImEiOiJja3FxazJuYnQwcnRxMzFxYXNpaHV2NHR3In0.sClUCkiGXj9AQubDvnv68A";
-  
-    useEffect(() => {
-      console.log(pinnedCoordinates);
-      setLatitude(pinnedCoordinates.latitude);
-      setLongitude(pinnedCoordinates.longitude);
-    }, [pinnedCoordinates]);
-  
+
+  useEffect(() => {
+    console.log(pinnedCoordinates);
+    setLatitude(pinnedCoordinates.latitude);
+    setLongitude(pinnedCoordinates.longitude);
+  }, [pinnedCoordinates]);
+
   useEffect(() => {
     const fetchData = async () => {
       const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${pinnedCoordinates.longitude}%2C%20${pinnedCoordinates.latitude}.json?access_token=${MAPBOX_TOKEN}`;
@@ -233,27 +239,24 @@ const CreateIssue = () => {
       await fetch(url)
         .then((res) => res.json())
         //.then((data) => setFetchAddress(data.features[0].place_name));
-        
-        .then((data) => {              
-              setAddress(data.features[0].place_name.split(",")[0]);              
-              setPostCode(data.features[0].place_name.split(",")[1].split(" ")[1]);
-              setCity(data.features[0].place_name.split(",")[1].split(" ")[2]);
-            }
-          );
-                 
+
+        .then((data) => {
+          setAddress(data.features[0].place_name.split(",")[0]);
+          setPostCode(data.features[0].place_name.split(",")[1].split(" ")[1]);
+          setCity(data.features[0].place_name.split(",")[1].split(" ")[2]);
+        });
     };
 
     fetchData();
   }, [pinnedCoordinates.latitude, pinnedCoordinates.longitude]);
-
-  
 
   const [toggleShowStep1, setToggleShowStep1] = useState(true);
   const [toggleShowStep2, setToggleShowStep2] = useState(false);
   const [toggleShowStep3, setToggleShowStep3] = useState(false);
   const [toggleShowReview, setToggleShowReview] = useState(false);
   const [toggleShowThankYou, setToggleShowThankyou] = useState(false);
-  const [toggleShowSomethingWentWrong, setShowToggleShowSomethingWentWrong] = useState(false);
+  const [toggleShowSomethingWentWrong, setShowToggleShowSomethingWentWrong] =
+    useState(false);
   //const [toggleIsPageComplete, setToggleIsPageComplete] = useState(false);
   //const [toggleIsStepOneComplete, setToggleIsStepOneComplete] = useState(false);
   const [toggleShowNavigation, setToggleShowNavigation] = useState(true);
@@ -267,7 +270,7 @@ const CreateIssue = () => {
   const [imageURL, setImageURL] = useState("");
   const [category, setCategory] = useState("");
   const [description, setDescription] = useState("");
-  
+
   const nextButtonHandler = () => {
     if (
       toggleShowStep1 === true &&
@@ -276,23 +279,24 @@ const CreateIssue = () => {
       setToggleShowStep1(false);
       setToggleShowStep2(true);
     }
-    if (toggleShowStep2 === true && !(toggleShowStep1 && toggleShowStep3 && toggleShowReview))
-     {
-      if(imageURL)
-        {
-          setToggleShowStep2(false);
-          setToggleShowStep3(true);
-        }
-      else{
-        window.alert("Please upload a picture so we can better identify the issue :)")
+    if (
+      toggleShowStep2 === true &&
+      !(toggleShowStep1 && toggleShowStep3 && toggleShowReview)
+    ) {
+      if (imageURL) {
+        setToggleShowStep2(false);
+        setToggleShowStep3(true);
+      } else {
+        window.alert(
+          "Please upload a picture so we can better identify the issue :)"
+        );
       }
     }
     if (
       toggleShowStep3 === true &&
       !(toggleShowStep1 && toggleShowStep2 && toggleShowReview)
     ) {
-
-      if(title && category){
+      if (title && category) {
         setToggleShowStep3(false);
         setToggleShowReview(true);
         console.log(
@@ -312,16 +316,15 @@ const CreateIssue = () => {
           "\n",
           `description: ${description}`
         );
-      }else{
-        window.alert("Please send us at least a 'title' and a 'category' :)")
+      } else {
+        window.alert("Please send us at least a 'title' and a 'category' :)");
       }
-    
     }
   };
 
-  const homeOnClickHandler = () =>{
+  const homeOnClickHandler = () => {
     history.push("/");
-  }
+  };
 
   const sendOnClickHandler = async () => {
     let formdata = new FormData();
@@ -333,54 +336,55 @@ const CreateIssue = () => {
     formdata.append("zip", postcode);
     formdata.append("category", category);
     formdata.append("image", imageFile);
-    formdata.append("content", description);    
+    formdata.append("content", description);
 
     try {
       const resp = await createIssue(formdata);
       if (resp.status === 201) {
         console.log("Success.");
         setToggleShowReview(false);
-        setToggleShowNavigation(false)
+        setToggleShowNavigation(false);
         setToggleShowThankyou(true);
       }
     } catch (err) {
       if (err) {
         console.log(err.response);
         setToggleShowReview(false);
-        setToggleShowNavigation(false)
+        setToggleShowNavigation(false);
         setShowToggleShowSomethingWentWrong(true);
       }
-    }    
+    }
   };
 
   return (
-        
     <MainContainer>
-      {toggleShowNavigation===true?
-        <Navigation 
+      {toggleShowNavigation === true ? (
+        <Navigation
           setToggleShowNavigation={setToggleShowNavigation}
-          showBackButton={true} 
+          showBackButton={true}
           toggleShowStep1={toggleShowStep1}
-          setToggleShowStep1 = {setToggleShowStep1} 
+          setToggleShowStep1={setToggleShowStep1}
           toggleShowStep2={toggleShowStep2}
-          setToggleShowStep2 = {setToggleShowStep2} 
+          setToggleShowStep2={setToggleShowStep2}
           toggleShowStep3={toggleShowStep3}
-          setToggleShowStep3 = {setToggleShowStep3} 
-          toggleShowReview = {toggleShowReview}
-          setToggleShowReview = {setToggleShowReview}
-          toggleShowSomethingWentWrong = {toggleShowSomethingWentWrong}
-          setShowToggleShowSomethingWentWrong = {setShowToggleShowSomethingWentWrong}
+          setToggleShowStep3={setToggleShowStep3}
+          toggleShowReview={toggleShowReview}
+          setToggleShowReview={setToggleShowReview}
+          toggleShowSomethingWentWrong={toggleShowSomethingWentWrong}
+          setShowToggleShowSomethingWentWrong={
+            setShowToggleShowSomethingWentWrong
+          }
         />
-        :null}
-      {toggleShowStep1 === true ? 
-      <StepOne address={address} postcode={postcode} city={city} />        
-      : null}
+      ) : null}
+      {toggleShowStep1 === true ? (
+        <StepOne address={address} postcode={postcode} city={city} />
+      ) : null}
       {toggleShowStep2 === true ? (
         <>
-          <StepTwo            
+          <StepTwo
             setImageURL={setImageURL}
             imageURL={imageURL}
-            setImageFile={setImageFile}            
+            setImageFile={setImageFile}
           />
         </>
       ) : null}
@@ -409,28 +413,34 @@ const CreateIssue = () => {
           />
         </>
       ) : null}
-      {toggleShowThankYou===true?
-        <ThankYouPage/>
-        :null}
-      {toggleShowSomethingWentWrong===true?
-        <SomethingWentWrongPage/>
-        :null}
-      <div id="footer">       
-          <div id="buttonsContainer">
-            {toggleShowReview === false && toggleShowSomethingWentWrong === false && toggleShowThankYou === false? (
-              <button id="nextButton" onClick={nextButtonHandler}>Next</button>
-            ) : null}
-                
-            {toggleShowReview === true? (
-              <button id="sendButton" onClick={sendOnClickHandler}>Send</button>            
-            ) : null}
-            {toggleShowSomethingWentWrong === true || toggleShowThankYou === true ? (
-              <button id="homeButton" onClick={homeOnClickHandler}>Home</button>            
-            ) : null}
-          </div> 
-        </div>       
+      {toggleShowThankYou === true ? <ThankYouPage /> : null}
+      {toggleShowSomethingWentWrong === true ? (
+        <SomethingWentWrongPage />
+      ) : null}
+      <div id="footer">
+        <div id="buttonsContainer">
+          {toggleShowReview === false &&
+          toggleShowSomethingWentWrong === false &&
+          toggleShowThankYou === false ? (
+            <button id="nextButton" onClick={nextButtonHandler}>
+              Next
+            </button>
+          ) : null}
+
+          {toggleShowReview === true ? (
+            <button id="sendButton" onClick={sendOnClickHandler}>
+              Send
+            </button>
+          ) : null}
+          {toggleShowSomethingWentWrong === true ||
+          toggleShowThankYou === true ? (
+            <button id="homeButton" onClick={homeOnClickHandler}>
+              Home
+            </button>
+          ) : null}
+        </div>
+      </div>
     </MainContainer>
-    
   );
 };
 
