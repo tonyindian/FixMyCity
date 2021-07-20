@@ -207,21 +207,28 @@ const Map = (props) => {
     setUserMarker(null);
   };
 
+  // Random id generator
+  const randomId = () => {
+    return Math.floor(Math.random() * 10000000) + 1;
+  };
+
   // useEffects
+
+  useEffect(() => {
+    const urlIssues = `https://fix-my-city.propulsion-learn.ch/backend/api/issues/`;
+
+    fetch(urlIssues)
+      .then((res) => res.json())
+      .then((data) => {
+        setIssues(data);
+        setFilteredIssues(data);
+      });
+  }, []);
 
   // Initial useEffect: Get current user's data and fetching in order to get the issues
   useEffect(() => {
     //current_location();
     if (token) {
-      const urlIssues = `https://fix-my-city.propulsion-learn.ch/backend/api/issues/`;
-
-      fetch(urlIssues)
-        .then((res) => res.json())
-        .then((data) => {
-          setIssues(data);
-          setFilteredIssues(data);
-        });
-
       const fetchProfile = async () => {
         const data = await fetchProfileInfo();
         setCurrentUser(data);
@@ -349,7 +356,7 @@ const Map = (props) => {
     points,
     zoom: viewport.zoom,
     bounds,
-    options: { radius: 100, maxZoom: 20 },
+    options: { radius: 50, maxZoom: 20 },
   });
 
   return (
@@ -427,7 +434,7 @@ const Map = (props) => {
               if (isCluster) {
                 return (
                   <Marker
-                    key={cluster.id}
+                    key={`${cluster.id}-${randomId()}`}
                     latitude={latitude}
                     longitude={longitude}
                     offsetLeft={
@@ -493,14 +500,24 @@ const Map = (props) => {
                         e.preventDefault();
                         setSelectedIssue(cluster);
                         hideUserMarker();
-                        setViewport({
-                          ...viewport,
-                          latitude,
-                          longitude,
-                          zoom: 17,
-                          transitionInterpolator: new FlyToInterpolator(),
-                          transitionDuration: 500,
-                        });
+                        setViewport(
+                          viewport.zoom < 17
+                            ? {
+                                ...viewport,
+                                latitude,
+                                longitude,
+                                zoom: 17,
+                                transitionInterpolator: new FlyToInterpolator(),
+                                transitionDuration: 500,
+                              }
+                            : {
+                                ...viewport,
+                                latitude,
+                                longitude,
+                                transitionInterpolator: new FlyToInterpolator(),
+                                transitionDuration: 500,
+                              }
+                        );
                       }}
                     />
                   </Marker>
