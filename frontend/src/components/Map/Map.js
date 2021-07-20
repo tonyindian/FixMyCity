@@ -72,6 +72,9 @@ const Map = (props) => {
 
   const dispatch = useDispatch();
 
+  // Get token from redux state
+  const token = useSelector((state) => state.tokenReducer.token);
+
   // Get filter's value from redux state
   const filterValueRedux = useSelector((state) => state.filterReducer.filter);
 
@@ -209,22 +212,24 @@ const Map = (props) => {
   // Initial useEffect: Get current user's data and fetching in order to get the issues
   useEffect(() => {
     //current_location();
-    const urlIssues = `https://fix-my-city.propulsion-learn.ch/backend/api/issues/`;
+    if (token) {
+      const urlIssues = `https://fix-my-city.propulsion-learn.ch/backend/api/issues/`;
 
-    fetch(urlIssues)
-      .then((res) => res.json())
-      .then((data) => {
-        setIssues(data);
-        setFilteredIssues(data);
-      });
+      fetch(urlIssues)
+        .then((res) => res.json())
+        .then((data) => {
+          setIssues(data);
+          setFilteredIssues(data);
+        });
 
-    const fetchProfile = async () => {
-      const data = await fetchProfileInfo();
-      setCurrentUser(data);
-      console.log(data);
-    };
-    fetchProfile();
-  }, []);
+      const fetchProfile = async () => {
+        const data = await fetchProfileInfo();
+        setCurrentUser(data);
+        console.log(data);
+      };
+      fetchProfile();
+    }
+  }, [token]);
 
   // Fetching issues every time when fetchIssues has been changed
   useEffect(() => {

@@ -15,8 +15,15 @@ export const fetchProfileInfo = async (user = "") => {
     url = "me/";
   }
 
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${localStorage.getItem("token")}`,
+    },
+  };
+
   try {
-    const response = await Axios.get(url);
+    const response = await Axios.get(url, config);
     if (response.status === 200) {
       return response.data;
     }
