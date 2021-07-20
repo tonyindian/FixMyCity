@@ -2,12 +2,12 @@ import styled from 'styled-components';
 import React, {useEffect, useState} from "react";
 import Axios from "../../Axios/index";
 import IssueComponent, { ListLine } from './issuesComponent';
-import { LastReportContainer } from '../../pages/Profile/ProfileStyled';
+import { LastReportContainer, Main } from '../../pages/Profile/ProfileStyled';
 import MoreDetails from '../Map/Popup/MoreDetails';
 import { fetchIssues } from '../../Axios/fetches';
 import Navigation from '../../components/Navigation/Navigation';
 
-const Main= styled.div`
+/* const Main= styled.div`
     width: 100%;
     height:100%;
     display: flex;
@@ -16,7 +16,7 @@ const Main= styled.div`
     background: white;
     padding-left: 5%;
 
-`
+` */
 const ListWrapper = styled.div`
     width: 100%;
     height: 100%;
@@ -79,12 +79,9 @@ const IssueList = () => {
         <Navigation/>
             <Main>
                 <ListWrapper>
-                    <ListTitle>Reported by</ListTitle>
-                    <ListOrigin>Sophia</ListOrigin>
-                <IssueContainer>
+
                     {
-                        issues
-                        ?
+                    (issues && issues.length !==0)?
                         issues.map((item, index) =>
                         <IssueComponent key={`${index}-${item.title}`} issue={item}
                             setSelectedIssue={setSelectedIssue}
@@ -93,7 +90,6 @@ const IssueList = () => {
                         :
                         <h1>Loading...</h1>
                     }
-                </IssueContainer>
                 </ListWrapper>
             </Main>
         {toggleMoreDetails && (
