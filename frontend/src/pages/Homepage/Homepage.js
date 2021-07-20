@@ -12,9 +12,6 @@ const Homepage = () => {
   const history = useHistory();
   const [coordinates, setCoordinates] = useState(null);
 
-  useEffect(() => {    
-  }, [coordinates]);
-
   const reportButtonOnClickHandler = () => {
     dispatch({ type: "setCoordinates", payload: coordinates });
     history.push("/createissue");
