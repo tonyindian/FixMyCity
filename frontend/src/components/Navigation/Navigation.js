@@ -24,12 +24,18 @@ export const Menu = (props) => {
     props.toggleShowMenu(false);
   }
 
+  const logoutOnClickHandler = () => {
+    localStorage.clear();
+    history.push("/login");
+  }
+
 
   return (
     <MenuStyled>
       <button className="menuOption" onClick={goToHomeOnClickHandler}>HOME</button>
       <button className="menuOption" onClick={goToProfileOnClickHandler}>PROFILE</button>
       <button className="menuOption" onClick={goToIssuesOnClickHandler}>ISSUES</button>
+      <button className="menuOption" onClick={logoutOnClickHandler}>LOGOUT</button>
     </MenuStyled>
   );
 };

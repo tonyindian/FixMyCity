@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
-import { UserDetails, ProfileDetailsSection } from '../ProfileStyled';
+import { UserDetails, ProfileDetailsSection } from '../ProfileReadOnlyStyled';
 import pen from "../../../assets/svgs/pen_black.svg"
 import EditProfileField from "./EditProfileField"
 
 const ProfileDetails = (props) => {
 
-    const info = props.myProfileInfo; 
+    const info = props.userInfo; 
     
     const [showEditProfileField,setShowEditProfileField] = useState(false);
     const [currentEditField,setCurrentEditField] = useState("");

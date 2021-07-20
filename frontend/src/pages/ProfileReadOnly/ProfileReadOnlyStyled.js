@@ -1,7 +1,5 @@
 import styled from 'styled-components';
-import { EmailPasswordField } from "../../globalstyles/Input";
 import { ReportButton } from "../../globalstyles/ButtonStyles";
-
 
 
 export const Main= styled.div`

@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import { EditProfileFieldContainer } from '../ProfileStyled';
+import { EditProfileFieldContainer } from '../ProfileReadOnlyStyled';
 import Navigation from '../../../components/Navigation/Navigation';
 import { useDispatch } from "react-redux";
 import { useState } from "react";

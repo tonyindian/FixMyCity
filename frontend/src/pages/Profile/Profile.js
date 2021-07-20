@@ -18,7 +18,7 @@ const Profile = () => {
         fetchLatestProfileInfoAndUpdateRedux(dispatch);              
     }, []);    
 
-    const [shouldIrender,setShouldIRender] = useState(false);
+    
     const [showEditMode, toggleShowEditMode] = useState(true);
   
     
@@ -27,7 +27,7 @@ const Profile = () => {
             <Navigation showBackButton={true} page={"profile"}/>
                 <Main>
                     <ProfileMainInfo myProfileInfo = {myProfileInfo} showEditMode={showEditMode}/>
-                    {showEditMode===true?<ProfileDetails myProfileInfo = {myProfileInfo} setShouldIRender={setShouldIRender}/>:null}
+                    {showEditMode===true?<ProfileDetails myProfileInfo = {myProfileInfo} />:null}
                     {showEditMode===false?<div><p>I'll store your issues.</p></div>:null}          
                     <SaveBox></SaveBox>
                 </Main>
