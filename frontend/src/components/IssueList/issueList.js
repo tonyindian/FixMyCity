@@ -4,47 +4,53 @@ import Axios from "../../Axios/index";
 import IssueComponent, { ListLine } from './issuesComponent';
 import { LastReportContainer } from '../../pages/Profile/ProfileStyled';
 import MoreDetails from '../Map/Popup/MoreDetails';
+import { fetchIssues } from '../../Axios/fetches';
+import Navigation from '../../components/Navigation/Navigation';
 
 const Main= styled.div`
     width: 100%;
-    height:90%;
+    height:100%;
     display: flex;
     justify-content: start;
     box-sizing: border-box;
     background: white;
+    padding-left: 5%;
 
 `
 const ListWrapper = styled.div`
     width: 100%;
-    height: 10%;
-    margin-top: 2%;
+    height: 100%;
+    margin-top: 7%;
     border-radius: 3px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     padding-left: 5%;
     padding-right: 5%;
+    
 `
 
 const ListTitle = styled.h1`
     margin-left: 10px;
     align-self: flex-start;
-    font-family: 'Roboto';
-    font-style: normal;
     font-weight: bold;
     font-size: 20px;
-    line-height: 10px;
+    line-height: 23px;
     color: #F8CE46;
+    
 `
+
+
 const ListOrigin = styled(ListTitle)`
     padding-top: 2%;
-    color: black;    
+    width: 90%;
+    color: black;   
+    
 `
 
 const IssueContainer = styled(LastReportContainer)`
-    padding-top: 30%;
-    `
-
+    height: 100%;
+`
 
 const IssueList = () => {
     
@@ -56,47 +62,40 @@ const IssueList = () => {
 
 
     useEffect(() => {
-        async function fetchIssues() {
-            const url = "issues/";
-            try {
-                const resp = await Axios.get(url);
-                if (resp.status === 200) {
-                    setIssues(resp.data);
-                }
-            } catch (err) {
-                if (err.response.status === 400) {
-                    console.log(err.response);
-                }
-                
+            async function fetchNewIssues() {
+                const data = await fetchIssues();
+                console.log(data);
+                setIssues(data);
             }
-        }
 
-        fetchIssues();
+
+        fetchNewIssues();
     }, []);
 
 
 
     return(
         <>
-        <Main>
-            <ListWrapper>
-                <ListTitle>Reported by</ListTitle>
-                <ListOrigin>Sophia</ListOrigin>
-            <IssueContainer>
-                {
-                    issues
-                    ?
-                    issues.map((item, index) => 
-                    <IssueComponent key={`${index}-${item.title}`} issue={item}
-                        setSelectedIssue={setSelectedIssue}
-                        setToggleMoreDetails ={setToggleMoreDetails}
-                />)
-                    :
-                    <h1>Loading...</h1>
-                }
-            </IssueContainer>
-            </ListWrapper>
-        </Main>
+        <Navigation/>
+            <Main>
+                <ListWrapper>
+                    <ListTitle>Reported by</ListTitle>
+                    <ListOrigin>Sophia</ListOrigin>
+                <IssueContainer>
+                    {
+                        issues
+                        ?
+                        issues.map((item, index) =>
+                        <IssueComponent key={`${index}-${item.title}`} issue={item}
+                            setSelectedIssue={setSelectedIssue}
+                            setToggleMoreDetails ={setToggleMoreDetails}
+                    />)
+                        :
+                        <h1>Loading...</h1>
+                    }
+                </IssueContainer>
+                </ListWrapper>
+            </Main>
         {toggleMoreDetails && (
         <MoreDetails
           setToggleMoreDetails={setToggleMoreDetails}

@@ -9,23 +9,20 @@ import { fetchLatestProfileInfoAndUpdateRedux } from "../../middleware/fetchUpda
 
 
 const ProfileReadOnly = (props) => {    
-  
     
     useEffect(() => {              
-        const fetchUserInfoAndStoreInState = async () => {            
-            const data = await fetchProfileInfo(props.match.params.id);
+        const fetchUserInfoAndStoreInState = async () => {    
+            const url = window.location.href;
+            const userId = url.substring(url.lastIndexOf('/')-1)[0];              
+            const data = await fetchProfileInfo(userId);
             console.log(data);                   
             setUserInfo(data);
         }   
         fetchUserInfoAndStoreInState();
-    }, []);    
-
-    
+    }, []);      
   
-
-
     const [showEditMode, toggleShowEditMode] = useState(false);
-    const [userInfo, setUserInfo] = useState("");
+    const [userInfo, setUserInfo] = useState({});
     console.log(userInfo);
     
 
@@ -33,10 +30,9 @@ const ProfileReadOnly = (props) => {
         <>
             <Navigation showBackButton={true} page={"profile"}/>
                 <Main>
-                    {userInfo?
+                    {userInfo.id?
                     <ProfileMainInfoReadOnly userInfo = {userInfo} showEditMode={showEditMode}/>
-                    :null}
-                    {showEditMode===true?<ProfileDetails userInfo = {userInfo} />:null}
+                    :null}                    
                     {showEditMode===false?<div><p>I'll store your issues.</p></div>:null}          
                     <SaveBox></SaveBox>
                 </Main>

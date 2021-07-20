@@ -6,7 +6,8 @@ import {patchProfileInfo} from "../../../Axios/fetches"
 
 
 const ProfileMainInfoReadOnly = (props) => {    
-    const info = props.userInfo;   
+    const info = props.userInfo;
+    console.log(info);   
 
     const [imageFile, setImageFile] = useState("");
     const [imageURL,setImageURL] = useState("");
@@ -32,7 +33,7 @@ const ProfileMainInfoReadOnly = (props) => {
 
 return (
     
-    /*
+    
     <>           
         <NameContainer>          
       
@@ -41,7 +42,7 @@ return (
         </aside>
         <aside className='right'>
             <h1>{info.firstName} {info.lastName}</h1>
-            <p>Member since {info.dateJoined.substr(0,10)}</p>
+            <p>Member since {info.date_joined.substr(0,10)}</p>
             {props.showEditMode===true?
                 <>
                 <input type="file" accept="image/*" id="uploadInput" onChange={(e) => uploadPictureOnChangeHandler(e.target)}></input>
@@ -78,13 +79,13 @@ return (
                 <h2>Issues upvoted</h2>
             </aside>
             <aside className='right'>
-                <h2>{info.issuesReported.length}</h2>
-                <h2>{info.issuesUpvoted.length}</h2>
+                <h2>{info.user_issues.length}</h2>
+                <h2>{info.upvoted_issues.length}</h2>
             </aside>
             </IssueContainer>    
         </>       
-    */
-    null)
+    
+    )
 }
 
 export default ProfileMainInfoReadOnly

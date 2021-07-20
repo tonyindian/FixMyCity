@@ -17,6 +17,6 @@ Axios.defaults.headers.post["Content-Type"] = "application/json";
 Axios.defaults.headers.patch["Content-Type"] = "application/json";
 
 // pages will only render when the header is included inside the async function in the 'fetches' folder..will try to look this up later
-Axios.defaults.headers.common['Authorization'] = `Bearer ${getToken()}`;
+Axios.defaults.headers.common["Authorization"] = `Bearer ${getToken()}`;
 
 export default Axios;

@@ -26,7 +26,7 @@ class CreateIssuesView(CreateAPIView):
 
 class ListIssuesView(ListAPIView):
 
-    queryset = Issue.objects.all()
+    queryset = Issue.objects.all().exclude(status='resolved')
     serializer_class = IssueSerializer
     search_fields = ['title', 'category']
 
@@ -46,7 +46,7 @@ class ListIssuesByUserView(ListAPIView):
 
     def get_queryset(self):
         user_id = self.kwargs["pk"]
-        return Issue.objects.filter(user=user_id).order_by("-created")
+        return Issue.objects.filter(user=user_id).exclude(status='resolved').order_by("-created")
 
 
 class ToggleUpvoteIssueView(UpdateAPIView):
@@ -78,6 +78,11 @@ class ListUpvotedIssuesByUserView(ListAPIView):
 
     serializer_class = IssueSerializer
     permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        upvoted = self.request.user.upvoted_issues.all()
+        return Issue.objects.filter(id__in=upvoted).order_by("-created")
+
 
 
 

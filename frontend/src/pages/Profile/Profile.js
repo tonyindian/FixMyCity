@@ -6,7 +6,6 @@ import ProfileMainInfo from './components/ProfileMainInfo';
 import Navigation from '../../components/Navigation/Navigation';
 import { fetchLatestProfileInfoAndUpdateRedux } from "../../middleware/fetchUpdateRedux";
 
-
 const Profile = () => {
     
     const dispatch = useDispatch();
@@ -19,8 +18,7 @@ const Profile = () => {
     }, []);    
 
     
-    const [showEditMode, toggleShowEditMode] = useState(true);
-  
+    const [showEditMode, toggleShowEditMode] = useState(true);  
     
     return (
         <>
@@ -31,8 +29,7 @@ const Profile = () => {
                     {showEditMode===false?<div><p>I'll store your issues.</p></div>:null}          
                     <SaveBox></SaveBox>
                 </Main>
-        </>
-
-    )
-}
-export default Profile
+        </>       
+   );
+};
+export default Profile;
