@@ -17,8 +17,8 @@ export const Menu = (props) => {
     props.toggleShowMenu(false);
   };
 
-  const goToIssuesOnClickHandler = () => {
-    console.log("no issues page yet ;)");
+  const goToIssuesOnClickHandler = () =>{
+    history.push("/issuelist");
     props.toggleShowMenu(false);
   }
 
