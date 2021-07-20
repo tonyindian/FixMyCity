@@ -305,7 +305,7 @@ export const FetschingContainer =styled.div`
 
     .issue {
         font-weight: bold;
-        font-size: 14px;
+        font-size: 16px;
         line-height: 16px;
     }
 `
@@ -318,8 +318,11 @@ export const AddressContainer =styled.p`
     justify-content: center;
     font-size: 12px;
     font-weight: 300;
+    padding-bottom: 3%;
+    padding-top: 3%;
 
     .issue {
+        padding-top: 2%;
         padding-bottom: 2%;
         color: #E26236;
     }
@@ -350,8 +353,7 @@ export const ButtonContainer =styled.div`
     }
 `
 export const DateContainer =styled.div`
-    font-size: 12px;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 300;
     font-weight: bold;
     margin-bottom: 1.5%;
@@ -365,9 +367,11 @@ export const UpvotesContainer =styled.div`
     display: flex;
     flex-direction: column;
     justify-content: center;
+    padding-top: 3%;
+    padding-bottom: 3%;
 
     p {
-        font-size: 12px;
+        font-size: 13px;
         font-weight: 300;
         color: #E26236;
     }
