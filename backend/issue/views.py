@@ -32,7 +32,7 @@ class ListIssuesView(ListAPIView):
 
 
 class RetrieveUpdateDestroyIssueView(RetrieveUpdateDestroyAPIView):
-    queryset = Issue.objects.all().exclude(status='resolved')
+    queryset = Issue.objects.all()
     serializer_class = IssueSerializer
     permission_classes = [IsOwnerOrReadOnly]
 
