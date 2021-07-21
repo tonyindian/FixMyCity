@@ -1,93 +1,104 @@
-import styled from 'styled-components';
-import React, {useEffect, useState} from "react";
-import IssueComponent from './issuesComponent';
-import MoreDetails from '../Map/Popup/MoreDetails';
-import { fetchIssues,fetchProfileInfo } from '../../Axios/fetches';
-import Navigation from '../../components/Navigation/Navigation';
-
+import styled from "styled-components";
+import React, { useEffect, useState } from "react";
+import IssueComponent from "./issuesComponent";
+import MoreDetails from "../Map/Popup/MoreDetails";
+import { fetchIssues, fetchProfileInfo } from "../../Axios/fetches";
+import Navigation from "../../components/Navigation/Navigation";
 
 const ListWrapper = styled.div`
-    width: 100%;
-    height: 100%;
-    margin-top: 7%;
-    border-radius: 3px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    padding-left: 5%;
-    padding-right: 5%;    
-`
-const Main= styled.div`
-    width: 100%;
-    height:90%;
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    flex-direction: column;
-    box-sizing: border-box;
-    padding-left: 3%;
-    padding-right: 3%;
-`
+  width: 100%;
+  height: 100%;
+  margin-top: 7%;
+  border-radius: 3px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-left: 5%;
+  padding-right: 5%;
+`;
+const Main = styled.div`
+  width: 100%;
+  height: 90%;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding-left: 3%;
+  padding-right: 3%;
+`;
 
-const IssueList = (props) => {       
+const IssueList = (props) => {
+  const [issues, setIssues] = useState(null);
+  const [selectedIssue, setSelectedIssue] = useState(null);
+  const [currentUser, setCurrentUser] = useState(null);
+  const [issuesLength, setIssuesLength] = useState(0);
+  const [toggleMoreDetails, setToggleMoreDetails] = useState(false);
 
-    const [issues, setIssues] = useState(null); 
-    const [selectedIssue, setSelectedIssue] = useState(null);
-    const [issuesLength,setIssuesLength] = useState(0);
-    const [toggleMoreDetails, setToggleMoreDetails] = useState(false);  
+  // Placeholder for MoreDetails
+  const [setFetchIssues, fetchIssues] = useState(false);
 
-
-    useEffect(() => {               
-        async function fetchUserId() {
-            const profileInfo = await fetchProfileInfo();          
-            const userId = profileInfo.id;
-            let data;
-            if (props.profile){
-                data = await fetchIssues(userId);
-            }else{
-                data = await fetchIssues();
-            }
-            console.log(data);
-            setIssues(data);
-            setIssuesLength(data.length);            
-        }
-    fetchUserId();
-}, []);    
-
-    const lastIndex = () => {
-        
-        const returnValue = props.displayIssues? props.displayIssues : issuesLength;
-        return returnValue;
+  useEffect(() => {
+    async function fetchUserId() {
+      const profileInfo = await fetchProfileInfo();
+      const userId = profileInfo.id;
+      setCurrentUser(profileInfo);
+      let data;
+      if (props.profile) {
+        data = await fetchIssues(userId);
+      } else {
+        data = await fetchIssues();
+      }
+      console.log(data);
+      setIssues(data);
+      setIssuesLength(data.length);
     }
+    fetchUserId();
+  }, []);
 
-    return(
-        <>
-        {props.hideNavBar?
-            null
-            :<Navigation showBackButton={true} page={"issues"}/>           
-        }
-            <Main>
-                <ListWrapper>
+  const lastIndex = () => {
+    const returnValue = props.displayIssues
+      ? props.displayIssues
+      : issuesLength;
+    return returnValue;
+  };
 
-                    {
-                    (issues && issues.length !==0)?
-                        issues.slice(0,lastIndex()).map((item, index)=> 
-                        <IssueComponent key={`${index}-${item.title}`} issue={item}
-                            setSelectedIssue={setSelectedIssue}
-                            setToggleMoreDetails ={setToggleMoreDetails}
-                    />)
-                        :
-                        <h1>Loading...</h1>
-                    }
-                </ListWrapper>
-            </Main>
-        {toggleMoreDetails && (
+  return (
+    <>
+      {props.hideNavBar ? null : (
+        <Navigation showBackButton={true} page={"issues"} />
+      )}
+      <Main>
+        <ListWrapper>
+          {issues && issues.length !== 0 ? (
+            issues
+              .slice(0, lastIndex())
+              .map((item, index) => (
+                <IssueComponent
+                  key={`${index}-${item.title}`}
+                  issue={item}
+                  setSelectedIssue={setSelectedIssue}
+                  setToggleMoreDetails={setToggleMoreDetails}
+                />
+              ))
+          ) : (
+            <h1>Loading...</h1>
+          )}
+        </ListWrapper>
+      </Main>
+      {toggleMoreDetails && (
         <MoreDetails
           setToggleMoreDetails={setToggleMoreDetails}
+          setFetchIssues={setFetchIssues}
+          issueId={selectedIssue.id}
           title={selectedIssue.title}
           author={selectedIssue.user.username}
+          userId={selectedIssue.user.id}
+          currentUser={currentUser}
           created={selectedIssue.created}
-          upvoteCount={selectedIssue.issue_count}
+          upvoteCount={selectedIssue.upvote_count}
+          upvotedBy={selectedIssue.upvoted_by}
+          status={selectedIssue.status}
           category={selectedIssue.category}
           image={selectedIssue.image}
           description={selectedIssue.content}
@@ -96,9 +107,7 @@ const IssueList = (props) => {
           city={selectedIssue.city}
         />
       )}
-        
-
     </>
-    );
+  );
 };
-export default IssueList
+export default IssueList;
