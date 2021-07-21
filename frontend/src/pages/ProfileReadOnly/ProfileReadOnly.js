@@ -6,6 +6,7 @@ import ProfileMainInfoReadOnly from './components/ProfileMainInfoReadOnly';
 import Navigation from '../../components/Navigation/Navigation';
 import {fetchProfileInfo} from "../../Axios/fetches"
 import { fetchLatestProfileInfoAndUpdateRedux } from "../../middleware/fetchUpdateRedux";
+import IssueList from "../../components/IssueList/issueList"
 
 
 const ProfileReadOnly = (props) => {    
@@ -21,7 +22,7 @@ const ProfileReadOnly = (props) => {
         fetchUserInfoAndStoreInState();
     }, []);      
   
-    const [showEditMode, toggleShowEditMode] = useState(false);
+    
     const [userInfo, setUserInfo] = useState({});
     console.log(userInfo);
     
@@ -31,9 +32,11 @@ const ProfileReadOnly = (props) => {
             <Navigation showBackButton={true} page={"profile"}/>
                 <Main>
                     {userInfo.id?
-                    <ProfileMainInfoReadOnly userInfo = {userInfo} showEditMode={showEditMode}/>
-                    :null}                    
-                    {showEditMode===false?<div><p>I'll store your issues.</p></div>:null}          
+                    <>
+                    <ProfileMainInfoReadOnly userInfo = {userInfo}/>                                       
+                    <IssueList hideNavBar={true} userIdReadOnly={userInfo.id}></IssueList>
+                    </>
+                    :null}         
                     <SaveBox></SaveBox>
                 </Main>
         </>

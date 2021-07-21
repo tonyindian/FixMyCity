@@ -19,14 +19,16 @@ const Profile = () => {
     }, []);    
 
     
-    const [showEditMode, toggleShowEditMode] = useState(false);  
+    const [showEditMode, toggleShowEditMode] = useState(false); 
+    
+    const goBack = showEditMode===true? "profileDetails" : "profile"
     
     
     return (
         <>
-            <Navigation showBackButton={true} page={"profile"}/>
+            <Navigation showBackButton={true} page={goBack} toggleShowEditMode={toggleShowEditMode}/>
                 <Main>
-                    <ProfileMainInfo myProfileInfo = {myProfileInfo} showEditMode={showEditMode}/>
+                    <ProfileMainInfo myProfileInfo = {myProfileInfo} showEditMode={showEditMode} toggleShowEditMode={toggleShowEditMode}/>
                     {showEditMode===true?<ProfileDetails myProfileInfo = {myProfileInfo} />:null}
 
                     {(showEditMode===false)?<IssueList  hideNavBar={true} profile></IssueList>:null}         
