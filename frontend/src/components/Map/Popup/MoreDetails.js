@@ -94,6 +94,9 @@ const MoreDetails = (props) => {
         setFetchIssues={props.setFetchIssues}
         fetchIssues={props.fetchIssues}
         page={"MoreDetails"}
+        setToggleShowIssues={
+          props.setToggleShowIssues && props.setToggleShowIssues
+        }
       />
       <SubContainer width={"75%"} alignItems={"center"} marginBottom={"0px"}>
         <SubContainer marginTop={"15px"}>
@@ -107,7 +110,7 @@ const MoreDetails = (props) => {
                 fontSize: "19px",
               }}
               onClick={() => {
-                history.push(`/profile/${props.userId}`);
+                history.push(`/profile/${props.userId}/`);
               }}
             >
               {props.author}

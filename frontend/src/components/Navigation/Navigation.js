@@ -17,23 +17,30 @@ export const Menu = (props) => {
     props.toggleShowMenu(false);
   };
 
-  const goToIssuesOnClickHandler = () =>{
+  const goToIssuesOnClickHandler = () => {
     history.push("/issues");
     props.toggleShowMenu(false);
-  }
+  };
 
   const logoutOnClickHandler = () => {
     localStorage.clear();
     history.push("/login");
-  }
-
+  };
 
   return (
     <MenuStyled>
-      <button className="menuOption" onClick={goToHomeOnClickHandler}>HOME</button>
-      <button className="menuOption" onClick={goToProfileOnClickHandler}>PROFILE</button>
-      <button className="menuOption" onClick={goToIssuesOnClickHandler}>ISSUES</button>
-      <button className="menuOption" onClick={logoutOnClickHandler}>LOGOUT</button>
+      <button className="menuOption" onClick={goToHomeOnClickHandler}>
+        HOME
+      </button>
+      <button className="menuOption" onClick={goToProfileOnClickHandler}>
+        PROFILE
+      </button>
+      <button className="menuOption" onClick={goToIssuesOnClickHandler}>
+        ISSUES
+      </button>
+      <button className="menuOption" onClick={logoutOnClickHandler}>
+        LOGOUT
+      </button>
     </MenuStyled>
   );
 };
@@ -41,7 +48,7 @@ export const Menu = (props) => {
 const Navigation = (props) => {
   const [showMenu, toggleShowMenu] = useState(false);
   const history = useHistory();
-  
+
   const menuIconOnClickHandler = () => {
     toggleShowMenu(!showMenu);
   };
@@ -51,18 +58,19 @@ const Navigation = (props) => {
       case "MoreDetails":
         props.setToggleMoreDetails(false);
         props.setFetchIssues(!props.fetchIssues);
+        props.setToggleShowIssues && props.setToggleShowIssues(true);
         break;
       case "editProfileField":
-        props.setShowEditProfileField(false);  
+        props.setShowEditProfileField(false);
         break;
       case "profile":
-        history.push("/");     
+        history.push("/");
         break;
       case "issues":
-        history.push("/"); 
+        history.push("/");
         break;
       case "profileDetails":
-        props.toggleShowEditMode(false); 
+        props.toggleShowEditMode(false);
         break;
       default:
         break;

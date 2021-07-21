@@ -28,15 +28,22 @@ const Main = styled.div`
   padding-right: 3%;
 `;
 
+const Title = styled.div`
+  width: 100%;
+  font-size: 25px;
+  font-weight: bold;
+`;
+
 const IssueList = (props) => {
   const [issues, setIssues] = useState(null);
   const [selectedIssue, setSelectedIssue] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
   const [issuesLength, setIssuesLength] = useState(0);
   const [toggleMoreDetails, setToggleMoreDetails] = useState(false);
+  const [toggleShowIssues, setToggleShowIssues] = useState(true);
 
   // Placeholder for MoreDetails
-  const [setFetchIssues, fetchIssues] = useState(false);
+  const [fetchIssuesPlaceholder, setFetchIssuesPlaceholder] = useState(false);
 
   useEffect(() => {
     async function fetchUserId() {
@@ -71,27 +78,33 @@ const IssueList = (props) => {
         <Navigation showBackButton={true} page={"issues"} />
       )}
       <Main>
-        <ListWrapper>
-          {issues && issues.length !== 0 ? (
-            issues
-              .slice(0, lastIndex())
-              .map((item, index) => (
-                <IssueComponent
-                  key={`${index}-${item.title}`}
-                  issue={item}
-                  setSelectedIssue={setSelectedIssue}
-                  setToggleMoreDetails={setToggleMoreDetails}
-                />
-              ))
-          ) : (
-            <h1>Loading...</h1>
-          )}
-        </ListWrapper>
+        {toggleShowIssues && (
+          <ListWrapper>
+            {!props.profile && <Title>Hottest issues</Title>}
+            {issues && issues.length !== 0 ? (
+              issues
+                .slice(0, lastIndex())
+                .map((item, index) => (
+                  <IssueComponent
+                    key={`${index}-${item.title}`}
+                    issue={item}
+                    setSelectedIssue={setSelectedIssue}
+                    setToggleMoreDetails={setToggleMoreDetails}
+                    setToggleShowIssues={setToggleShowIssues}
+                  />
+                ))
+            ) : (
+              <h1>Loading...</h1>
+            )}
+          </ListWrapper>
+        )}
       </Main>
       {toggleMoreDetails && (
         <MoreDetails
           setToggleMoreDetails={setToggleMoreDetails}
-          setFetchIssues={setFetchIssues}
+          setFetchIssues={setFetchIssuesPlaceholder}
+          setToggleShowIssues={setToggleShowIssues}
+          fetchIssues={fetchIssuesPlaceholder}
           issueId={selectedIssue.id}
           title={selectedIssue.title}
           author={selectedIssue.user.username}
