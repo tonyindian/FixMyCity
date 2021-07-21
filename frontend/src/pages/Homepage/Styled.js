@@ -21,7 +21,7 @@ export const MapContainer = styled.div`
 
 export const ReportButton = styled.button`
   width: 60%;
-  height: 35px;
+  height: 40px;
   background-color: #ffffff;
   cursor: pointer;
   font-size: 13px;

@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import Div100vh from "react-div-100vh";
-import { Main, ReportButton, Search, MapContainer } from "./Styled";
+import { Main, ReportButton } from "./Styled";
 import Map from "../../components/Map/Map";
 import FilterButton from "./FilterButton";
 import { useDispatch } from "react-redux";
-import { fetchLatestProfileInfoAndUpdateRedux } from "../../middleware/fetchUpdateRedux";
 
 const Homepage = () => {
   const dispatch = useDispatch();
