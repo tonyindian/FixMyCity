@@ -17,13 +17,26 @@ export const Main= styled.div`
 
 export const NameContainer = styled.div`
     width: 90%;
-    height: 22%;
+    height: 150px;
+    min-height: 150px;
     margin-top: 2%;
     color: black;
     display: flex;
     justify-content: start;
     margin-top: 0%;
     margin-bottom: 2%;
+
+    #editButton{
+            display: inline;
+            background: none;
+            border: none;
+            #editIcon{
+            width: 18px;
+            height: 18px;
+            margin-left: 5px;
+            }
+        }
+   
 
     .left {
         width: 35%;
@@ -80,15 +93,15 @@ export const NameContainer = styled.div`
     #uploadLabel{
         display: flex;
         height: 25px;
-        font-size: 12px;
+        font-size: 10px;
         justify-content: center;
         width: 100px;
-        border: 2px solid #F8CE46;
+        /*border: 2px solid #F8CE46;*/
         background: none;
         padding: 5px 1px; 
             #uploadIcon {
-                width: 20px;
-                height: 20px;  
+                width: 18px;
+                height: 18px;  
                 margin-right: 10px;   
             }
         }
@@ -216,6 +229,7 @@ export const UserDetails = styled.div`
 
     #password{
         font-size: 14px;
+        border: none;
     }
 
     .left {
