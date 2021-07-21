@@ -1,6 +1,7 @@
 import styled from 'styled-components';
-import { EmailPasswordField } from "../../globalstyles/Input";
+import { SignUpField } from "../../globalstyles/Input";
 import { ReportButton } from "../../globalstyles/ButtonStyles";
+
 
 export const TitleContainer =styled.div`
     display: flex;
@@ -58,6 +59,7 @@ export const TitleContainer =styled.div`
 export const SignUpContainer =styled.div`
     height: 100%;
     width: 100%;
+    
 
     h1 {
         position: absolute;
@@ -118,6 +120,79 @@ export const ThankYouContainer =styled.div`
         height: 95px;
         left: 67px;
         top: 254px;
+    }
+`
 
+export const RegistrationForm =styled.form`
+    height: 100%;
+    width: 100%;
+    padding-top: 20%;
+    
+    display: flex;
+    flex-direction: column;
+    //justify-content: center;
+    align-items: center;
+    //border: solid red;
+    /* position: absolute; */
+
+    h1 {
+        //margin-top: 20%;
+        width: 100%;
+        padding-left: 32%;
+        height: 52px;
+        font-weight: bold;
+        font-size: 35px;
+        line-height: 41px;
+    }
+
+    p {
+        width: 100%;
+        margin-right: 35%;
+        margin-top: 2%;
+        width: 124.38px;
+        height: 19.81px;
+    }
+
+    button {
+        margin-top: 15%;
+        margin-bottom: 25%;
+        border: none;
+        outline: none;
+
+        &:active {
+            transform: translateY(4px);
+        }
+    }
+`
+
+
+
+export const CongratsContainer =styled.div`
+    height: 100vh;
+    width: 100vw;
+    background-color: ${props => props.theme.yellowColor};
+
+    h1 {
+        position: absolute;
+        width: 220px;
+        height: 52px;
+        left: 64px;
+        top: 128px;
+        font-weight: bold;
+        font-size: 35px;
+        line-height: 41px;
+    }
+
+    button {
+        margin-top: 15%;
+        margin-bottom: 25%;
+        border: none;
+        outline: none;
+        background-color: white;
+        color: black;
+
+        &:active {
+            transform: translateY(4px);
+        }
     }
 `

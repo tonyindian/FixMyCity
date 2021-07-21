@@ -8,6 +8,7 @@ import Profile from './pages/Profile/Profile';
 import ProfileReadOnly from "./pages/ProfileReadOnly/ProfileReadOnly";
 import {withAuth} from "../src/withAuth/withAuth";
 import SignUp from "../src/pages/SignUp/SignUp";
+import SignUpForm from './pages/SignUp/SignUpForm';
 
 
 
@@ -20,7 +21,8 @@ function App() {
         <Route exact path="/login" component={Login}/>
         <Route exact path="/profile/:id" component={withAuth(ProfileReadOnly)}/>         
         <Route exact path="/profile" component={withAuth(Profile)}/>
-        <Route exact path="/signup" component={SignUp} />      
+        <Route exact path="/signup" component={SignUp} />
+        <Route exact path="/signupform" component={SignUpForm} />      
       </Switch>
     </BrowserRouter>
   );
