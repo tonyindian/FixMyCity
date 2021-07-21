@@ -23,7 +23,8 @@ function App() {
         <Route exact path="/profile/:id" component={withAuth(ProfileReadOnly)}/>         
         <Route exact path="/profile" component={withAuth(Profile)}/> 
         <Route exact path="/issues" component={withAuth(IssueList)}/>
-        <Route exact path="/signup" component={SignUp} />      
+        <Route exact path="/signup" component={SignUp} /> 
+        <Route exact path="/signupform" component={SignUpForm} />     
       </Switch>
     </BrowserRouter>
   );
