@@ -9,18 +9,19 @@ import { fetchLatestProfileInfoAndUpdateRedux } from "../../middleware/fetchUpda
 import IssueList from "../../components/IssueList/issueList";
 
 const ProfileReadOnly = (props) => {
+  const [userInfo, setUserInfo] = useState({});
+
   useEffect(() => {
     const fetchUserInfoAndStoreInState = async () => {
       const url = window.location.href;
-      const userId = url.substring(url.lastIndexOf("/") - 1)[0];
+      const userId = url.split("/").slice(-2)[0];
+      //const userId = url.substring(url.lastIndexOf("/") - 1)[0];
       const data = await fetchProfileInfo(userId);
-      console.log(data);
       setUserInfo(data);
     };
     fetchUserInfoAndStoreInState();
   }, []);
 
-  const [userInfo, setUserInfo] = useState({});
   console.log(userInfo);
 
   return (
@@ -36,7 +37,7 @@ const ProfileReadOnly = (props) => {
             ></IssueList>
           </>
         ) : null}
-        <SaveBox></SaveBox>
+        <SaveBox />
       </Main>
     </>
   );
