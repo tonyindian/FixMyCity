@@ -130,13 +130,10 @@ export const RegistrationForm =styled.form`
     
     display: flex;
     flex-direction: column;
-    //justify-content: center;
     align-items: center;
-    //border: solid red;
-    /* position: absolute; */
+    
 
     h1 {
-        //margin-top: 20%;
         width: 100%;
         padding-left: 32%;
         height: 52px;
