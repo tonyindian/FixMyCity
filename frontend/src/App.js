@@ -9,6 +9,7 @@ import ProfileReadOnly from "./pages/ProfileReadOnly/ProfileReadOnly"
 import {withAuth} from "../src/withAuth/withAuth"
 import IssueList from "./components/IssueList/issueList"
 import SignUp from "../src/pages/SignUp/SignUp";
+import SignUpForm from './pages/SignUp/SignUpForm';
 
 
 
