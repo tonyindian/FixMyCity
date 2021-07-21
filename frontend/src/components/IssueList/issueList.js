@@ -44,6 +44,8 @@ const IssueList = (props) => {
             let data;
             if (props.profile){
                 data = await fetchIssues(userId);
+            }else if(props.userIdReadOnly){
+                data = await fetchIssues(props.userIdReadOnly);            
             }else{
                 data = await fetchIssues();
             }

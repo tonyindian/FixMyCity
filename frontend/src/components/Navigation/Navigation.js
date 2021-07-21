@@ -61,6 +61,9 @@ const Navigation = (props) => {
       case "issues":
         history.push("/"); 
         break;
+      case "profileDetails":
+        props.toggleShowEditMode(false); 
+        break;
       default:
         break;
     }

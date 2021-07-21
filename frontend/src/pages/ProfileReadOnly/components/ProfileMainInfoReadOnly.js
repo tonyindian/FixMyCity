@@ -24,7 +24,7 @@ const ProfileMainInfoReadOnly = (props) => {
               setImageURL(newUrl);  
               // below: send patch request to API, then fetch profile info again and update redux
               let formdata = new FormData();
-              formdata.append("profile_picture", file);
+              formdata.append("profile_picture", imageFile);
               patchProfileInfo(formdata);
             }
           }
@@ -69,7 +69,7 @@ return (
                 <div className='middle'>
                     
                     <p>Level</p>
-                    <p className='blackP'>{info.level}</p>
+                    <p className='blackP'>{info.status}</p>
                 </div>                
             </StatusConatiner>
 

@@ -58,7 +58,7 @@ const ProfileDetails = (props) => {
                         <h2>Password</h2>  
                         <button id="editButton"><img id="editIcon" src={pen} alt="edit"></img></button>                   
                     </div>                       
-                    <p id="password">TO BE IMPLEMENTED</p>    
+                    <input type="password" id="password" value="TO BE IMPLEMENTED"></input>    
                 </aside>
             </UserDetails>
             {showEditProfileField===true?<EditProfileField setShowEditProfileField={setShowEditProfileField} setShouldIRender={setShouldIRender} currentEditField={currentEditField} currentEditFieldValue={currentEditFieldValue} currentEditFieldName={currentEditFieldName} currentEditFieldAPIName={currentEditFieldAPIName}/>:null}
