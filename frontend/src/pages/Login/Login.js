@@ -34,7 +34,6 @@ const TitleWrapper = styled.div`
   height: 52px;
   left: 64px;
   top: 229px;
-  font-family: Roboto;
   font-weight: bold;
   font-size: 35px;
   line-height: 41px;
@@ -59,6 +58,7 @@ const InputWrapper = styled.div`
 
 const EmailField = styled(EmailPasswordField)`
   position: absolute;
+  border-radius: 4px;
   width: 254px;
   height: 51px;
   left: 64px;
@@ -66,6 +66,7 @@ const EmailField = styled(EmailPasswordField)`
 `;
 const PasswordField = styled(EmailPasswordField)`
   position: absolute;
+  border-radius: 4px;
   width: 254px;
   height: 51px;
   left: 64px;
@@ -77,7 +78,17 @@ const ButtonWrapper = styled.div`
   justify-content: center;
 `;
 
-const LoginButton = styled(LoginSignUpButton)``;
+const LoginButton = styled(LoginSignUpButton)`
+  margin-top: 15%;
+  margin-bottom: 25%;
+  border: none;
+  outline: none;
+        
+    &:active {
+        transform: translateY(4px);
+    }
+    
+`;
 
 const Login = () => {
   const token = useSelector((state) => state.tokenReducer.token);

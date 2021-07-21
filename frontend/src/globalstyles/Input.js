@@ -39,11 +39,21 @@ export const EmailPasswordField = styled.input`
     left: 64px;
     top: 306px;
 `
-
+//this one is just for the email adsress
 export const SignUpFields = styled.input`
     position: absolute;
     width: 254px;
     height: 51px;
     left: 64px;
     top: 306px;
+`
+
+//this one is for the SignUpForm (username, fistname, lastname,...)
+export const SignUpField = styled.input`
+    width: 254px;
+    height: 28px;
+    left: 64px;
+    top: 119px;
+    border-radius: 4px;
+    border-color: #F8CE46;
 `
