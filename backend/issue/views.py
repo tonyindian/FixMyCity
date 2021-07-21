@@ -82,7 +82,3 @@ class ListUpvotedIssuesByUserView(ListAPIView):
     def get_queryset(self):
         upvoted = self.request.user.upvoted_issues.all()
         return Issue.objects.filter(id__in=upvoted).order_by("-created")
-
-
-
-

@@ -5,6 +5,7 @@ import ProfileDetails from './components/ProfileDetails';
 import ProfileMainInfo from './components/ProfileMainInfo';
 import Navigation from '../../components/Navigation/Navigation';
 import { fetchLatestProfileInfoAndUpdateRedux } from "../../middleware/fetchUpdateRedux";
+import IssueList from "../../components/IssueList/issueList"
 
 const Profile = () => {
     
@@ -14,19 +15,23 @@ const Profile = () => {
       );
 
     useEffect(() => {          
-        fetchLatestProfileInfoAndUpdateRedux(dispatch);              
+        fetchLatestProfileInfoAndUpdateRedux(dispatch);           
     }, []);    
 
     
-    const [showEditMode, toggleShowEditMode] = useState(true);  
+    const [showEditMode, toggleShowEditMode] = useState(false); 
+    
+    const goBack = showEditMode===true? "profileDetails" : "profile"
+    
     
     return (
         <>
-            <Navigation showBackButton={true} page={"profile"}/>
+            <Navigation showBackButton={true} page={goBack} toggleShowEditMode={toggleShowEditMode}/>
                 <Main>
-                    <ProfileMainInfo myProfileInfo = {myProfileInfo} showEditMode={showEditMode}/>
+                    <ProfileMainInfo myProfileInfo = {myProfileInfo} showEditMode={showEditMode} toggleShowEditMode={toggleShowEditMode}/>
                     {showEditMode===true?<ProfileDetails myProfileInfo = {myProfileInfo} />:null}
-                    {showEditMode===false?<div><p>I'll store your issues.</p></div>:null}          
+
+                    {(showEditMode===false)?<IssueList  hideNavBar={true} profile></IssueList>:null}         
                     <SaveBox></SaveBox>
                 </Main>
         </>       

@@ -3,6 +3,7 @@ import {NameContainer, IssueContainer, StatusConatiner } from '../ProfileStyled'
 import UploadPic from '../../../assets/svgs/upload_black.svg';
 import defaultAvatar from "../../../assets/images/default-avatar.png"
 import {patchProfileInfo} from "../../../Axios/fetches"
+import pen from "../../../assets/svgs/pen_black.svg"
 
 
 const ProfileMainInfo = (props) => {
@@ -11,6 +12,10 @@ const ProfileMainInfo = (props) => {
     const [imageFile, setImageFile] = useState("");
     const [imageURL,setImageURL] = useState("");
 
+
+    const editProfileOnClickHandler = () => {
+        props.toggleShowEditMode(true);
+    }
 
     const uploadPictureOnChangeHandler = (target) => {
         //console.log("Picture changed.");
@@ -33,11 +38,7 @@ return (
     <>
         <NameContainer>
         <aside className='left'>
-            <img alt="profile_avatar" className="avatar" src={imageURL? imageURL : info.avatar? info.avatar : defaultAvatar}></img>            
-        </aside>
-        <aside className='right'>
-            <h1>{info.firstName} {info.lastName}</h1>
-            <p>Member since {info.dateJoined.substr(0,10)}</p>
+            <img alt="profile_avatar" className="avatar" src={imageURL? imageURL : info.avatar? info.avatar : defaultAvatar}></img>
             {props.showEditMode===true?
                 <>
                 <input type="file" accept="image/*" id="uploadInput" onChange={(e) => uploadPictureOnChangeHandler(e.target)}></input>
@@ -45,10 +46,18 @@ return (
                     <img id="uploadIcon" src={UploadPic} alt="upload"></img>
                     <p>Upload</p>
                 </label>
-                </>
-                
-            
+                </>              
+            :null}            
+        </aside>
+        <aside className='right'>
+            <h1>{info.firstName} {info.lastName}
+            {props.showEditMode===false?
+            <button id="editButton" onClick={()=>editProfileOnClickHandler("userName","Username","username")}><img id="editIcon" src={pen} alt="edit"></img></button>
             :null}
+            </h1>
+            
+            <p>Member since {info.dateJoined.substr(0,10)}</p>
+            
         </aside>  
         </NameContainer>
 
