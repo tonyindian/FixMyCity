@@ -18,6 +18,7 @@ class IssueSerializer(serializers.ModelSerializer):
         model = Issue
         fields = ['id', 'title', 'content', 'category', 'status', 'adress', 'longitude', 'latitude', 'city', 'zip', 'image', 'created', 'modified', 'issue_comments', 'upvoted_by', 'upvote_count', 'user']
         read_only_fields = ['id', 'created', 'modified', 'user', 'upvoted_by', 'upvote_count']
+        ordering = ['upvote_count']
 
 
 class CreateIssueSerializer(serializers.ModelSerializer):
