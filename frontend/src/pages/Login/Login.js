@@ -14,9 +14,9 @@ const Container = styled.div`
   flex-direction: column;
   align-content: space-between;
   align-items: center;
-  height: 90vh;
+  height: 100vh;
   width: 100vw;
-  background-color: white;
+  background-color: ${(props) => props.theme.yellowColor};
 `;
 
 const FormWrapper = styled.form`
@@ -83,6 +83,8 @@ const LoginButton = styled(LoginSignUpButton)`
   margin-bottom: 25%;
   border: none;
   outline: none;
+  color: black;
+  background-color: white;
         
     &:active {
         transform: translateY(4px);

@@ -42,6 +42,7 @@ export const MainContainer = styled.div`
             width: 240px;
             height: 60px;
             margin-left: auto;
+            border-radius: 4px;
         }  
 
         #sendButton{
@@ -52,6 +53,7 @@ export const MainContainer = styled.div`
             width: 240px;
             height: 60px;
             margin-left: auto;
+            border-radius: 4px;
         }
 
         #homeButton{
@@ -62,6 +64,7 @@ export const MainContainer = styled.div`
             width: 240px;
             height: 60px;
             margin-left: auto;
+            border-radius: 4px;
         }
     }    
 }
@@ -91,6 +94,7 @@ export const StepTwoContainer = styled.div`
     flex-direction: column;
     color: black;
     height: 90%;
+
    
     .pageTitle{
         font-size: 20px;
@@ -254,13 +258,13 @@ export const Box = styled.div`
 `
 
 export const ThankYouContainer = styled.div`
-    
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     color: black;
     height: 90%;
+    background-color: ${(props) => props.theme.yellowColor};
    
     #message{
         margin-top: 30px;
