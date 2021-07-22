@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { patchIssue } from "../../../Axios/fetches";
+import StatusSvg from "../../../assets/moredetails/status.svg";
 
 const MainContainer = styled.div`
   width: 60%;
@@ -48,6 +49,10 @@ const StatusButton = styled.button`
   border-radius: 5px;
   font-size: 19px;
   font-weight: bold;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const StatusChanger = (props) => {
@@ -77,7 +82,15 @@ const StatusChanger = (props) => {
 
   return (
     <>
-      <StatusButton onClick={handleToggleButton}>Status</StatusButton>
+      <StatusButton onClick={handleToggleButton}>
+        {" "}
+        <img
+          src={StatusSvg}
+          alt="status icon"
+          style={{ height: "32px", marginTop: "5px", marginRight: "7px" }}
+        />{" "}
+        Status
+      </StatusButton>
       {toggleStatusButton && (
         <MainContainer>
           <SubContainer borderTop={"none"} onClick={handleOpen}>

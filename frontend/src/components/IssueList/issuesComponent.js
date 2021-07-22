@@ -20,7 +20,7 @@ const AddressContainer = styled.div`
 
 const FetchingContainer = styled.div`
   height: 10%;
-  width: 90%;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;

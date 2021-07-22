@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { patchToggleUpvote } from "../../../Axios/fetches";
 import Navigation from "../../Navigation/Navigation";
 import StatusChanger from "./StatusChanger";
+import UpvoteSvg from "../../../assets/moredetails/voteup.svg";
 
 const MainContainer = styled.div`
   width: 100vw;
@@ -63,6 +64,10 @@ const UpvoteButton = styled.button`
   border-radius: 5px;
   font-size: 19px;
   font-weight: bold;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const MoreDetails = (props) => {
@@ -98,7 +103,7 @@ const MoreDetails = (props) => {
           props.setToggleShowIssues && props.setToggleShowIssues
         }
       />
-      <SubContainer width={"75%"} alignItems={"center"} marginBottom={"0px"}>
+      <SubContainer width={"79%"} alignItems={"center"} marginBottom={"0px"}>
         <SubContainer marginTop={"15px"}>
           <Title fontSize={"30px"}>{props.title}</Title>
           <Text>
@@ -161,6 +166,11 @@ const MoreDetails = (props) => {
             onClick={handleUpvote}
             backgroundColor={upvoted ? "#F8CE46" : "#FFFFFF"}
           >
+            <img
+              src={UpvoteSvg}
+              alt="upvote icon"
+              style={{ marginRight: "7px" }}
+            />{" "}
             Up-vote
           </UpvoteButton>
           {props.currentUser !== undefined ? (

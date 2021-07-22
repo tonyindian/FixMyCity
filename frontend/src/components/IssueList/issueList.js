@@ -5,30 +5,24 @@ import MoreDetails from "../Map/Popup/MoreDetails";
 import { fetchIssues, fetchProfileInfo } from "../../Axios/fetches";
 import Navigation from "../Navigation/Navigation";
 
-
-
-
 const ListWrapper = styled.div`
   width: 100%;
   height: 100%;
-  margin-top: 7%;
+  margin-top: 12px;
   border-radius: 3px;
+
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  padding-left: 5%;
-  padding-right: 5%;
+  align-items: center;
 `;
 const Main = styled.div`
-  width: 100%;
-  height: 90%;
+  width: 90%;
+
+  margin-left: 2%;
+
   display: flex;
-  justify-content: start;
-  align-items: center;
   flex-direction: column;
-  box-sizing: border-box;
-  padding-left: 3%;
-  padding-right: 3%;
+  align-items: center;
 `;
 
 const Title = styled.div`
@@ -54,19 +48,18 @@ const IssueList = (props) => {
       const userId = profileInfo.id;
       setCurrentUser(profileInfo);
       let data;
-      if(props.profile) {
+      if (props.profile) {
         data = await fetchIssues(userId);
-      }else if(props.userIdReadOnly) {        
+      } else if (props.userIdReadOnly) {
         data = await fetchIssues(props.userIdReadOnly);
-      } 
-      else{
+      } else {
         data = await fetchIssues();
       }
-      if(props.profile){
-        setIssues(data.sort((a,b)=>b.created-a.created));
-      }else{
-        setIssues(data.sort((a,b)=>b.upvote_count-a.upvote_count));
-      }      
+      if (props.profile) {
+        setIssues(data.sort((a, b) => b.created - a.created));
+      } else {
+        setIssues(data.sort((a, b) => b.upvote_count - a.upvote_count));
+      }
       setIssuesLength(data.length);
     }
     fetchUserId();
@@ -87,7 +80,9 @@ const IssueList = (props) => {
       <Main>
         {toggleShowIssues && (
           <ListWrapper>
-            {(!props.profile && !props.userIdReadOnly) && <Title>Hottest issues</Title>}
+            {!props.profile && !props.userIdReadOnly && (
+              <Title>Hottest issues</Title>
+            )}
             {issues && issues.length !== 0 ? (
               issues
                 .slice(0, lastIndex())
