@@ -28,7 +28,7 @@ export const ReportButton = styled.button`
   font-weight: bold;
   border: 2px solid ${(props) => props.theme.yellowColor};
   outline-style: none;
-  border-radius: 5px;
+  border-radius: 4px;
 
   position: absolute;
   bottom: 6%;
