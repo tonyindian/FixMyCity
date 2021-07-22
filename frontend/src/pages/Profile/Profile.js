@@ -5,7 +5,7 @@ import ProfileDetails from "./components/ProfileDetails";
 import ProfileMainInfo from "./components/ProfileMainInfo";
 import Navigation from "../../components/Navigation/Navigation";
 import { fetchLatestProfileInfoAndUpdateRedux } from "../../middleware/fetchUpdateRedux";
-import IssueList from "../../components/IssueList/IssueList";
+import IssueList from "../../components/IssueList/issueList";
 
 const Profile = () => {
   const dispatch = useDispatch();

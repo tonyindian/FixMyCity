@@ -6,7 +6,7 @@ import ProfileMainInfoReadOnly from "./components/ProfileMainInfoReadOnly";
 import Navigation from "../../components/Navigation/Navigation";
 import { fetchProfileInfo } from "../../Axios/fetches";
 import { fetchLatestProfileInfoAndUpdateRedux } from "../../middleware/fetchUpdateRedux";
-import IssueList from "../../components/IssueList/IssueList";
+import IssueList from "../../components/IssueList/issueList";
 
 const ProfileReadOnly = (props) => {
   const [userInfo, setUserInfo] = useState({});

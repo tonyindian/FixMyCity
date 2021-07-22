@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import React, { useEffect, useState } from "react";
-import IssueComponent from "./IssuesComponent";
+import IssueComponent from "./issuesComponent";
 import MoreDetails from "../Map/Popup/MoreDetails";
 import { fetchIssues, fetchProfileInfo } from "../../Axios/fetches";
 import Navigation from "../Navigation/Navigation";
