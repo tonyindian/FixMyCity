@@ -9,9 +9,10 @@ import ProfileReadOnly from "./pages/ProfileReadOnly/ProfileReadOnly"
 import {withAuth} from "../src/withAuth/withAuth"
 import SignUp from "../src/pages/SignUp/SignUp";
 import SignUpForm from './pages/SignUp/SignUpForm';
-
-
 import IssueList from "./components/IssueList/IssueList"
+
+
+
 
 
 function App() {
