@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import React, { useEffect, useState } from "react";
-import IssueComponent from "./issuesComponent";
+import IssueComponent from "./IssuesComponent";
 import MoreDetails from "../Map/Popup/MoreDetails";
 import { fetchIssues, fetchProfileInfo } from "../../Axios/fetches";
-import Navigation from "../../components/Navigation/Navigation";
+import Navigation from "../Navigation/Navigation";
 
 const ListWrapper = styled.div`
   width: 100%;
@@ -51,15 +51,19 @@ const IssueList = (props) => {
       const userId = profileInfo.id;
       setCurrentUser(profileInfo);
       let data;
-      if (props.profile) {
+      if(props.profile) {
         data = await fetchIssues(userId);
-      } else if (props.userIdReadOnly) {
+      }else if(props.userIdReadOnly) {        
         data = await fetchIssues(props.userIdReadOnly);
-      } else {
+      } 
+      else{
         data = await fetchIssues();
       }
-      console.log(data);
-      setIssues(data);
+      if(props.profile){
+        setIssues(data.sort((a,b)=>b.created-a.created));
+      }else{
+        setIssues(data.sort((a,b)=>b.upvote_count-a.upvote_count));
+      }      
       setIssuesLength(data.length);
     }
     fetchUserId();
@@ -80,7 +84,7 @@ const IssueList = (props) => {
       <Main>
         {toggleShowIssues && (
           <ListWrapper>
-            {!props.profile && <Title>Hottest issues</Title>}
+            {(!props.profile && !props.userIdReadOnly) && <Title>Hottest issues</Title>}
             {issues && issues.length !== 0 ? (
               issues
                 .slice(0, lastIndex())

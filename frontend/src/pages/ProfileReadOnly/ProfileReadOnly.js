@@ -6,7 +6,7 @@ import ProfileMainInfoReadOnly from "./components/ProfileMainInfoReadOnly";
 import Navigation from "../../components/Navigation/Navigation";
 import { fetchProfileInfo } from "../../Axios/fetches";
 import { fetchLatestProfileInfoAndUpdateRedux } from "../../middleware/fetchUpdateRedux";
-import IssueList from "../../components/IssueList/issueList";
+import IssueList from "../../components/IssueList/IssueList";
 
 const ProfileReadOnly = (props) => {
   const [userInfo, setUserInfo] = useState({});
@@ -15,14 +15,15 @@ const ProfileReadOnly = (props) => {
     const fetchUserInfoAndStoreInState = async () => {
       const url = window.location.href;
       const userId = url.split("/").slice(-2)[0];
-      //const userId = url.substring(url.lastIndexOf("/") - 1)[0];
+      //console.log(userId);     
       const data = await fetchProfileInfo(userId);
+      //console.log(data);
       setUserInfo(data);
     };
     fetchUserInfoAndStoreInState();
   }, []);
 
-  console.log(userInfo);
+  
 
   return (
     <>
