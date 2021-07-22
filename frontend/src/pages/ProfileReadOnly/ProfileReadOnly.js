@@ -15,14 +15,15 @@ const ProfileReadOnly = (props) => {
     const fetchUserInfoAndStoreInState = async () => {
       const url = window.location.href;
       const userId = url.split("/").slice(-2)[0];
-      //const userId = url.substring(url.lastIndexOf("/") - 1)[0];
+      //console.log(userId);     
       const data = await fetchProfileInfo(userId);
+      //console.log(data);
       setUserInfo(data);
     };
     fetchUserInfoAndStoreInState();
   }, []);
 
-  console.log(userInfo);
+  
 
   return (
     <>
