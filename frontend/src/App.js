@@ -12,7 +12,6 @@ import SignUp from "../src/pages/SignUp/SignUp";
 import SignUpForm from './pages/SignUp/SignUpForm';
 
 
-
 function App() {
   return (
     <BrowserRouter>
