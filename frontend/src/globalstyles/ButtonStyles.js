@@ -32,10 +32,10 @@ export const LoginSignUpButton = styled.button`
     position: absolute;
     width: 125px;
     height: 39px;
+    border-radius: 4px;
     left: 117px;
     top: 523px;
-    background: #5D61F6;
-    border-radius: 4px;
+    background: #5D61F6;    
     color: white;
     display: grid;
     justify-items: center;

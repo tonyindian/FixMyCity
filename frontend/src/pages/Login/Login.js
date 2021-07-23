@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import styled from "styled-components";
+
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
@@ -7,90 +7,9 @@ import Axios from "../../Axios/index";
 import { EmailPasswordField } from "../../globalstyles/Input";
 import { LoginSignUpButton } from "../../globalstyles/ButtonStyles";
 import fixmycitylogo from "../../assets/svgs/fixmycitylogonew.svg";
+import house from '../../../src/assets/svgs/logo_house.svg';
+import {MainContainer} from "./LoginStyled"
 
-const Container = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  flex-direction: column;
-  align-content: space-between;
-  align-items: center;
-  height: 100vh;
-  width: 100vw;
-  background-color: ${(props) => props.theme.yellowColor};
-`;
-
-const FormWrapper = styled.form`
-  display: flex;
-  margin-top: 35%;
-  justify-content: space-around;
-  flex-direction: column;
-  align-content: space-between;
-  align-items: center;
-`;
-
-const TitleWrapper = styled.div`
-  position: absolute;
-  width: 220px;
-  height: 52px;
-  left: 64px;
-  top: 229px;
-  font-weight: bold;
-  font-size: 35px;
-  line-height: 41px;
-  color: #000000;
-`;
-
-const LogoWrapper = styled.div`
-  position: absolute;
-  width: 140px;
-  height: 87.18px;
-  left: 64px;
-  top: 74px;
-`;
-
-const InputWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 1vh;
-`;
-
-const EmailField = styled(EmailPasswordField)`
-  position: absolute;
-  border-radius: 4px;
-  width: 254px;
-  height: 51px;
-  left: 64px;
-  top: 361px;
-`;
-const PasswordField = styled(EmailPasswordField)`
-  position: absolute;
-  border-radius: 4px;
-  width: 254px;
-  height: 51px;
-  left: 64px;
-  top: 459px;
-`;
-
-const ButtonWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-`;
-
-const LoginButton = styled(LoginSignUpButton)`
-  margin-top: 15%;
-  margin-bottom: 25%;
-  border: none;
-  outline: none;
-  color: black;
-  background-color: white;
-        
-    &:active {
-        transform: translateY(4px);
-    }
-    
-`;
 
 const Login = () => {
   const token = useSelector((state) => state.tokenReducer.token);
@@ -138,35 +57,36 @@ const Login = () => {
   };
 
   return (
-    <Container>
-      <LogoWrapper>
+    <MainContainer>
+      <div id="logoWrapper">
         <img src={fixmycitylogo} alt="logo" />
-      </LogoWrapper>
-      <TitleWrapper>
+      </div>
+      <div id="titleWrapper">
         Welcome <br />
         back.
-      </TitleWrapper>
-      <FormWrapper onSubmit={onHandleSubmit}>
-        <InputWrapper>
-          <EmailField
+      </div>
+      <form id="formWrapper" onSubmit={onHandleSubmit}>
+        <div id="inputWrapper">
+          <input id="emailField"
             placeholder="Email"
             type="email"
             required="This field is required"
             onChange={onUsernameChange}
           />
-          <PasswordField
+          <input id="passwordField"
             placeholder="Password"
             type="password"
             required="This field is required"
             onChange={onPasswordChange}
           />
-        </InputWrapper>
-        <ButtonWrapper>
-          <LoginButton type={"submit"}>Login</LoginButton>
-        </ButtonWrapper>
-      </FormWrapper>
-    </Container>
+        </div>
+        <div id="buttonAndImage">
+          <button id="loginButton" type={"submit"}>Login</button>         
+        </div>        
+      </form>  
+    </MainContainer>
   );
 };
 
 export default Login;
+//<img id="house" src={house} alt="house_icon"></img>

@@ -11,20 +11,21 @@ export const MainContainer = styled.div`
     color: black;
     
     
-    #footer{
+    #footer
+    {
     display: flex;   
     color: black;
-    height: 10%;
+    height: 20%;
     justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-    margin-bottom: 100px;
+    align-items: flex-start;
+    background-color: none;
+    //margin-top: 20px;
+    //margin-bottom: 100px;  
    
     
     #backArrowButton{
         background: none;
-        border: none;
-        
+        border: none;        
     }   
     
     #buttonsContainer{
@@ -57,7 +58,7 @@ export const MainContainer = styled.div`
         }
 
         #homeButton{
-            border: 2px solid #5D61F6;
+            border: none;
             background-color: white;
             font-size: 20px;
             font-weight: bold;
@@ -75,7 +76,7 @@ export const StepOneContainer = styled.div`
     flex-direction: column;
     align-items: center;
     color: black;
-    height: 90%;
+    height: 80%;
     #stepOneMain {
        
         flex-grow: 1;
@@ -93,7 +94,7 @@ export const StepTwoContainer = styled.div`
     display: flex;
     flex-direction: column;
     color: black;
-    height: 90%;
+    height: 80%;
 
    
     .pageTitle{
@@ -108,7 +109,7 @@ export const StepThreeContainer = styled.div`
     flex-direction: column;
     align-items: center;
     color: black;
-    height: 90%;
+    height: 80%;
     margin-bottom: 30px;
    
     .pageTitle{
@@ -190,7 +191,7 @@ export const ReviewContainer = styled.div`
     flex-direction: column;
     align-items: center;
     color: black;
-    height: 90%;    
+    height: 80%;    
     
     .pageTitle{
         font-size: 20px;

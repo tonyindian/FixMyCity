@@ -417,7 +417,7 @@ const CreateIssue = () => {
       {toggleShowSomethingWentWrong === true ? (
         <SomethingWentWrongPage />
       ) : null}
-      <div id="footer">
+      <div id="footer" style={{backgroundColor:toggleShowThankYou===true?'#F8CE46':'white'}}>
         <div id="buttonsContainer">
           {toggleShowReview === false &&
           toggleShowSomethingWentWrong === false &&
