@@ -60,14 +60,19 @@ export const NameContainer = styled.div`
     flex-direction: column;
     justify-content: flex-start;
     margin-top: 5%;
-  }
-
-  h1 {
-    font-style: normal;
-    font-weight: bold;
-    font-size: 24px;
-    line-height: 28px;
-    color: #e26236;
+    #nameAndStatus{
+      display: flex;
+      flex-direction: column;
+      
+      h1 {
+          font-style: normal;
+          font-weight: bold;
+          font-size: 24px;
+          line-height: 28px;
+          color: #e26236;
+        
+        }
+    }  
   }
 
   p {
@@ -132,10 +137,19 @@ export const StatusConatiner = styled.div`
 
   .middle {
     width: 33%;
+    #iconAndLevel{
+      display: flex;
+      align-items: center;
+      #statusIcon{
+        position: relative;
+        height: 100px;
+      }
+    }
   }
 
   .right {
     width: 32%;
+   
   }
 `;
 
@@ -375,3 +389,16 @@ export const ButtonContainer = styled.div`
     }
   }
 `;
+
+export const IconAndLevelContainer = styled.div`
+
+  display: flex;
+  justify-content: flex-start;
+
+  #statusIcon{
+    position: relative;
+    height: 40px;
+    top: 24px;
+  }
+
+`

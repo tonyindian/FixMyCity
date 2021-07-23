@@ -1,9 +1,13 @@
 import React, {useState} from 'react';
-import {NameContainer, IssueContainer, StatusConatiner } from '../ProfileStyled';
+import {NameContainer, IssueContainer, StatusConatiner, IconAndLevelContainer} from '../ProfileStyled';
 import UploadPic from '../../../assets/svgs/upload_black.svg';
 import defaultAvatar from "../../../assets/images/default-avatar.png"
 import {patchProfileInfo} from "../../../Axios/fetches"
 import pen from "../../../assets/svgs/pen_black.svg"
+import scout from "../../../assets/svgs/scout.svg"
+import knight from "../../../assets/svgs/knight.svg"
+import hero from "../../../assets/svgs/hero.svg"
+
 
 
 const ProfileMainInfo = (props) => {
@@ -50,17 +54,18 @@ return (
             :null}            
         </aside>
         <aside className='right'>
-            <h1>{info.firstName} {info.lastName}
-            {props.showEditMode===false?
-            <button id="editButton" onClick={()=>editProfileOnClickHandler("userName","Username","username")}><img id="editIcon" src={pen} alt="edit"></img></button>
-            :null}
-            </h1>
+            <div id="nameAndStatus">            
+                <h1>{info.firstName} {info.lastName}
+                {props.showEditMode===false?
+                <button id="editButton" onClick={()=>editProfileOnClickHandler("userName","Username","username")}><img id="editIcon" src={pen} alt="edit"></img></button>
+                :null}            
+                </h1>                
+            </div>
             
             <p>Member since {info.dateJoined.substr(0,10)}</p>
             
         </aside>  
         </NameContainer>
-
             <StatusConatiner>
                 <aside className='left'>
                     {/* <img alt="points" src={PointsPic}></img> */}
@@ -71,10 +76,17 @@ return (
                 <div className='middle'>
                     {/* <img alt="tools" src={ToolsPic}></img> */}
                     <p>Level</p>
-                    <p className='blackP'>{info.level}</p>
-                </div>                
+                    <div id="iconAndLevel">                        
+                        <p className='blackP'>{info.level}</p>
+                    </div>                    
+                </div>  
+                <div className = "right">
+                    
+                </div>    
+                           
             </StatusConatiner>
-
+            
+            
             <IssueContainer>
             <aside className='left'>
                 <h2>Issues reported</h2>

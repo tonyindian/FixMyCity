@@ -7,6 +7,7 @@ import Navigation from "../../components/Navigation/Navigation";
 import { fetchLatestProfileInfoAndUpdateRedux } from "../../middleware/fetchUpdateRedux";
 import IssueList from "../../components/IssueList/issueList";
 
+
 const Profile = () => {
   const dispatch = useDispatch();
   const myProfileInfo = useSelector((state) => state.profileInfoReducer.info);
