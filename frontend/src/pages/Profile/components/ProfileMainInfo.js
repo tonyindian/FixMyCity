@@ -66,7 +66,6 @@ return (
             
         </aside>  
         </NameContainer>
-
             <StatusConatiner>
                 <aside className='left'>
                     {/* <img alt="points" src={PointsPic}></img> */}
