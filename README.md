@@ -8,7 +8,7 @@ Sophia Vonbank https://www.linkedin.com/in/sophia-vonbank
 Alex Lengyel  https://www.linkedin.com/in/alex-lengyel/
 Antony Alex https://www.linkedin.com/in/antonyalex/
 
-presentation in a zoom meeting with other Porject: https://www.youtube.com/watch?v=puHOlSscQd0
+presentation in a zoom meeting with developers, investors and employers: https://www.youtube.com/watch?v=puHOlSscQd0
 
 
 
